@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Inter Board Migration  Form";
     Layout = "~/Views/Shared/_Headerui.cshtml";
+    var AWS_URL = System.Configuration.ConfigurationManager.AppSettings["AWSURL"].ToString();
 }
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -108,7 +109,7 @@
                             var ApprovalDate = Model.StoreAllData.Tables[0].Rows[i]["ApprovalDate"].ToString();
                             var ApprovalUpto = Model.StoreAllData.Tables[0].Rows[i]["ApprovalUpto"].ToString();
                             var FilePath = Model.StoreAllData.Tables[0].Rows[i]["FilePath"].ToString();
-                            if (FilePath.ToString() != "") { FilePath = "https://registration.pseb.ac.in/upload/Upload2023/LateAdmission/" + FilePath; }
+                            if (FilePath.ToString() != "") { FilePath = @AWS_URL + "" + FilePath; }
                             var Statusmsg = Model.StoreAllData.Tables[0].Rows[i]["StatusName"].ToString();
                             //if (Status == "0") { Statusmsg = "Created"; }
                             //if (Status == "1") { Statusmsg = "Submitted"; }
@@ -192,7 +193,7 @@
 @*/ BEGIN Add new record/*@
 @using (Html.BeginForm("AddLateAdmissionSchl", "RegistrationPortal", FormMethod.Post, new { id = "searchform", enctype = "multipart/form-data" }))
 {
-    <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal fade" id="myModal" role="dialog" style="opacity:1;padding-top:140px;">
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
@@ -341,10 +342,10 @@
             var ApprovalDate = Model.StoreAllData.Tables[0].Rows[i]["ApprovalDate"].ToString();
             var ApprovalUpto = Model.StoreAllData.Tables[0].Rows[i]["ApprovalUpto"].ToString();
             var FilePath = Model.StoreAllData.Tables[0].Rows[i]["FilePath"].ToString();
-            if (FilePath.ToString() != "") { FilePath = "https://registration.pseb.ac.in/upload/Upload2023/LateAdmission/" + FilePath; }
+            if (FilePath.ToString() != "") { FilePath = @AWS_URL + "" + FilePath; }
             using (Html.BeginForm("ModifyLateAdmissionSchl", "RegistrationPortal", new { RequestID = @RequestID }, FormMethod.Post, new { id = "searchform", enctype = "multipart/form-data" }))
             {
-                <div class="modal fade" id="myModalModify-@RequestID" role="dialog">
+                <div class="modal fade" id="myModalModify-@RequestID" role="dialog" style="opacity:1;padding-top:140px;">
                     <div class="modal-dialog">
                         <!-- Modal content-->
                         <div class="modal-content">
