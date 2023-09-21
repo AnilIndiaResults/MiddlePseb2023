@@ -21,6 +21,9 @@ using System.Drawing.Imaging;
 using System.Drawing.Text;
 using encrypt;
 using System.Data.Entity;
+using Amazon.S3.Transfer;
+using Amazon.S3;
+using Amazon;
 
 
 namespace PsebPrimaryMiddle.Controllers
@@ -29,7 +32,7 @@ namespace PsebPrimaryMiddle.Controllers
     public class SchoolController : Controller
     {
 
-
+        private const string BUCKET_NAME = "psebdata";
         string sp = System.Configuration.ConfigurationManager.AppSettings["upload"];
         //AbstractLayer.DBClass objCommon = new AbstractLayer.DBClass();
         string sp1 = System.Configuration.ConfigurationManager.AppSettings["ImagePathCor"];
@@ -4599,14 +4602,27 @@ namespace PsebPrimaryMiddle.Controllers
 
                         string ext = Path.GetExtension(file.FileName);
                         filename = studentSchoolMigration.StdId + "_" + studentSchoolMigration.NewSCHL + "_SchoolMigration" + ext;
-                        path = Path.Combine(Server.MapPath("~/Upload/upload2023/SchoolMigration/StudentMigrationLetter"), filename);
-                        FilepathExist = Path.Combine(Server.MapPath("~/Upload/upload2023/SchoolMigration/StudentMigrationLetter"));
-                        studentSchoolMigration.StudentMigrationLetter = "upload2023/SchoolMigration/StudentMigrationLetter/" + filename;
-                        if (!Directory.Exists(FilepathExist))
+                        studentSchoolMigration.StudentMigrationLetter = "allfiles/Upload2024/SchoolMigration/StudentMigrationLetter/" + filename;
+
+
+                        using (var client = new AmazonS3Client(ConfigurationManager.AppSettings["AWSKey"], ConfigurationManager.AppSettings["AWSValue"], RegionEndpoint.APSouth1))
                         {
-                            Directory.CreateDirectory(FilepathExist);
+                            using (var newMemoryStream = new MemoryStream())
+                            {
+                                ///file.CopyTo(newMemoryStream);
+
+                                var uploadRequest = new TransferUtilityUploadRequest
+                                {
+                                    InputStream = file.InputStream,
+                                    Key = string.Format("allfiles/Upload2024/SchoolMigration/StudentMigrationLetter/{0}", filename),
+                                    BucketName = BUCKET_NAME,
+                                    CannedACL = S3CannedACL.PublicRead
+                                };
+
+                                var fileTransferUtility = new TransferUtility(client);
+                                fileTransferUtility.Upload(uploadRequest);
+                            }
                         }
-                        file.SaveAs(path);
 
                     }
 
@@ -8545,7 +8561,7 @@ namespace PsebPrimaryMiddle.Controllers
                 //}
 
 
-             
+
 
 
 
