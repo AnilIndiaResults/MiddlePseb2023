@@ -1,0 +1,276 @@
+﻿@model PsebJunior.Models.RegistrationModels
+@{
+    if (Session["AdminLoginSession"] != null)
+    { Layout = "~/Views/Shared/_Header.cshtml"; }
+    else { Layout = "~/Views/Shared/_Headerui.cshtml"; }
+
+}
+
+@using (Html.BeginForm())
+{
+    <h1>
+        View @Html.DisplayFor(a => a.form_Name) Form - Session @PsebPrimaryMiddle.Models.MasterClass.SessionFullYear
+    </h1>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <span class="kdsrc">Note:-Do not use prefix like Smt.,Mr.,Dr.,Er. etc. </span>          
+        </div>
+    </div>
+ 
+
+  
+    <h4>Current Class Details</h4>
+    <div class="row">
+        <div class="col-md-2"> Admission No. <span class="rqf">*</span></div>
+        <div class="col-md-4"><label>@Html.DisplayFor(a => a.Admission_Num)</label> </div>
+
+        <div class="col-md-2"> Admission Date <span class="rqf">*</span></div>
+        <div class="col-md-4"><label>@Html.DisplayFor(a => a.Admission_Date)</label></div>
+
+    </div>
+    <div class="clearfix"></div>
+
+    <h4>Personal Information </h4>
+    <div class="row">
+        <div class="col-md-2">  Candidate's Name  <span class="rqf">*</span></div>
+        <div class="col-md-4"><label>@Html.DisplayFor(a => a.Candi_Name)</label></div>
+        <div class="col-md-2 kdsfont"> ÚÒÚÂ¤ØÏÁÛ ÂØ ÅØÌ <span class="rqf">*</span></div>
+        <div class="col-md-4"><label class="kdsfont">@Html.DisplayFor(a => a.Candi_Name_P)</label></div>
+        <div class="clearfix"></div>
+        <div class="col-md-2">  Father's Name  <span class="rqf">*</span></div>
+        <div class="col-md-4"><label>@Html.DisplayFor(a => a.Father_Name)</label></div>
+        <div class="col-md-2 kdsfont"> ÚÆ¼Ø ÂØ ÅØÌ <span class="rqf">*</span></div>
+        <div class="col-md-4"><label class="kdsfont">@Html.DisplayFor(a => a.Father_Name_P)</label></div>
+        <div class="clearfix"></div>
+        <div class="col-md-2">  Mother's Name <span class="rqf">*</span></div>
+        <div class="col-md-4"><label>@Html.DisplayFor(a => a.Mother_Name)</label></div>
+        <div class="col-md-2 kdsfont"> ÌØ¼Ø ÂØ ÅØÌ <span class="rqf">*</span></div>
+        <div class="col-md-4"><label class="kdsfont">@Html.DisplayFor(a => a.Mother_Name_P)</label></div>
+        <div class="clearfix"></div>
+        <div class="col-md-2">
+            Caste / <span class="kdsfont">²Ø¼Û</span> <span class="rqf">*</span>
+        </div>
+        <div class="col-md-4">
+            <label>@Html.DisplayFor(a => a.Caste)</label>
+        </div>
+        <div class="col-md-2">
+            Gender /<span class="kdsfont"> ÚÐâ¬ </span> <span class="rqf">*</span>
+        </div>
+        <div class="col-md-4">
+            <label>@Html.DisplayFor(a => a.Gender)</label>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="col-md-2">
+            Differently Abled / <span class="kdsfont">ÚÒÐóª» ÓÌÏóÁØ</span>
+        </div>
+        <div class="col-md-4">
+            <label>@Html.DisplayFor(a => a.Differently_Abled)</label>
+        </div>
+        <div class="col-md-2">
+            Religion / <span class="kdsfont">ÄÏÌ</span> <span class="rqf">*</span>
+        </div>
+        <div class="col-md-4">
+            <label>@Html.DisplayFor(a => a.Religion)</label>
+        </div>
+        <div class="clearfix"></div>
+        <div id="sw" style="display:none;">
+            <div class="col-md-2">
+                Disability Percentage (1-100)<span class="kdsfont"></span> <span class="rqf">*</span>
+            </div>
+            <div class="col-md-4">
+                <label>@Html.DisplayFor(a => a.DP)</label>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-md-2"> Date of Birth / <span class="kdsfont">²ÅÌ ÚÌ¼Û</span> <span class="rqf">*</span></div>
+        <div class="col-md-4"><label>@Html.DisplayFor(a => a.DOB)</label></div>
+        <div class="col-md-2"> Mobile No. of Parents / <span class="kdsfont">ÌØÚÆ¤Ù ÂØ ÌëÉØ¥ÛÐ ÅâÉÏ</span> <span class="rqf">*</span></div>
+        <div class="col-md-4"><label>@Html.DisplayFor(a => a.Mobile)</label></div>
+        <div class="clearfix"></div>
+        <div class="col-md-2">  Belongs to B.P.L / <span class="kdsfont">ÉÛ.ÆÛ.¤èÐ.</span>  </div>
+        <div class="col-md-4"><label>@Html.DisplayFor(a => a.Belongs_BPL)</label></div>
+        <div class="col-md-2"> E-Punjab Student ID / <span class="kdsfont">¥Û-Æâ²ØÉ Ó¶Þ¸â¶ ¤Ø¥Û¸Û</span> <span class="rqf">*</span></div>
+        <div class="col-md-4"><label>@Html.DisplayFor(a => a.E_punjab_Std_id)</label></div>
+        <div class="clearfix"></div>
+        <div class="col-md-2">  Aadhar No/ <span class="kdsfont">¤ÄØÏ Åâ</span> </div>
+        <div class="col-md-4"><label>@Html.DisplayFor(a => a.Aadhar_num)</label></div>
+
+        <div class="col-md-2">  Mother Tongue/ <span class="kdsfont">ÌØ¼Ø ÊØÓÖØ </span>   </div>
+        <div class="col-md-4"><label>@Html.DisplayFor(a => a.CandiMedium)</label></div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+
+    <h4> Fill Address </h4>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-2">Address <span class="rqf">*</span></div>
+                <div class="col-md-10"><label>@Html.DisplayFor(a => a.Address)</label></div>
+                <div class="clearfix"></div>
+                <div class="col-md-2">Landmark</div>
+                <div class="col-md-10"><label>@Html.DisplayFor(a => a.LandMark)</label></div>
+                <div class="clearfix"></div>
+                <div class="col-md-2">Block</div>
+                <div class="col-md-4"><label>@Html.DisplayFor(a => a.Block)</label></div>
+                <div class="col-md-2">District <span class="rqf">*</span></div>
+                <div class="col-md-4"><label>@Html.DisplayFor(a => a.DISTNM)</label></div>
+                <div class="clearfix"></div>
+                <div class="col-md-2">
+                    Tehsil <span class="rqf">*</span>
+                </div>
+                <div class="col-md-4">
+                    <label>@Html.DisplayFor(a => a.MYTehsil)</label>
+                </div>
+                <div class="col-md-2">
+                    Pincode <span class="rqf">*</span>
+                </div>
+                <div class="col-md-4">
+                    <label>@Html.DisplayFor(a => a.PinCode)</label>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>    
+      <h4> Main Subjects </h4>
+      <div class="row">
+          <div class="col-md-12">
+              <div class="table-responsive">
+
+                  @if (Model.Class.ToString() == "8")
+                  {
+
+
+                      <table class="table" id="t02">
+                          <tr style="font-family: arial; font-size: 12px;">
+                              <th style="width: 5%;text-align:left">
+                                  S.No.
+                              </th>
+                              <th style="width:30%;" align="left">
+                                  Subject
+                              </th>
+                              <th style="width: 15%;" align="left">
+                              </th>
+                              <th style="width: 5%;text-align:left">
+                                  S.No.
+                              </th>
+                              <th style="width: 30%" align="left">
+                                  Subject
+                              </th>
+                          </tr>
+                          <tr>
+                              <td><span>1.</span></td>
+                              <td><label>@Html.DisplayFor(a => a.subS1)</label></td>
+                              <td></td>
+                              <td><span>2.</span></td>
+                              <td><label>@Html.DisplayFor(a => a.subS2)</label></td>
+                          </tr>
+                          <tr>
+                              <td><span>3.</span> </td>
+                              <td><label>@Html.DisplayFor(a => a.subS3)</label></td>
+                              <td></td>
+                              <td><span>4.</span></td>
+                              <td><label>@Html.DisplayFor(a => a.subS4)</label></td>
+                          </tr>
+                          <tr>
+                              <td><span>5.</span></td>
+                              <td><label>@Html.DisplayFor(a => a.subS5)</label></td>
+                              <td></td>
+                              <td><span>6.</span></td>
+                              <td><label>@Html.DisplayFor(a => a.subS6)</label></td>
+                          </tr>
+                          <tr>
+                              <td><span>7.</span></td>
+                              <td><label>@Html.DisplayFor(a => a.subS7)</label></td>
+                              <td></td>
+                              <td><span>8.</span></td>
+                              <td><label>@Html.DisplayFor(a => a.subS8)</label></td>
+                          </tr>
+                          <tr>
+                              <td colspan="7"><h4 class="text-left">Elective Subjects</h4></td>
+                          </tr>
+                          <tr>
+                              <td><span>9.</span></td>
+                              <td><label>@Html.DisplayFor(a => a.s9)</label></td>
+
+
+                          </tr>
+
+                      </table>
+
+
+                  }
+
+                  else
+                  {
+                      <table class="table" id="t02">
+                          <tr style="font-family: arial; font-size: 12px;">
+                              <th style="width: 5%;text-align:left">
+                                  S.No.
+                              </th>
+                              <th style="width:30%;" align="left">
+                                  Subject
+                              </th>
+                              <th style="width: 15%;" align="left">
+                              </th>
+                              <th style="width: 5%;text-align:left">
+                                  S.No.
+                              </th>
+                              <th style="width: 30%" align="left">
+                                  Subject
+                              </th>
+                          </tr>
+                          <tr>
+                              <td><span>1.</span></td>
+                              <td><label>@Html.DisplayFor(a => a.subS1)</label></td>
+                              <td></td>
+                              <td><span>2.</span></td>
+                              <td><label>@Html.DisplayFor(a => a.subS2)</label></td>
+                          </tr>
+                          <tr>
+                              <td><span>3.</span> </td>
+                              <td><label>@Html.DisplayFor(a => a.subS3)</label></td>
+                              <td></td>
+                              <td><span>4.</span></td>
+                              <td><label>@Html.DisplayFor(a => a.subS4)</label></td>
+                          </tr>
+                          <tr>
+                              <td><span>5.</span></td>
+                              <td><label>@Html.DisplayFor(a => a.subS5)</label></td>
+                              <td></td>
+                          </tr>
+
+                      </table>
+
+                  }
+
+              </div>
+          </div>
+      </div>
+   
+    <div class="clearfix"></div>
+    <div class="row">
+
+        <div class="col-md-12 text-center tbp">
+            <input type="button" value="Back" class="btn" onclick="history.go(-1);" />
+        </div>
+    </div>
+
+
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var selectedVal = $("#Differently_Abled").val();
+        if (selectedVal == "N.A.") {
+            $('#sw').css("display", "none");
+            $(DP).val("");
+        }
+        else {
+            $('#sw').css("display", "block");
+        }
+    });
+
+</script>

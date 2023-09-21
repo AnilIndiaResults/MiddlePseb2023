@@ -1,0 +1,98 @@
+﻿@model PsebJunior.Models.ReportModel
+
+<style type="text/css">
+    td {
+        font-size: 11px;
+        padding: 1px;
+        vertical-align: top
+    }
+</style>
+<link rel="stylesheet" href="https://registration.pseb.ac.in/Content/Print-4P.css" />
+<h1 class="noprint">Form Wise Report</h1>
+
+@if (ViewBag.TotalCount > 0)
+{
+    <table style="border-collapse:collapse;width:100%;font-family:Arial, Helvetica, sans-serif;font-size:12px" border="1">
+        <tr>
+            <td style="border-right:0 !important">
+                <div style="padding:2px"><img src="~/Images/Printlogo.jpg" width="60px" height="60px" alt="PSEB" /></div>
+            </td>
+            <td colspan="5" style="font-size:14px;text-align:center;line-height:22px;vertical-align:top;border-left:0 !important;border-right:0 !important;padding-top:8px;">
+                <span style="font-size:28px">Punjab School Education Board</span>
+                <br />
+                <span>Form Wise Report (@PsebPrimaryMiddle.Models.MasterClass.SessionFullYear)</span>
+            </td>
+            <td style="border-left:0 !important" align="right">Print Date : @DateTime.Today.ToString("dd/MM/yyyy") &nbsp;</td>
+        </tr>
+        <tr>
+            <th>Form Name</th>
+            <th>Total Entries</th>
+            <th>Total School</th>
+            <th>Total Modify Student</th>
+            <th>Total Modify School</th>
+            <th>Total Final Submission</th>
+            <th>Total Final School</th>
+        </tr>
+        @{
+            if (ViewBag.TotalCount > 0)
+            {
+                int TotalSum = 0;
+                int TotalSumschl = 0;
+                int TotRPFinalSubmission = 0;
+                int TotRPFinalschl = 0;
+                int TotCountModifyStudent = 0;
+                int TotCountModifySchl = 0;
+                for (int i = 0; i < Model.StoreAllData.Tables[0].Rows.Count; i++)
+                {
+
+                    var FName = Model.StoreAllData.Tables[0].Rows[i]["form_name"].ToString();
+                    var TotalCount = Model.StoreAllData.Tables[0].Rows[i]["TotalCount"].ToString();
+                    TotalSum += Convert.ToInt32(TotalCount);
+                    var Totalschl = Model.StoreAllData.Tables[0].Rows[i]["Totalschl"].ToString();
+                    var RPFinalSubmission = Model.StoreAllData.Tables[0].Rows[i]["RPFinalSubmission"].ToString();
+                    TotRPFinalSubmission += Convert.ToInt32(RPFinalSubmission);
+                    var RPFinalschl = Model.StoreAllData.Tables[0].Rows[i]["RPFinalschl"].ToString();
+                    TotRPFinalschl += Convert.ToInt32(RPFinalschl);
+                    var CountModifyStudent = Model.StoreAllData.Tables[0].Rows[i]["CountModifyStudent"].ToString();
+                    TotCountModifyStudent += Convert.ToInt32(CountModifyStudent);
+                    var CountModifySchl = Model.StoreAllData.Tables[0].Rows[i]["CountModifySchl"].ToString();
+                    TotCountModifySchl += Convert.ToInt32(CountModifySchl);
+                    TotalSumschl += Convert.ToInt32(Totalschl);
+                    <tr>
+                        <td>@FName</td>
+                        <td>@TotalCount</td>
+                        <td>@Totalschl</td>
+
+                        <td>@CountModifyStudent</td>
+                        <td>@CountModifySchl</td>
+                        <td>@RPFinalSubmission</td>
+                        <td>@RPFinalschl</td>
+
+                    </tr>
+                }
+                <tr>
+                    <td>Total</td>
+                    <td>@TotalSum</td>
+                    <td>@TotalSumschl</td>
+                    <td>@TotCountModifyStudent</td>
+                    <td>@TotalSumschl</td>
+                    <td>@TotRPFinalSubmission</td>
+                    <td>@TotRPFinalschl</td>
+
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td colspan="8">
+                        @ViewBag.Message
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+}
+
+
+
+

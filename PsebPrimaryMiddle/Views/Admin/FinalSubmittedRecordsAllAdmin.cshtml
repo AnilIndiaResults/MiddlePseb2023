@@ -1,0 +1,393 @@
+﻿@model PsebJunior.Models.RegistrationAllStudentAdminModelList
+@{
+    Layout = "~/Views/Shared/_Header.cshtml";
+}
+<!-- #region datatables files -->
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+@*<script src="~/Scripts/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/dataTables.bootstrap4.min.js"></script>*@
+<!-- #endregion -->
+<h1> Session @PsebPrimaryMiddle.Models.MasterClass.SessionFullYear</h1>
+
+@using (Html.BeginForm("FinalSubmittedRecordsAllAdmin", "Admin", FormMethod.Post, new { id = "searchform" }))
+{
+    <div class="row">
+        <div class="col-md-12">
+            <fieldset style="margin-bottom:15px">
+                <legend>Search</legend>               
+                <form id="myForm">
+                    <div class="col-md-3">
+                        School Code:  <input type="text" id="schl" name="schl" value="@Request["schl"]" required />
+                    </div> 
+                    <div class="col-md-3">
+                        <br />
+                        <input type="submit" value="Search" />                         
+                    </div>
+                </form>
+            </fieldset>
+        </div>
+    </div>
+}
+
+@if (Model.RegistrationAllStudentAdminModel != null)
+{
+
+    <p>Total Students : @Model.RegistrationAllStudentAdminModel.Count()</p>
+
+    <table id="example" class="display table table-bordered" style="width:100%">
+        <thead>
+            <tr class="active-tr">
+                <th>Unique Id</th>
+                <th>Form</th>
+                <th>Reg No</th>
+                <th>Admission Date</th>
+                <th>Candidate Name</th>
+                <th>Father's Name</th>
+                <th>Mother's Name</th>
+                <th>DOB</th>
+                <th>Lot</th>
+                <th>Reg Date: Fee Status</th>
+                <th>Update Detail</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ 
+                int i = 0;
+                var Remarks = "";
+                foreach (var obj in Model.RegistrationAllStudentAdminModel)
+                {
+
+                   // var index = Model.RegistrationAllStudentAdminModel.ElementAt(i);
+                    var Prev = "0";
+                    var Next = "0";
+                    if (i == 0 && Model.RegistrationAllStudentAdminModel.Count == 1)
+                    {
+                        Prev = "0";
+                        Next = "0";
+                    }
+                    else if (i == 0 && Model.RegistrationAllStudentAdminModel.Count > 1)
+                    {
+                        Prev = "0";
+                        Next = Model.RegistrationAllStudentAdminModel.ElementAt(i + 1).Std_id.ToString();
+                    }
+                    else if (i > 0 && i < Model.RegistrationAllStudentAdminModel.Count - 1)
+                    {
+                        Prev = Model.RegistrationAllStudentAdminModel.ElementAt(i - 1).Std_id.ToString();
+                        Next = Model.RegistrationAllStudentAdminModel.ElementAt(i + 1).Std_id.ToString();
+                    }
+                    else if (i > 0 && i == Model.RegistrationAllStudentAdminModel.Count - 1)
+                    {
+                        Prev = Model.RegistrationAllStudentAdminModel.ElementAt(i - 1).Std_id.ToString();
+                        Next = "0";
+                    }
+                <tr>
+                    <td>
+                        @obj.Std_id
+
+
+                        <div class="container">
+                            <div class="modal fade" id="myModal1-@obj.Std_id" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" style="color:#fb9709" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Student Details Of @Html.Raw("&nbsp;&nbsp;")Form : @obj.form_Name</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <table width="100%">
+                                                <tr>
+                                                    <td width="28%">Student ID</td>
+                                                    <td>@Html.Raw("")@obj.Std_id@Html.Raw("") </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Reg No.</td>
+                                                    <td>@Html.Raw("")@obj.RegNo@Html.Raw("")</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Name/F.Name/M.Name</td>
+                                                    <td>@obj.Candi_Name @Html.Raw("")@obj.Father_Name@Html.Raw("")@obj.Mother_Name</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Remarks<span class="rqf">*</span></td>
+                                                    <td>
+                                                        <textarea rows="0" cols="50" id="Remarks-@obj.Std_id" name="Remarks" maxlength="500" class="rmrks" value="@Remarks"></textarea>
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td><br /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><br /></td>
+                                                    <td><input type="button" class="btn" value="Save & Next" id="btnSave" onclick="SubMarks(@obj.Std_id,@Next,@Prev)" /></td>
+                                                </tr>
+
+
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <span class="rqf">
+                                                            Instructions:<br />1. Please Enter Remarks for Cancel Student!!<br />
+
+                                                        </span><br />
+                                                        <div id="loading1-@obj.Std_id"></div>
+                                                    </td>
+                                                </tr>
+
+
+                                            </table>
+                                        </div>
+                                        @*<div class="modal-footer">
+                        <span class="lft">
+                            <button type="button" class="" data-toggle="modal" data-target="#myModal1-@Prev" data-dismiss="modal" style="@(Prev != "0" ? "display:block" : "display:none")">Prev Details</button>
+                        </span>
+                        <span class="rft"><button type="button" class="" data-toggle="modal" data-target="#myModal1-@Next" data-dismiss="modal" style="@(Next != "0" ? "display:block" : "display:none")">Next Details</button></span>
+                    </div>*@
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+
+                           
+                                <div class="modal fade" id="myModal2-@obj.Std_id" role="dialog">
+                                    <div class="modal-dialog">
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" style="color:#fb9709" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Student Details Of @Html.Raw("&nbsp;&nbsp;")Form : @obj.form_Name</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <table width="100%">
+                                                    <tr>
+                                                        <td width="28%">Student ID</td>
+                                                        <td>@Html.Raw("")@obj.Std_id@Html.Raw("") </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Reg No.</td>
+                                                        <td>@Html.Raw("")@obj.RegNo@Html.Raw("")</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Name/F.Name/M.Name</td>
+                                                        <td>@obj.Candi_Name @Html.Raw("")@obj.Father_Name@Html.Raw("")@obj.Mother_Name</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Remarks<span class="rqf">*</span></td>
+                                                        <td>
+                                                            <textarea rows="0" cols="50" id="RemarksSwitch-@obj.Std_id" name="RemarksSwitch" maxlength="500" class="rmrks" value="@Remarks"></textarea>
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td><br /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><div id="loading2-@obj.Std_id"></div><br /></td>
+                                                        <td><input type="button" class="btn" value="Submit to Switch Form" id="btnSwitch" onclick="SwitchForm(@obj.Std_id,@Next,@Prev)" /></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+</td>
+                    <td> @obj.form_Name </td>
+                    <td> @obj.RegNo </td>
+                    <td>@obj.Admission_Date </td>
+                    <td>@obj.Candi_Name </td>
+                    <td>@obj.Father_Name </td>
+                    <td>@obj.Mother_Name </td>
+                    <td>@obj.DOB</td>
+                    <td>@obj.LOT</td>
+                    <td>
+                        @obj.Fee
+                        @if (!string.IsNullOrEmpty(obj.ChallanStatus))
+                {<span>/@obj.ChallanStatus</span>}
+                    </td>
+                    <td>
+                        <div class="cart">
+                            Choose Action <span class="caret"></span>
+                            <div id="sidebar">
+                                <ul>
+                                    <li>
+
+                                        @*<input type="button" value="view" onclick="javascript:document.location.href='@Url.Action("CommanFormView","Admin", new { id = encrypt.QueryStringModule.Encrypt(@obj.Std_id.ToString()), formNM = @obj.form_Name })'" />*@
+                                        <a href='@Url.Action("CommanFormView", "Admin", new { id = encrypt.QueryStringModule.Encrypt(@obj.Std_id.ToString()), formname = @obj.form_Name })'>View</a>
+                                    </li>
+                                    @if (obj.IsCancel == true)
+                                    {
+                                    <li>
+                                        @*<span style="@(ViewBag.IsRMVCancel == 1 ? "display:block" : "display:none")">  </span>*@
+                                        <button type="button" class="" data-toggle="modal" data-target="#myModal1-@obj.Std_id">RMV Cancel</button>
+                                    </li>
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            <button type="button" class="" data-toggle="modal" data-target="#myModal1-@obj.Std_id">Cancel</button>
+
+                                            @*<span style="@(ViewBag.IsCancel == 1 ? "display:block" : "display:none")">
+        </span>*@
+                                        </li>
+                                    }
+
+                                    @if (obj.form_Name == "F2" || obj.form_Name == "A2")
+                                    {
+                                        <li>                                            
+                                            <button type="button" class="" data-toggle="modal" data-target="#myModal2-@obj.Std_id">Switch Form</button>
+                                        </li>
+                                    }                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                        i++;
+                    }
+                }
+        </tbody>
+
+    </table>
+}
+
+<div class="clearfix"></div>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#example').DataTable({
+            "responsive": true,
+            "lengthMenu": [[25, 50, 100], [25, 50, 100]],
+            "processing": true,
+            "pageLength": 25,
+            "order": [[0, 'desc']],
+            language: {
+                searchPlaceholder: "Search By UniqueID, Candidate Name, Father's Name, Mother's Name, DOB.."
+            },
+        })
+    });
+</script>
+
+
+<script type="text/javascript">
+
+    function SubMarks(k, nxt, prv) {
+        //alert(k);
+        var Remarks = $("#Remarks-" + k).val().trim();
+        if (Remarks=="")
+        {
+            alert("Please Enter Remarks");
+            Remarks.focus();
+            return false;
+        }
+
+        var tblname = '#subjects-' + k;
+        var tblnxt = '#subjects-' + nxt;
+        var TableData;
+        TableData = JSON.stringify(storeTblValues());
+        if (TableData == "false") {
+            alert("Please Enter Remarks");
+        }
+        else if (TableData != "false") {
+            // alert('Now Start:' + TableData);
+            $('#loading1-' + k).html("<p><img src='https://middleprimary.pseb.ac.in/images/loadingk.gif'></p>");
+            $.post("/Master/CancelStdRegNo", { "Remarks": Remarks, "stdid": k },
+                      function (data) {
+                          $('#loading1-' + k).empty();    
+                          $('#myModal1-' + k).modal('hide');
+                          if (data.status == "0" || data.status == "-1") {                            
+                              alert("Student Cancel Alloted Failure, Please Try Again");
+                          }
+                          else {                           
+                              alert("Cancelled Successfully of Student : " + k);                               
+                          }
+                      });
+        }
+
+        function storeTblValues() {
+           // alert('3');
+            var TableData = new Array();
+            $('' + tblname + ' tr').each(function (row, tr) {
+                TableData[row] = {
+                    //"SUB": $(tr).find('td:eq(0)').text()
+                    "REMARKS": $(tr).find('.rmrks').val()
+                }
+            });
+            TableData.shift();  // first row will be empty - so remove
+            //alert(TableData);
+            return TableData;
+
+        }
+    }
+
+
+
+    function SwitchForm(k, nxt, prv) {
+       // alert('SwitchForm');
+        var Remarks = $("#RemarksSwitch-" + k).val().trim();
+        if (Remarks == "") {
+            alert("Please Enter Remarks");
+            Remarks.focus();
+            return false;
+        }
+
+        var tblname = '#subjects-' + k;
+        var tblnxt = '#subjects-' + nxt;
+        var TableData;
+        TableData = JSON.stringify(storeTblValues());
+        if (TableData == "false") {
+            alert("Please Enter Remarks");
+        }
+        else if (TableData != "false") {
+            // alert('Now Start:' + TableData);
+            $('#loading1-' + k).html("<p><img src='https://middleprimary.pseb.ac.in/images/loadingk.gif'></p>");
+            $.post("/Master/SwitchForm", { "Remarks": Remarks, "stdid": k },
+                function (data) {
+                    $('#loading2-' + k).empty();
+                  
+                    $('#myModal2-' + k).modal('hide');
+                    //alert(data.status);
+                    if (data.chid == "0" || data.chid == "-1") {
+                        alert("Student Switch Form Failure, Please Try Again");
+                    }
+                    else if (data.chid == "2" ) {
+                        alert("Not Allowed to Switch Form");
+                    }
+                    else {
+                        alert("Form Switched Successfully of Student : " + k);                       
+                       
+                    }
+                });
+        }
+
+        function storeTblValues() {            
+            var TableData = new Array();
+            $('' + tblname + ' tr').each(function (row, tr) {
+                TableData[row] = {
+                    //"SUB": $(tr).find('td:eq(0)').text()
+                    "REMARKS": $(tr).find('.rmrks').val()
+                }
+            });
+            TableData.shift();  // first row will be empty - so remove
+            //alert(TableData);
+            return TableData;
+
+        }
+    }
+</script>
+
+
+
+
+
+

@@ -1,0 +1,324 @@
+﻿@model PsebJunior.Models.RegistrationModels
+@{
+    Layout = "~/Views/Shared/_Login_Header.cshtml";
+}
+<link rel="stylesheet" href="/Content/print.css" />
+<link rel="stylesheet" href="/barcode.css" type="text/css" charset="utf-8" />
+<style type="text/css">
+    .breakhere {
+        page-break-after: always;
+    }
+
+    .border {
+        border: 1px solid #000;
+    }
+
+    .header_outer {
+        display: none;
+    }
+
+    .bs-docs-footer {
+        display: none;
+    }
+
+    body {
+        font-size: 11px
+    }
+
+    .box {
+        width: 12px;
+        height: 12px;
+        border: 1px solid #000;
+        display: inline-block
+    }
+
+    .brcode {
+        font-family: 'idautomationhc39mregular';
+        font-size: 8px
+    }
+</style>
+<h1 class="noprint">
+    Correction Performa - Session @PsebPrimaryMiddle.Models.MasterClass.SessionFullYear
+</h1>
+@using (Html.BeginForm("SchoolCorrectionPerformaFinalPrintSession", "CorrectionPerforma", FormMethod.Post, new { id = "searchform" }))
+{
+    <table style="width:100%;" border="0" class="noprint">
+        <tr>
+            <td style="text-align:right;padding-bottom:3px">
+                <input type="button" value="Print" class="btn" onclick="window.print()" />
+                <input type="button" value="Back" class="btn" onclick="history.go(-1);" />
+            </td>
+        </tr>
+    </table>
+    <table width="100%" border="1">
+        <thead style="border:0">
+            <tr>
+                <td colspan="8" style="border:0;">
+                    <table width="100%">
+                        <tr>
+                            <td width="10%" style="text-align:center;vertical-align:top;padding-top:4px"><img src="~/Images/Slogo.jpg" /></td>
+                            <td width="80%" style="font-size:22px;text-align:center;line-height:28px;">
+                                Punjab School Education Board<br />
+                                @{
+                                    if (Model.CorrectionPerformaModel.CorrectionLot.Substring(2, 1) == "1")
+                                    {
+                                        <span style="font-size:16px">Subject</span>
+                                    }
+                                    else if (Model.CorrectionPerformaModel.CorrectionLot.Substring(2, 1) == "2")
+                                    {
+                                        <span style="font-size:16px">Particular</span>
+                                    }
+                                }
+                                <span style="font-size:16px">Correction Performa Session @PsebPrimaryMiddle.Models.MasterClass.SessionFullYear</span> (Final Print)<br />
+                                <span style="font-size:13px">Final Submitted Date: @Html.DisplayFor(a => a.CorrectionPerformaModel.CorrectionFinalSubmitDt)</span> <span style="font-size:13px;padding:0 20px">Print Date: @DateTime.Now.ToString("dd/MM/yyyy")</span> <span style="font-size:13px">Page No.(For office use only)....</span><br />
+                               </td>
+                            <td width="10%" style="vertical-align:top">
+                                &nbsp;<br />                              
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                @{
+                                            if (ViewBag.TotalCountaddedRecord > 0)
+                                            {
+                                                var classTypeHeader = Model.CorrectionPerformaModel.Correctiondatafinal.Tables[0].Rows[0]["Class"].ToString();
+                                                if (classTypeHeader == "Primary") /*5th Class*/
+                                                {
+                                                               <div class="kdsfont" style="font-size:16px;line-height:17px;text-align:left;padding:6px;text-align:justify">
+                            Åë¶-1 : Ú¥Õ ¨ÝÏè¨ÓÖÅ ÆñëÇØÏÌØ Ðï¾Û×Âã ÂÓ¼ØÒã²ÖÙ ÓÌã¼ ÓÉâÄ¼ ÆñÛÚª¤Ø ÓÖØªØ (ÌÝóª ÂÇ¼Ï) Âã Óèó¶ ¨ëÐ ²ÌðÙ ¨ÏÒØÚ¥¤Ø ²ØÒã¢  ÉëÏ¸ ÂÛ¤Ù ÕÂØÚ¥¼Ù ÌÝ¼ØÉ¨ ÓëÄÙ ÂÛ É»ÂÛ ÇÛÓ (²ã¨Ï ÕëÒã) ÓÉâÄ¼ ÆñÛÚª¤Ø ÓÖØªØ ÒóÐë× ¨ÝÏè¨ÓÖÅ ÆñëÇØÏÌØ/Final Print ÂÛ ¨ØÆÛ °èó¨ ¨ÏÅ ¤¼ã ÂÓ¼ØÒã²Ö ÒèÏÛÇØ¥Û ¨ÏÅ ¦ÝÆÏâ¼ ÂóÓÛ ²ØÒã¬Û ¤¼ã Ú¥Õ ÇÛÓ ¨èÓÖÛ¤Ï, ÌÝóª ÂÇ¼Ï ¨ëÐ ²ÌðÙ ÕëÒã¬Û¢ Ó¨ÞÐ ÒóÐë× ¤ÆÐØ¥Û ¨Û¼Û ¬¥Û ÓëÄ ÅÞâ ÂÓ¼ØÒã²ÖÙ Âã ¤ÄØÏ ¼ã ÆñÒØÅ/¤ÆñÒØÅ ¨ÏÅ ÂØ ¤ÚÄ¨ØÏ ÉëÏ¸ ¨ëÐ Õè¢ ²ã¨Ï ¨ë¥Û ¤ÆÐØ¥Û ¨Û¼Û ¬¥Û ÓëÄ ¬Ð¼ ÊÏÛ ¬¥Û ²Ù ÓëÄ ÅÕÛ× ¨ÏÒØ¦Ý»Ø °ØÕÝâÂã ¼Ù Ó¨ÞÐ ¤ØÆ»ã ÆóÄÏ ¼ã ÕÛ ÐØ¬Ú¥âÅ ¤Ø¥Û.¸Û. ÚÒó° Status of Correction ÚÐâ¨ ¤ÄÛÅ ¦ÝÓ ¨ÝÏè¨ÓÖÅ ÅÞâ Reject ¨Û¼Ø ²Ø Ó¨ÂØ Õè¢
+<br />
+
+                                                                    Åï¶-2 :- ÚÌ¼Û 30-11-2021 ¼ó¨ ¨Û¼Û ¬¥Û ÓëÄ Âã ÆÏÇØÏÌã ÌÝóª ÂÇ¼Ï ÚÒó° ÅØ ²ÌðØ ¨ÏÒØ¥ã ²Ø»,Ú¨¦×Ý ²ë Ú¥Õ ÓëÄ ÚÉÅØ ÇÛÓ ¼ë× Ó¨ÞÐ ÆóÄÏ ¼ã ÕÛ ÒèÏÛÇØ¥Û ¨Û¼Û ²Ø»Û Õè¢ Ú¥Õ ÆÏÇØÏÌã Ó¨ÞÐ Âã ÚÏ¨ØÏ¸ ÚÒó° Ïóª Ð¥ã ²Ø»¢
+                                                                </div>
+
+                                        }
+                                        else   /*8th Class*/
+                                        {
+                            <div class="kdsfont" style="font-size:16px;line-height:17px;text-align:left;padding:6px;text-align:justify">
+                            Åë¶-1 : Ú¥Õ ¨ÝÏè¨ÓÖÅ ÆñëÇØÏÌØ Ðï¾Û×Âã ÂÓ¼ØÒã²ÖÙ ÓÌã¼ ÓÉâÄ¼ ÆñÛÚª¤Ø ÓÖØªØ (ÌÝóª ÂÇ¼Ï) Âã Óèó¶ ¨ëÐ ²ÌðÙ ¨ÏÒØÚ¥¤Ø ²ØÒã¢  ÉëÏ¸ ÂÛ¤Ù ÕÂØÚ¥¼Ù ÌÝ¼ØÉ¨ ÓëÄÙ ÂÛ É»ÂÛ ÇÛÓ (²ã¨Ï ÕëÒã) ÓÉâÄ¼ ÆñÛÚª¤Ø ÓÖØªØ ÒóÐë× ¨ÝÏè¨ÓÖÅ ÆñëÇØÏÌØ/Final Print ÂÛ ¨ØÆÛ °èó¨ ¨ÏÅ ¤¼ã ÂÓ¼ØÒã²Ö ÒèÏÛÇØ¥Û ¨ÏÅ ¦ÝÆÏâ¼ ÂóÓÛ ²ØÒã¬Û ¤¼ã Ú¥Õ ÇÛÓ ¨èÓÖÛ¤Ï, ÌÝóª ÂÇ¼Ï ¨ëÐ ²ÌðÙ ÕëÒã¬Û¢ Ó¨ÞÐ ÒóÐë× ¤ÆÐØ¥Û ¨Û¼Û ¬¥Û ÓëÄ ÅÞâ ÂÓ¼ØÒã²ÖÙ Âã ¤ÄØÏ ¼ã ÆñÒØÅ/¤ÆñÒØÅ ¨ÏÅ ÂØ ¤ÚÄ¨ØÏ ÉëÏ¸ ¨ëÐ Õè¢ ²ã¨Ï ¨ë¥Û ¤ÆÐØ¥Û ¨Û¼Û ¬¥Û ÓëÄ ¬Ð¼ ÊÏÛ ¬¥Û ²Ù ÓëÄ ÅÕÛ× ¨ÏÒØ¦Ý»Ø °ØÕÝâÂã ¼Ù Ó¨ÞÐ ¤ØÆ»ã ÆóÄÏ ¼ã ÕÛ ÐØ¬Ú¥âÅ ¤Ø¥Û.¸Û. ÚÒó° Status of Correction ÚÐâ¨ ¤ÄÛÅ ¦ÝÓ ¨ÝÏè¨ÓÖÅ ÅÞâ Reject ¨Û¼Ø ²Ø Ó¨ÂØ Õè¢
+<br />
+                                Åï¶-2 :- ÚÌ¼Û 30-11-2021 ¼ó¨ ¨Û¼Û ¬¥Û ÓëÄ Âã ÆÏÇØÏÌã ÌÝóª ÂÇ¼Ï ÚÒó° ÅØ ²ÌðØ ¨ÏÒØ¥ã ²Ø»,Ú¨¦×Ý ²ë Ú¥Õ ÓëÄ ÚÉÅØ ÇÛÓ ¼ë× Ó¨ÞÐ ÆóÄÏ ¼ã ÕÛ ÒèÏÛÇØ¥Û ¨Û¼Û ²Ø»Û Õè¢ Ú¥Õ ÆÏÇØÏÌã Ó¨ÞÐ Âã ÚÏ¨ØÏ¸ ÚÒó° Ïóª Ð¥ã ²Ø»¢
+                            </div>
+
+                                        }
+                                    }
+
+
+                                }
+
+                            </td>
+                        </tr>
+                    </table>
+                    <table width="100%" style="border-top:1px solid #000;border-bottom:1px solid #000">
+                        <tr>
+                            <td colspan="4" style="text-align:left;font-size:16px;vertical-align:top;line-height:28px">
+                                &nbsp;Class :&nbsp;@Html.DisplayFor(a => a.Class)
+                            </td>
+                            <td style="height:40px;vertical-align:middle;text-align:center" class="brcode">
+                                *@Html.DisplayFor(a => a.CorrectionPerformaModel.CorrectionLot)*
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="18%">&nbsp;School Code :&nbsp;@Html.DisplayFor(a => a.SCHL)</td>
+                            <td width="16%">District Code :&nbsp;@Html.DisplayFor(a => a.DIST)</td>
+                            <td width="16%">
+                                Branch  :&nbsp;@if (Model.Class.ToLower() == "primary")
+                                {<span>Examination Primary</span>}
+                                else
+                                {<span>Examination Middle</span> }
+                            </td>
+                            <td width="16%">Set  : &nbsp;@Model.CorrectionPerformaModel.Correctiondatafinal.Tables[0].Rows[0]["Set"].ToString()</td>
+                            <td width="20%">Lot No. :&nbsp;@Html.DisplayFor(a => a.CorrectionPerformaModel.CorrectionLot)</td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="5">
+                                &nbsp;School Name :&nbsp;@Html.DisplayFor(a => a.CorrectionPerformaModel.schlCorNameE)
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td colspan="5">
+                                &nbsp;Contact Details :&nbsp;@Html.DisplayFor(a => a.CorrectionPerformaModel.schlCorConDetails)
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="5" style="height:10px"></td>
+                        </tr>
+
+                    </table>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+
+
+            <tr style="color:#fff;background-color:#000;text-align:left">
+                <td width="5%">&nbsp;Sr.No</td>
+                <td width="11%">&nbsp;Student</td>
+                <td width="11%">&nbsp;Correction ID</td>              
+                <td width="13%">&nbsp;Correction Type</td>
+                <td width="25%">&nbsp;Before Correction</td>
+                <td width="25%">&nbsp;After Correction</td>             
+                <td width="10%">&nbsp;For Office<br />&nbsp;Use Only</td>             
+            </tr>
+            @{
+                if (ViewBag.TotalCountaddedRecord > 0)
+                {
+                    int d = 0;
+                    int Count = 0;
+                    int NextPage = 1;                   
+                    for (int i = 0; i < Model.CorrectionPerformaModel.Correctiondatafinal.Tables[0].Rows.Count; i++)
+                    {
+                        d = d + 1;
+                        var CorrectionId = Model.CorrectionPerformaModel.Correctiondatafinal.Tables[0].Rows[i]["CorrectionId"].ToString();
+                        var stdid = Model.CorrectionPerformaModel.Correctiondatafinal.Tables[0].Rows[i]["std_id"].ToString();
+                        var CorrectionType = Model.CorrectionPerformaModel.Correctiondatafinal.Tables[0].Rows[i]["CorrectionFieldDisplayName"].ToString();
+                        var OldValue = Model.CorrectionPerformaModel.Correctiondatafinal.Tables[0].Rows[i]["OldValue"].ToString();
+                        var NewValue = Model.CorrectionPerformaModel.Correctiondatafinal.Tables[0].Rows[i]["NewValue"].ToString();
+                        var Lot = Model.CorrectionPerformaModel.Correctiondatafinal.Tables[0].Rows[i]["CorrectionLot"].ToString();
+                        var Remark = Model.CorrectionPerformaModel.Correctiondatafinal.Tables[0].Rows[i]["Remark"].ToString();
+                        var OldSubjlist = Model.CorrectionPerformaModel.Correctiondatafinal.Tables[0].Rows[i]["OlDsubjectList"].ToString();
+                        var NewSubjectList = Model.CorrectionPerformaModel.Correctiondatafinal.Tables[0].Rows[i]["NewSubjectList"].ToString();
+                        var DiffSub = Model.CorrectionPerformaModel.Correctiondatafinal.Tables[0].Rows[i]["DiffSub"].ToString();
+                        var Lotdiff = Model.CorrectionPerformaModel.Correctiondatafinal.Tables[0].Rows[0]["CorrectionLot"].ToString();						
+						var Set = Model.CorrectionPerformaModel.Correctiondatafinal.Tables[0].Rows[i]["Set"].ToString();
+
+                        Count = Count + 1;
+                        NextPage = NextPage + 1;
+                        <tr>
+                            <td>
+                                &nbsp;@Count
+                            </td>
+                            <td>
+                                &nbsp;@stdid
+                            </td>
+                            <td>
+                                &nbsp;@CorrectionId
+                            </td>                          
+                            <td>
+                                &nbsp;@CorrectionType
+                            </td>
+                            @if (CorrectionType.Contains("_Punjabi"))
+                            {
+                                <td>
+                                    <div class="kdsfont" style="padding:0 3px">@OldValue</div>
+                                </td>
+                                <td>
+                                    <div class="kdsfont" style="padding:0 3px">@NewValue</div>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <div style="padding:0 3px">@OldValue</div>
+                                </td>
+                                <td>
+                                    <div style="padding:0 3px">@NewValue</div>
+                                </td>
+                            }
+                          
+                            <td style="text-align:left">
+                                &nbsp;Accept <div class="box"></div><br />
+                                &nbsp;Reject <div class="box"></div>	@Remark
+                            </td>
+                            @if (OldSubjlist != "")
+                            {
+                            <tr>
+                                <td colspan="2">Old Subject List</td>
+                                <td colspan="5">&nbsp;@OldSubjlist</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">New Subject List</td>
+                                <td colspan="5">&nbsp;@NewSubjectList</td>
+                            </tr>
+                            }
+
+                            </tr>
+                            if (NextPage == 21)
+                            {                               
+                                <tr class="breakhere"><td></td></tr>
+                                NextPage = 1;
+
+                            }
+                        }
+                    }
+            }
+
+
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="8" style="border:0">
+                    <table width="100%" border="0">                       
+                        <tr>
+                            <td style="padding:4px 0" class="kdsfont" colspan="3">
+                                @{
+                                    if (Model.CorrectionPerformaModel.CorrectionLot.Substring(2, 1) == "1")
+                                    {
+
+                                        <div style="text-align:left;padding:5px 3px;">
+                                            <b>Important Note</b><br /><br />*<b>R</b> - Regular Subject, <b>A</b> - Elective Subject
+
+                                        </div>
+                                        <div style="text-align:left;padding:5px 3px;">
+                                            ¼ÓÂÛ¨ ¨Û¼Ø ²ÙÂØ Õè Ú¨ ¦Ý¨¼ ÂÏ² ÆñÛÚª¤ØÏÁÛ¤Ù
+                                            ÂÛ ¦ÝÆÏë¨¼ ¼ë× Ú¥ÐØÒÙ Ú¨Óã Ú¨ÓÌ ÂÛ ÕëÏ
+                                            ÓëÄ ÉØ¨Û ÅÕÜ Õè ¤¼ã Ú¥Õ ÒãÏÒã ÂØªÐØ ªØÏ²
+                                            ÏÚ²Ó¶Ï ÌÝ¼ØÉ¨ ÓÕÜ ÕÅ¢
+                                        </div>
+                                    }
+                                    else if (Model.CorrectionPerformaModel.CorrectionLot.Substring(2, 1) == "2")
+                                    {
+                                        @*<span style="font-size:16px">Particular</span>*@
+                                        <div style="text-align:left;padding:5px 3px;">
+                                            ¼ÓÂÛ¨ ¨Û¼Ø ²ÙÂØ Õè Ú¨ ¦Ý¨¼ ÂÏ² ÆñÛÚª¤ØÏÁÛ¤Ù
+                                            ÂÛ ¦ÝÆÏë¨¼ ¼ë× Ú¥ÐØÒÙ Ú¨Óã Ú¨ÓÌ ÂÛ ÕëÏ
+                                            ÓëÄ ÉØ¨Û ÅÕÜ Õè ¤¼ã Ú¥Õ ÒãÏÒã ÂØªÐØ ªØÏ²
+                                            ÏÚ²Ó¶Ï ÌÝ¼ØÉ¨ ÓÕÜ ÕÅ¢
+                                        </div>
+                                    }
+                                }
+
+
+
+<br><span style="font-size:12px" class="kdsfont">NOTE : ਇਹ ਸੋਧ ਸਲਿੱਪ ਸਮੇਤ ਲੋੜੀਂਦੇ ਦਸਤਾਵੇਜ ਬੋਰਡ ਦੇ ਮੁੱਖ ਦਫਤਰ ਬਣਦੀ ਫੀਸ ਸਮੇਤ ਜਮਾਂ ਕਰਵਾਏ ਜਾਣ ।</span>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:right" colspan="3"><br /><br />Signature of School Head (With Stamp)&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center" colspan="3"><u>For Office Use Only (Checked &amp; verified By)</u></td>
+                        </tr>
+                        <tr>
+                            <td width="33%">&nbsp;No of Correction Given by School :@ViewBag.TotalCountaddedRecord</td>
+                            <td width="34%"></td>
+                            <td width="33%">&nbsp;No of Correction Approved by Set :</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;Receipt No. :</td>
+                            <td>&nbsp;Date :</td>
+                            <td>&nbsp;Amount :</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;Senior Assistant/Clerk</td>
+                            <td></td>
+                            <td style="text-align:right">Superintendent&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">&nbsp;</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </tfoot>
+
+    </table>
+
+}

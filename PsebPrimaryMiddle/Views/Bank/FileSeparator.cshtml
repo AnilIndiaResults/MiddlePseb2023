@@ -1,0 +1,58 @@
+﻿@model PsebJunior.Models.BankModels
+@{
+    ViewBag.Title = "File Separator";
+    Layout = "~/Views/Shared/_BankLayout.cshtml";
+}
+
+<h1>Split File into Primary and Seniors Challans</h1>
+
+@using (Html.BeginForm("FileSeparator", "Bank", FormMethod.Post, new { id = "uploadform", enctype = "multipart/form-data" }))
+{
+    <div class="row" style="padding-bottom:100px">
+        <div class="col-md-4">
+            Upload MIS @Html.TextBoxFor(m => m.file, new { id = "MIS_FILE", type = "file", required = "required" })
+        </div>
+        <div class="col-md-2">
+            <br />
+            <input type="submit" value="Upload" onclick="return valForm();" />
+        </div>        
+    </div>  
+}
+
+
+@{
+    if (ViewData["result"] != null)
+    {
+        if (ViewData["Result"].ToString() == "1")
+        {
+            <script type="text/javascript" language="javascript">
+                alert('@ViewBag.Message');
+                window.location.href = '@Url.Action("Welcome", "Bank")';
+            </script>}
+
+        else
+        {
+            <script type="text/javascript" language="javascript">
+                alert('@ViewBag.Message');
+                //alert("File not Uploaded..plz try again");
+            </script>
+        }
+    }
+}
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('input[type=file]').change(function () {
+            var val = $(this).val().toLowerCase();
+            var regex = new RegExp("(.*?)\.(xlsx|xls)$");
+            if (!(regex.test(val))) {
+                $(this).val('');
+                alert('Please select correct file format');
+            }
+        });
+    });
+
+</script>

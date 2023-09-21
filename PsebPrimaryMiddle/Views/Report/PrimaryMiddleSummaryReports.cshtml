@@ -1,0 +1,204 @@
+﻿@model PsebJunior.Models.ReportModel
+
+@{
+    ViewBag.Title = "Primary Middle Summary Report";
+    Layout = "~/Views/Shared/_Card_Header.cshtml";
+}
+<link rel="stylesheet" href="https://registration.pseb.ac.in/Content/cardprintr.css" />
+<style type="text/css">
+    .panel-body a {
+        cursor: pointer
+    }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<h1>Registration Summary Report</h1>
+
+@{
+    if (Session["AdminLoginSession"] != null)
+    {
+        PsebJunior.Models.AdminLoginSession adminLoginSession = (PsebJunior.Models.AdminLoginSession)Session["AdminLoginSession"];
+<div class="row">
+    @*<div class="col-md-12" style="text-align:right">Print Date :@DateTime.Now.ToString("dd/MM/yyyy hh:mm tt")</div>*@
+    <div class="col-md-3 noprint">
+        <table>
+            <tr>
+                <td> <a id="Summary" class="btn" onclick="return valForm();">Summary Report</a></td>
+                <td> <a id="Form" class="btn" onclick="return valForm();">Form-Wise Report</a></td>
+                <td> <a id="RegExam" class="btn" onclick="return valForm();">Reg & Exam Form/Fee Summary</a></td>
+                <td> <a id="PendingSchool" class="btn" onclick="return valForm();">Pending Schools For Registration</a></td>
+                <td> <a id="RegNoError" class="btn" onclick="return valForm();">RegNo Error Summary</a></td>
+                <td> <a id="UserTypePending" class="btn" onclick="return valForm();">UserType Wise Pending Student Count </a></td>
+            </tr>
+        </table>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="col-md-12 text-right noprint">
+        <br />
+        <input type="button" value="Print" class="btn" onclick="window.print()" />
+        <input type="button" value="Back" class="btn" onclick="history.go(-1);" />      
+    </div>
+
+
+    <div class="clearfix"></div>
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <div id="loading"></div>
+            <div id="divMain">
+                <div id="dee">
+                    @if (ViewBag.tab == "1")
+                    {
+                        @Html.Partial("_summaryreport")
+                    }
+                    else if (ViewBag.tab == "2")
+                    {
+                        @Html.Partial("_formwisereport")
+                    }
+                    else if (ViewBag.tab == "6")
+                    {
+                        @Html.Partial("_pendingschoolsforregistration")
+                    }
+                    else if (ViewBag.tab == "5")
+                    {
+                        if (ViewBag.TotalCount > 0)
+                        {
+                            <table style="border-collapse:collapse;width:100%;font-family:Arial, Helvetica, sans-serif;font-size:12px" border="1">
+                                <tr>
+                                    <td style="border-right:0 !important">
+                                        <div style="padding:2px"><img src="~/Images/Printlogo.jpg" width="60px" height="60px" alt="PSEB" /></div>
+                                    </td>
+                                    <td colspan="3" style="font-size:14px;text-align:center;line-height:22px;vertical-align:top;border-left:0 !important;border-right:0 !important;padding-top:8px;">
+                                        <span style="font-size:28px">Punjab School Education Board</span>
+                                        <br />
+                                        <span> Registration & Examination Forms Count and Fee Summary, Session (@adminLoginSession.CurrentSession)</span>
+                                    </td>
+                                    <td style="border-left:0 !important" align="right">Print Date : @DateTime.Now.ToString("dd/MM/yyyy hh:mm tt") &nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td align="center">Class</td>
+                                    <td align="center">Registered Candidates Count</td>
+                                    <td align="center">Examination Forms Count</td>
+                                    <td align="center">Registration Fee</td>
+                                    <td align="center">Examination Fee</td>
+                                </tr>
+                                @foreach (System.Data.DataRow dr in Model.StoreAllData.Tables[0].Rows)
+                                {
+                                    <tr>
+                                        <td align="center">@dr["Class"].ToString()</td>
+                                        <td align="center">@dr["RegCount"].ToString()</td>
+                                        <td align="center">@dr["ExamCount"].ToString()</td>
+                                        <td align="center">@dr["RegFee"].ToString()</td>
+                                        <td align="center">@dr["ExamFee"].ToString()</td>
+                                    </tr>
+                                }
+                            </table>
+                        }
+
+                        @*@Html.Partial("_RegExamFormFeeSummary")*@
+                    }
+                    else if (ViewBag.tab == "7")
+                    {
+                        @Html.Partial("_regnoerrorsummary")
+                    }
+                    else if (ViewBag.tab == "8")
+                    {
+                        @Html.Partial("_UserTypeWiseStudentCount")
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    }
+}
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#Summary").click(function () {
+            $('#divMain').hide();
+            $('div#loading').html("<p><img src='../images/loadingk.gif'></p>");
+            $.get("../Report/PrimaryMiddleSummaryReports?id=1", function (data) {
+                if (data != '') {
+                    $('#divMain').show();
+                    $('#divMain').empty();
+                    $("#divMain").append(data);
+                }
+                $('div#loading').empty();
+            });
+        });
+        $("#Form").click(function () {
+            $('#divMain').hide();
+            $('div#loading').html("<p><img src='../images/loadingk.gif'></p>");
+            $.get("../Report/PrimaryMiddleSummaryReports?id=2", function (data) {
+                if (data != '') {
+                    $('#divMain').show();
+                    $('#divMain').empty();
+                    $("#divMain").append(data);
+                }
+                $('div#loading').empty();
+            });
+        });
+
+
+
+        $("#RegExam").click(function () {
+            $('#divMain').hide();
+            $('div#loading').html("<p><img src='../images/loadingk.gif'></p>");
+            $.get("../Report/PrimaryMiddleSummaryReports?id=5", function (data) {
+                if (data != '') {
+                    $('#divMain').show();
+                    $('#divMain').empty();
+                    $("#divMain").append(data);
+                }
+                $('div#loading').empty();
+            });
+        });
+
+        $("#RegNoError").click(function () {
+            $('#divMain').hide();
+            $('div#loading').html("<p><img src='../images/loadingk.gif'></p>");
+            $.get("../Report/PrimaryMiddleSummaryReports?id=7", function (data) {
+                if (data != '') {
+                    $('#divMain').show();
+                    $('#divMain').empty();
+                    $("#divMain").append(data);
+                }
+                $('div#loading').empty();
+            });
+        });
+
+        $("#PendingSchool").click(function () {
+            $('#divMain').hide();
+            $('div#loading').html("<p><img src='../images/loadingk.gif'></p>");
+            $.get("../Report/PrimaryMiddleSummaryReports?id=6", function (data) {
+                if (data != '') {
+                    $('#divMain').show();
+                    $('#divMain').empty();
+                    $("#divMain").append(data);
+                }
+                $('div#loading').empty();
+            });
+        });
+
+
+        $("#UserTypePending").click(function () {
+            $('#divMain').hide();
+            $('div#loading').html("<p><img src='../images/loadingk.gif'></p>");
+            $.get("../Report/PrimaryMiddleSummaryReports?id=8", function (data) {
+                if (data != '') {
+                    $('#divMain').show();
+                    $('#divMain').empty();
+                    $("#divMain").append(data);
+                }
+                $('div#loading').empty();
+            });
+        });
+    });
+</script>

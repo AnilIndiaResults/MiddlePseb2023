@@ -1,0 +1,46 @@
+﻿@model PsebJunior.Models.LoginModel
+@{
+    Layout = "~/Views/Shared/_Login_Header.cshtml";
+}
+
+<form class="form-signin" name="Login_Form" method="post" action="">
+    <h3 class="form-signin-heading text-center">Admin Login Panel</h3>
+    <br />
+    @Html.TextBoxFor(m => m.UserName, new { placeholder = "Username", @class = "form-control", required = "required", style = "text-transform: none;" })
+    @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Password", required = "required", style = "text-transform: none;" })
+
+    @if (ViewBag.SessionList != null)
+    {
+        @Html.DropDownList("Session", new SelectList(ViewBag.SessionList, "Value", "Text"), "---Select Session---", new { @class = "form-control", required = "required", style = "text-transform: none;padding-left:0" })
+    }
+    <div class="checkbox" id="remember">
+        <span>
+            <input type="checkbox" value="remember-me"> Remember me
+        </span>
+    </div><br />
+    <p style="text-align:center">
+        <input type="submit" value="Login" />
+    </p>
+</form>
+@{
+    if (ViewData["result"] != null)
+    {
+        if (ViewData["result"].ToString() == "2")
+        {
+            <script type="text/javascript" language="javascript">
+                alert("Admin Login Cancelled");
+            </script>}
+        else if (ViewData["result"].ToString() == "0")
+        {
+            <script type="text/javascript" language="javascript">
+                alert("Incorrect Admin Login Details..plz try again");
+            </script>
+        }
+    }
+}
+
+
+
+
+
+

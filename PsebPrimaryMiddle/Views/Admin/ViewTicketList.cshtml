@@ -1,0 +1,334 @@
+﻿@model PsebJunior.Models.GenerateTicketModel
+@{
+    ViewBag.Title = "ViewTicketList";
+    Layout = "~/Views/Shared/_Header.cshtml";
+}
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+
+<style type="text/css">
+    select[multiple] {
+        height: 240px
+    }
+
+    textarea {
+        resize: none;
+        height: 130px
+    }
+
+    .bvc li {
+        padding-right: 1px;
+    }
+
+    .bvc .checkboxP {
+        padding-left: 1px;
+    }
+
+    .newList li {
+        padding: 0 15px !important;
+    }
+
+        .newList li .checkboxP {
+            margin-right: 2px;
+        }
+</style>
+<h1>QueryList</h1>
+
+
+@*Start Modal*@
+<div class="container">
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3>Give Response Against Query <span id="ticketStatus"></span></h3>
+                </div>
+                <div class="modal-body">
+                    <table width="100%">
+                        <tr>
+                            <td width="30%"><b class="rqf">Ticket Id</b></td>
+                            <td>
+                                @Html.TextBoxFor(a => a.TicketId, new { id = "TicketId", @readonly = "readonly" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30%"><b class="rqf">Ticket Number</b></td>
+                            <td>
+                                  @Html.TextBoxFor(a => a.TicketNumber, new { id = "TicketNumber", @readonly = "readonly" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30%"><b class="rqf">Subject</b></td>
+                            <td>
+                                 @Html.TextBoxFor(a => a.ComplaintTypeName, new { id = "ComplaintTypeName", @readonly = "readonly" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30%"><b class="rqf">Reason</b></td>
+                            <td>
+                                @Html.TextAreaFor(a => a.TicketReason, new { id = "TicketReason", @maxlength = "300", @placeholder = "Enter Reason", @class = "textnone" })
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    
+                    @*@Html.HiddenFor(a => a.TicketId)*@                    
+                    <input type="button" value="Resolved" id="btnResolve" onclick="return ResolveForm();" />                   
+                    <button type="button" class="btn" data-dismiss="modal">Close</button>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+@*End Modal*@
+
+<div class="row">
+    <div class="col-md-12">
+        <table id="example" class="display table table-bordered" style="width:100%">
+            <thead>
+                <tr class="active-tr">
+                    <th>Ticket Id</th>
+                    <th>Ticket No</th>
+                    <th>Complaint Mode</th>
+                    <th>E-Centre</th>
+                    <th>Attachment</th>
+                    <th>Created On</th>
+                    <th>Final Status</th>
+                    <th>Action Detail</th>
+                </tr>
+            </thead>
+
+        </table>
+
+    </div>
+</div>
+
+
+
+
+<div id="loading1"></div>
+
+
+<script type="text/javascript">
+
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if ((charCode >= 48 && charCode <= 57) || (charCode == 9) || (charCode == 8) || (charCode == 46)) {
+            return true;
+        }
+        else {
+            alert("Invalid character...Enter Only Number!!");
+            return false;
+        }
+    }
+
+
+
+</script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        loadData();
+    });
+
+    var dtTable;
+    function loadData() {
+        var urllink = "/Admin/BindGenerateTicketList/?ticketID=0";
+        dtTable = $('#example').DataTable({
+            "responsive": true,
+            "lengthMenu": [[25, 50, 100], [25, 50, 100]],
+            "processing": true,
+            "pageLength": 25,
+            "order": [[0, 'desc']],
+            language: {
+                searchPlaceholder: "Search By Ticket Number, E-Centre, CreatedOn and Final Status"
+            },
+            ajax: {
+                url: urllink,
+            },
+            "columns": [
+                { "data": "TicketId", "autowidth": true },
+                {
+                    "data": "TicketNumber", "name": "TicketNumber", "orderable": false, "autoWidth": true, "render": function (data, type, row, meta) {
+                        return '<a href="/CenterHead/PrintTicket/' + data + '" >' + data + '</a>';
+
+                    }
+                },
+                { "data": "ComplaintTypeName", "autowidth": true },
+                { "data": "SchoolCode", "autowidth": true },
+                {
+                    "data": "Filepath", "name": "Filepath", "orderable": false, "autoWidth": true, "render": function (data, type, row, meta) {
+                        if (data != null && data != "") { return '<a href="https://localhost:57360/' + data + '" Download class="btn" ">Download</a>'; }
+                        else { return ''; }
+
+                    }
+                },
+                {
+                    "data": "CreatedOn", "name": "CreatedOn", "autoWidth": true, "render": function (data, type, row, meta) {
+                        return parseToDateTime(data);
+                    }
+                },
+                { "data": "FinalTicketStatus", "autowidth": true },
+
+                {
+                    "data": "TicketId", "name": "TicketId", "orderable": false, "autoWidth": true, "render": function (data, type, row, meta) {
+
+
+                        const btn = '<a href="#" onclick="return getbyID(' + data + ')">Update Status</a>';
+
+
+                        if (data[3] !== 'Edited') {
+                            return btn;
+                        }
+
+                        return '';
+
+
+                    }
+                }
+            ],
+        });
+    }
+
+    //Function for clearing the textboxes
+    function clearFields() {
+        $('#TicketId').val("");
+        $('#TicketNumber').val("");
+        $('#ComplaintTypeName').val("");
+        $('#TicketReason').val("");   
+        $("#TicketReason").prop("readonly", false);
+        $('#ticketStatus').val("");   
+        $('#btnResolve').show();
+
+
+    }
+
+    function valForm() {
+
+        var TicketNumber = document.getElementById("TicketNumber");
+        if (TicketNumber.value == "") {
+            alert("Enter Ticket Number");
+            TicketNumber.focus();
+            return false;
+        }
+
+        var ComplaintTypeName = document.getElementById("ComplaintTypeName");
+        if (ComplaintTypeName.value == "0" || ComplaintTypeName.value == "") {
+            alert("Select Complaint Name");
+            ComplaintTypeName.focus();
+            return false;
+        }
+
+        var TicketReason = document.getElementById("TicketReason");
+        if (TicketReason.value == "") {
+            alert("Enter Ticket Reason");
+            TicketReason.focus();
+            return false;
+        }
+        return true;
+    }
+
+
+    function ResolveForm() {
+
+        var checkValidation = this.valForm();
+        if (checkValidation == false) {
+            return false;
+        }
+
+        var modelData = {
+            TicketId: $('#TicketId').val(),
+            TicketNumber: $('#TicketNumber').val(),
+            ComplaintTypeName: $('#ComplaintTypeName').val(),
+            TicketReason: $('#TicketReason').val(),
+        };
+
+       
+        // Create FormData object
+        var fileData = new FormData();        
+        fileData.append('modelData', JSON.stringify(modelData));
+        fileData.append('actionType', "resolve");
+
+        $('#loading1').html("<p><img src='https://middleprimary.pseb.ac.in/images/loadingk.gif'></p>");
+        $.ajax({
+            url: "/Admin/ViewTicketList",
+            data: fileData,
+            type: "POST",
+            contentType: false,
+            processData: false,
+            // dataType: "json",
+            success: function (result) {
+                $('#loading1').empty();
+                if (result.status == "1") {
+                    alert('Succesfully Resolve, Ticket Number is ' + result.ticketno);
+                    $('#myModal').modal('hide');
+                    loadData();
+                }                          
+                else if (result.status == "-1") {
+
+                    alert('Error : ' + result.ticketno);
+                }
+
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+
+
+    //Function for getting the Data Based upon Employee ID
+    function getbyID(ticketID) {
+
+        clearFields();
+        $('#loading1').html("<p><img src='https://middleprimary.pseb.ac.in/images/loadingk.gif'></p>");
+        $.ajax({
+            url: "/Admin/BindGenerateTicketList?ticketID=" + ticketID,
+            typr: "GET",
+            contentType: "application/json;charset=UTF-8",
+            dataType: "json",
+            success: function (result) {
+                $('#loading1').empty();                
+                $.each(result, function (key, item) {
+                    
+                    $('#TicketId').val(item.TicketId);
+                    $('#TicketNumber').val(item.TicketNumber);
+                    $('#ComplaintTypeName').val(item.ComplaintTypeName);
+                    if (item.TicketReason == null) {                        
+                        $('#btnResolve').show();
+                    }
+                    else {
+                        $('#TicketReason').val(item.TicketReason);
+                        $("#TicketReason").prop("readonly", true);
+                        //$('#ticketStatus').val(item.TicketReason);
+                      
+                        $('#btnResolve').hide();
+                    }
+
+                                   
+                   // $('#TicketReason').val("");    
+                });
+                $('#myModal').modal('show');  
+                $('#TicketReason').focus();
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+        return false;
+    }
+
+
+</script>

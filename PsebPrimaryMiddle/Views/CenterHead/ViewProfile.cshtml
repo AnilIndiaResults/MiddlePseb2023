@@ -1,0 +1,64 @@
+﻿@model PsebJunior.Models.CenterHeadMasterModel
+@{
+    ViewBag.Title = "View Profile";
+    Layout = "~/Views/Shared/_CentreHeadLayout.cshtml";
+}
+
+<h1>View Profile</h1>
+
+@using (Html.BeginForm("ViewProfile", "CenterHead", FormMethod.Post, new { id = "searchform", enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table style="width:50%">
+                    <tr>
+                        <td width="15%">UserName</td>
+                        <td width="35%"><label>@Html.DisplayFor(m => m.UserName)</label></td>
+                    </tr>  
+                    <tr>
+                        <td>Center Head Name</td>
+                        <td>@Html.TextBoxFor(m => m.CenterHeadName, new { id = "", @maxlength = "200", @required= "required" })</td>
+                    </tr>
+                  
+                    <tr>
+                        <td>MOBILE No.</td>
+                        <td>@Html.TextBoxFor(m => m.Mobile, new { id = "", @maxlength = "12", @required = "required" })</td>
+                    </tr>                
+                    <tr>
+                        <td>EMAILID </td>
+                        <td>@Html.TextBoxFor(m => m.EmailId, new { id = "", @maxlength = "75", @required = "required" })</td>
+                    </tr>                  
+                    <tr>
+                        <td>
+                            @Html.HiddenFor(a => a.UserName)
+                            @Html.HiddenFor(a => a.CenterHeadId)
+                            <input type="submit" value="Click Here To Updated Information" />  <br />&nbsp;<br />
+                        </td>
+                    </tr>
+                  
+                </table>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@{
+    if (ViewData["result"] != null)
+    {
+        if (ViewData["result"].ToString() == "1")
+        {
+            <script type="text/javascript" language="javascript">
+               alert("Data Updated Successfully");
+                window.location.href = '@Url.Action("Welcome", "CenterHead")';
+            </script>}
+        else
+        {
+            <script type="text/javascript" language="javascript">
+                    alert("Data not updated..plz try again");
+            </script>
+        }
+    }
+}

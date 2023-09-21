@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DiscoveryClientResultsFile xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="https://www.w3.org/2001/XMLSchema">
+  <Results>
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.DiscoveryDocumentReference" url="https://www.epunjabschool.gov.in/webservice/service-pseb-5th-and-8th.asmx?disco" filename="service-pseb-5th-and-8th.disco" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="https://www.epunjabschool.gov.in/webservice/service-pseb-5th-and-8th.asmx?wsdl" filename="service-pseb-5th-and-8th.wsdl" />
+  </Results>
+</DiscoveryClientResultsFile>

@@ -1,0 +1,61 @@
+﻿@model PsebPrimaryMiddle.Models.AffiliationModel
+@{
+    Layout = "~/Views/Shared/_Headerui.cshtml";
+}
+<style type="text/css">
+    #ac-wrapper {
+        background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
+        height: 100%;
+        left: 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1001;
+    }
+
+    #popup1 {
+        height: auto;
+        left: 0;
+        padding: 0;
+        position: absolute;
+        top: 25%;
+        width: 100%;
+    }
+
+        #popup1 table {
+            background: #fff none repeat scroll 0 0;
+            border-radius: 25px;
+            max-width: 800px;
+            min-width: 700px;
+            height: 165px;
+        }
+
+        #popup1 .button {
+            padding: 10px;
+            background: #efba09; /* Old browsers */
+            background: -moz-linear-gradient(top, #efba09 0%, #fb9709 50%, #efba09 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(top, #efba09 0%,#fb9709 50%,#efba09 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom, #efba09 0%,#fb9709 50%,#efba09 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#efba09', endColorstr='#efba09',GradientType=0 ); /* IE6-9 */
+        }
+</style>
+
+
+@if (Session["IsAffiliation"] == null)
+{ Response.Redirect("~/Login"); }
+
+<div class="row">
+    <div class="col-md-12">@Html.Partial("_AffiliationHeading")</div>
+    <div class="clearfix"></div>
+    <div class="col-md-3">
+        @Html.Partial("_AffiliationMenu")
+    </div>
+    <div class="col-md-9">
+
+
+
+    </div>
+</div>
+
+
+

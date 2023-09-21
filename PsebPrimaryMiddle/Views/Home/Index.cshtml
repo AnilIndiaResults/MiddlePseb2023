@@ -1,0 +1,526 @@
+﻿@model PsebJunior.Models.Printlist
+@{
+    Layout = "~/Views/Shared/_Headerui.cshtml";
+}
+
+<style type="text/css">
+    #ac-wrapper1 {
+        background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
+        height: 100%;
+        left: 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1001;
+    }
+
+    #popup1 {
+        height: auto;
+        left: 0;
+        padding: 0;
+        position: absolute;
+        top: 15%;
+        width: 100%;
+    }
+
+        #popup1 table {
+            background: #fff none repeat scroll 0 0;
+            border-radius: 25px;
+            max-width: 500px;
+            min-width: 480px;
+            height: 165px;
+        }
+
+    #ac-wrapper {
+        background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
+        height: 100%;
+        left: 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1001;
+    }
+
+    #popup {
+        min-height: auto;
+        left: 0;
+        padding: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+
+        #popup table {
+            background: #fff none repeat scroll 0 0;
+            border-radius: 0 0 25px 25px;
+            max-width: 500px;
+            min-width: 320px;
+        }
+
+        #popup .button {
+            background: #efba09; /* Old browsers */
+            background: -moz-linear-gradient(top, #efba09 0%, #fb9709 50%, #efba09 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(top, #efba09 0%,#fb9709 50%,#efba09 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom, #efba09 0%,#fb9709 50%,#efba09 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#efba09', endColorstr='#efba09',GradientType=0 ); /* IE6-9 */
+        }
+
+        #popup .txtbox {
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            color: #555;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: inherit;
+            margin-bottom: 10px;
+            height: auto;
+            width: 80%;
+        }
+
+    input[type="text"] {
+        margin: 3px;
+        width: 96% !important;
+    }
+
+    .input-validation-error {
+        background-color: #FF9494 !important;
+        border: solid 1px Red !important;
+    }
+
+    input[type="text"] {
+        margin: 3px;
+        width: 96% !important;
+    }
+
+    .input-validation-error {
+        background-color: #FF9494 !important;
+        border: solid 1px Red !important;
+    }
+
+    .listitm {
+        font-size: 18px;
+        font-weight: 400;
+        padding: 25px 0;
+    }
+
+        .listitm span {
+            color: #cc0000;
+        }
+
+    .kbtn {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.42857;
+        margin-bottom: 0;
+        padding: 3px 12px;
+    }
+</style>
+
+
+<h1>Welcome to Punjab School Education Board!!! - Session @ViewBag.Session</h1>
+
+
+@{
+    if (Session["LoginSession"] != null)
+    {
+        PsebJunior.Models.LoginSession loginSession = (PsebJunior.Models.LoginSession)Session["LoginSession"];
+
+        if (loginSession.DIST == "050" || loginSession.DIST == "120")
+        {
+        }
+
+            <div class="KDBG">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="panel-group" id="accordion">
+						
+						<!-- <div class="panel panel-default"> -->
+                                <!-- <div class="panel-heading"> -->
+                                    <!-- <h4 class="panel-title"> -->
+                                        <!-- <a href="/RegistrationPortal/CheckRegularRegno" target="_blank">Check Registration no of Session 2022-23</a> -->
+                                    <!-- </h4> -->
+                                <!-- </div> -->
+
+                            <!-- </div> -->
+							
+							
+					
+					
+							             <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Instructions & Schedule</a>
+                                    </h4>
+                                </div>
+                                <div id="collapse6" class="panel-collapse collapse">
+								
+                                    <div class="panel-body">
+                                        <ul>
+										<li><a href="/pdf/Instruction-5-8.pdf" target="_blank"><samp>&#10093;</samp> Instruction of 5th & 8th</a></li>
+										<li><a href="/pdf/Fee-Schedule-5-8.pdf" target="_blank"><samp>&#10093;</samp> Fee Schedule of 5th & 8th</a></li>
+										  
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+							
+							
+							
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Utility</a>
+                                    </h4>
+                                </div>
+                                <div id="collapse4" class="panel-collapse collapse">
+								
+                                    <div class="panel-body">
+                                        <ul>
+										
+										  
+                                            <li><a href="/PNB_FONT.ZIP" target="_blank"><samp>&#10093;</samp> Download Punjabi PNB Font</a>
+                                            <li><a href="/Images/PNB_Character_Map.jpg" target="_blank"><samp>&#10093;</samp> View English to Punjabi Character Map</a></li>
+                                            <li><a href="/PDF/Keyboard_Instructions.pdf" target="_blank"><samp>&#10093;</samp> Keyboard Instructions</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default" style="display:none">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Press and Circular </a>
+                                    </h4>
+                                </div>
+                                <div id="collapse6" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <ul>
+                                            <li><a href="/PDF/Press-Note-10-07-2018.pdf" target="_blank"><samp>&#10093;</samp> Regarding Dr. APJ Abdul Kalam IGNITE Competition 2018: A National campaign to harness the creative and innovative sprite of school children by Innovation Foundation-India(NIF)</a></li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a href="https://www.pseb.ac.in/academic" target="_blank">Academic</a>
+                                    </h4>
+                                </div>
+
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a href="https://www.pseb.ac.in/syllabus" target="_blank">Syllabus</a>
+                                    </h4>
+                                </div>
+
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">Other</a>
+                                    </h4>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+					<video width="100%" height="320px" controls>
+  <source src="https://www.faq.pseb.ac.in/5th8th.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+					<!-- <iframe width="100%" height="315" src="https://www.youtube.com/embed/VWBn6iaJQhE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+					
+					<!-- <a href="/PDF/Regarding Subject Correction of 5th and 8th Class March 2021.pdf" class="listitm" target="_blank"><samp>❭</samp> <span>08/02/2021</span>  Regarding Subject Correction of 5th and 8th Class March 2021</a><br><br> -->
+					
+					@*<a href="/PDF/Instructions_AffiliationConti_MiddlePrimary_2021-22_021220.pdf" class="listitm" target="_blank"><samp>❭</samp> <span>03/12/2021</span>  Instructions for Provisional Affiliation & Continuation of 5th & 8th class's, Session @PsebPrimaryMiddle.Models.MasterClass.SessionFullYear</a><br>*@
+                        <div>
+                            @if (ViewBag.TotalCircular > 0)
+                            {
+                                int d = 0;
+                                int Count = 0;
+                                if (ViewBag.pagesize == 1)
+                                {
+                                    Count = 0;
+                                }
+                                else
+                                {
+                                    Count = 15 * (ViewBag.pagesize - 1);
+                                }
+                                DateTime sDate = DateTime.Today;
+                                if (ViewBag.MarqueCount > 0)
+                                {
+                                    <marquee onmouseout="this.setAttribute('scrollamount', 6, 0);" onmouseover="this.setAttribute('scrollamount', 0, 0);" direction="left" scrollamount="4" style="padding:10px 0;cursor:pointer;border-bottom:1px solid #8cb7d2;border-radius:10px">
+    @for (int i = 0; i < Model.dsMarque.Rows.Count; i++)
+                                        {
+                                            var Title = Model.dsMarque.Rows[i]["Title"].ToString();
+                                            var ExpiryDate = Model.dsMarque.Rows[i]["ExpiryDateDD"].ToString().Split(' ')[0];
+                                            DateTime eDate = DateTime.ParseExact(ExpiryDate, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+
+                                            if (Model.dsMarque.Rows[i]["IsMarque"].ToString() == "1" && (sDate <= eDate))
+                                            {
+                                                <span>  !!@Title &nbsp; &nbsp;| &nbsp; &nbsp;</span>
+                                            }
+                                        }
+                                    </marquee>
+                                }
+
+                                if (ViewBag.CircularCount > 0)
+                                {
+                                    for (int i = 0; i < Model.dsCircular.Rows.Count; i++)
+                                    {
+                                        d = d + 1;
+                                        var Title = Model.dsCircular.Rows[i]["Title"].ToString();
+                                        var UploadDate = Model.dsCircular.Rows[i]["UploadDateDD"].ToString().Split(' ')[0];
+                                        var ExpiryDate = Model.dsCircular.Rows[i]["ExpiryDateDD"].ToString().Split(' ')[0];
+                                        var NewFlag = Model.dsCircular.Rows[i]["NewFlag"].ToString();
+                                        var Attachment = Model.dsCircular.Rows[i]["Attachment"].ToString();
+                                        var UrlLink = Model.dsCircular.Rows[i]["UrlLink"].ToString();
+                                        // Count = Count + 1;
+                                        DateTime eDate = DateTime.ParseExact(ExpiryDate, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+
+                                        if (Model.dsCircular.Rows[i]["IsMarque"].ToString() != "1" && (sDate <= eDate))
+                                        {
+                                            <br /><br />
+                                            if (!string.IsNullOrEmpty(UrlLink))
+                                            {
+                                                <a href='https://registration2020.pseb.ac.in/@UrlLink' class="listitm" target="_blank" title="click here to open link">
+                                                    <samp>&#10093;</samp> <span style="color:#ff0000">@UploadDate</span> @Title
+                                                    @if (NewFlag == "1")
+                                                    {<img src="/images/new.gif" alt="new" />}
+                                                </a>
+                                            }
+                                            else if (!string.IsNullOrEmpty(Attachment))
+                                            {
+                                                <a href="https://registration2020.pseb.ac.in/@Attachment" target="_blank" class="listitm">
+                                                    <samp>&#10093;</samp> <span style="color:#ff0000">@UploadDate</span>
+                                                    @Title
+                                                    @if (NewFlag == "1")
+                                                    {<img src="/images/new.gif" alt="new" />}
+                                                </a>
+                                            }
+                                        }
+                                        
+                                       
+                                    }
+                                }
+                            }
+                        </div>
+                        <div style="display:none">
+                            <br />
+                            <a href="/PDF/Regarding Conduct Of Examination 5th and 8th March 2021 for Centre Superintendent.pdf" class="listitm" target="_blank"><samp>❭</samp> <span>27/02/2021</span>  Regarding Conduct Of Examination 5th and 8th March 2021 for Centre Superintendent</a>
+                            <br /><br />
+                            <a href="/PDF/Regarding Conduct Of Examination 5th and 8th March 2020.pdf" class="listitm" target="_blank"><samp>❭</samp> <span>27/02/2021</span>  Regarding Conduct Of Examination 5th and 8th March 2021</a>
+                            <br /><br />
+                            <a href="/PDF/Instructions-Regarding-Differently-Abled-Candidates.pdf" class="listitm" target="_blank">
+                                <samp>❭</samp> <span>27/02/2021</span>  Instructions Regarding Differently Abled Candidates, March 2021
+                            </a>
+                            <br /><br />
+                            <a href="/PDF/CCE MARKS.pdf" class="listitm" target="_blank"><samp>❭</samp> <span>13/02/2021</span> Step By Step Help , How to Enter  CCE Marks</a>
+                            <br /><br />
+                            <a href="/PDF/PressNote_060220.pdf" class="listitm" target="_blank">
+                                <samp>❭</samp> <span>06/02/2021</span> Revised Fee Schedule of 5th & 8th Class, Session @PsebPrimaryMiddle.Models.MasterClass.SessionFullYear
+                                <img src="/images/new.gif" alt="new" />
+                            </a>
+                            <br /><br />
+
+                            <a href="/PDF/Roll Nmbr Correction.pdf" class="listitm" target="_blank">
+                                <samp>❭</samp> <span>04/02/2021</span> Revised Schedule For 8th Class Subject Correction
+                                <img src="/images/new.gif" alt="new" />
+                            </a>
+                            <br /><br />
+                            <a href="/PDF/5th-8th-Correction-in-Subject.pdf" class="listitm" target="_blank">
+                                <samp>❭</samp> <span>29/01/2021</span> Circular Regarding Correction in Subject 5th and 8th
+                                <img src="/images/new.gif" alt="new" />
+                            </a>
+                            <br /><br />
+                            <a href="/PDF/5thand8thinformation.pdf" class="listitm" target="_blank"> <samp>❭</samp> <span>16/01/2021</span> Instruction Regarding Middle Primary Examination @PsebPrimaryMiddle.Models.MasterClass.SessionFullYear  <img src="/images/new.gif" alt="new" /></a>
+                            <br /><br />
+                            <a href="/PDF/5th-8th-class-datesheet.pdf" class="listitm" target="_blank"> <samp>❭</samp> <span>07/01/2021</span> Revised Datesheet of 5th & 8th Class For Session @PsebPrimaryMiddle.Models.MasterClass.SessionFullYear  <img src="/images/new.gif" alt="new" /></a>
+                            <br /><br />
+                            <a href="/PDF/Revised schedule for 5th and 8th.pdf" class="listitm" target="_blank"> <samp>❭</samp> <span>31/12/2019</span> Revised Schedule for 5th & 8th For Session @PsebPrimaryMiddle.Models.MasterClass.SessionFullYear  <img src="/images/new.gif" alt="new" /></a>
+                            <br /><br />
+                            <a href="/PDF/OnlineEntryInstruction2019-20_5th and 8th.pdf" class="listitm" target="_blank"> <samp>❭</samp> <span>16/12/2019</span> Instructions regarding online Entry under Registration/Continuation of 5th and 8th class for Session @PsebPrimaryMiddle.Models.MasterClass.SessionFullYear  </a>
+                            <br /><br />
+                            <a href="/PDF/instruction 2019-20_5th and 8th revised_161219.pdf" class="listitm" target="_blank"> <samp>❭</samp> <span>16/12/2019</span> Revised instructions regarding admission/migration etc. under  Registration/Continuation of 5th and 8th class for Session @PsebPrimaryMiddle.Models.MasterClass.SessionFullYear  </a>
+                            <br /><br />
+                            <a href="https://files-cdn.pseb.ac.in/pseb_files/SCHEMEOFSTUDIESFORCLASSV17-9-2019-2019-17-09-534.pdf" class="listitm" target="_blank"> <samp>❭</samp> <span>09/12/2019</span> Scheme of Studies, Mark Distribution And CCE Schedule For Class V (Fifth)  </a>
+                            <br /><br />
+                            <a href="https://files-cdn.pseb.ac.in/pseb_files/SCHEMEOFSTUDIESFORCLASSVIII17-9-19-2019-17-09-371.pdf" class="listitm" target="_blank"><samp>❭</samp> <span>09/12/2019</span> Scheme of Studies, Mark Distribution And CCE Schedule For Class Viii (Middle)</a>
+                            <br /><br />
+                            <a href="/Upload/Circular/2019003.pdf" target="_blank" class="listitm">
+                                <samp>❭</samp> <span>29/11/2019</span>
+                                Datasheet 5th and 8th class exams March 2021
+                            </a>
+                            <br /><br />
+                            <a href="/Upload/Circular/2019002.pdf" target="_blank" class="listitm">
+                                <samp>❭</samp> <span>28/11/2019</span>
+                                Circular Regarding Declaration 5th &amp; 8th class
+                            </a>
+                            <p style="height:150px"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+
+    }
+
+
+
+
+    @using (Html.BeginForm("undertaking", "Home", FormMethod.Post))
+    {
+        if (ViewBag.Primary == "Y" || ViewBag.Middle == "Y")
+        {
+            @Html.ValidationSummary(true);
+            <div id="dvsh">
+                <div id="ac-wrapper1" style='display: none'>
+                    <div id="popup1">
+                        <center>
+                            <table cellspacing="0" cellpadding="0" border="0">
+                                <tr style="background-color:#336dc0;color:#fff">
+                                    <td colspan="4" style="font-size:28px;padding:15px 0;text-align:center">Undertaking of Student Count</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" style="font-size:16px;text-align:center;padding-top:15px;padding-bottom:25px;color:#000;font-weight:normal">
+                                        @*Note :  Enter Primary and Middle Students Count*@
+                                        Note :  Kindly fill the count of student if No student in this session<br /> please fill "0" Zero.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="5%"></td>
+                                    <td style="text-align:left;width:45%">
+                                        @{
+                                            if (ViewBag.Primary == "Y")
+                                            {
+                                                <b>Primary Students Count</b><br />
+                                                @Html.TextBoxFor(m => m.numofprimary, new { placeholder = "Enter Total No. of Primary Student", maxlength = "3", onkeypress = "return isNumberKey(event)" })
+                                            }
+                                        }
+                                    </td>
+                                    <td style="text-align:left;width:45%">
+                                        @{
+                                            if (ViewBag.Middle == "Y")
+                                            {
+                                                <b>Middle Students Count</b><br />
+                                                @Html.TextBoxFor(m => m.numofmiddle, new { placeholder = "Enter Total No. of Middle Student", maxlength = "3", onkeypress = "return isNumberKey(event)" })
+                                            }
+
+                                        }
+                                    </td>
+
+                                    <td width="5%"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" style="text-align:center;padding:15px 0">
+                                        <input type="submit" value="Save and Print Undertaking" class="button" id="saveme" />
+                                        <a href="#" class="btn" id="hideq" style="background-color:#cc0000;border-color:#cc0000">Close</a>
+                                        @*<img src="images/close_icon.gif" width="6" height="6" alt="Close" onClick="this.close" />*@
+                                    </td>
+                                </tr>
+                            </table>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+
+
+
+    @{
+        if (TempData["undertakingResult"] != null)
+        {
+            var result = TempData["undertakingResult"].ToString();
+            if (result == "1")
+            {
+                <script type="text/javascript" language="javascript">
+                alert("Thanks For Submission.");
+                  window.location.href = '@Url.Action("PrintUndertaking", "Home")';
+                </script>
+
+            }
+            else if (result == "5")
+            {
+                <script type="text/javascript" language="javascript">
+                    alert("You have already Entered");
+                </script>
+            }
+            else
+            {
+                <script type="text/javascript" language="javascript">
+                    alert("Sorry , Please Try Again.");
+                </script>
+            }
+        }
+    }
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#hideq").click(function () {
+                $("#dvsh").hide();
+            });
+
+        });
+    </script>
+    <script type="text/javascript">
+        window.setInterval(function () {
+            var current = new Date();
+            var expiry = new Date("September 06, 2017 23:59:59")
+            if (current.getTime() > expiry.getTime()) {
+                $('.hideintm').hide();
+            } else if (current.getTime() < expiry.getTime()) {
+                $('.hideintm').show();
+            }
+        }, 0);
+    </script>
+    <script type="text/javascript">
+        function isNumberKey(evt) {
+            var c = $(".txtbox").val();
+            if (c.length < 11) {
+                $(".txtbox").addClass("input-validation-error");
+            }
+            else {
+                $(".txtbox").removeClass("input-validation-error");
+            }
+
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if ((charCode >= 48 && charCode <= 57) || (charCode == 9) || (charCode == 8) || (charCode == 46)) {
+                return true;
+            }
+            else {
+                alert("Invalid character...Enter Only Number!!");
+                return false;
+            }
+        }
+        function isNumberKey1(evt) {
+
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if ((charCode >= 48 && charCode <= 57) || (charCode == 9) || (charCode == 8) || (charCode == 46)) {
+                return true;
+            }
+            else {
+                alert("Invalid character...Enter Only Number!!");
+                return false;
+            }
+        }
+
+    </script>
+
+@*
+    <script type="text/javascript">
+        function PopUp(hideOrshow) {
+            if (hideOrshow == '1') document.getElementById('ac-wrapper1').style.display = "block";
+            else document.getElementById('ac-wrapper').removeAttribute('style');
+        }
+        setTimeout(function () { PopUp(1); }, 0);
+
+    </script>*@

@@ -1,0 +1,102 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Headerui.cshtml";
+}
+
+<style type="text/css">
+    #ac-wrapper {
+        background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
+        height: 100%;
+        left: 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1001;
+    }
+
+    #popup {
+        min-height: 240px;
+        left: 0;
+        padding: 0;
+        position: absolute;
+        top: 128px;
+        width: 100%;
+    }
+
+        #popup table {
+            background: #fff none repeat scroll 0 0;
+            border: 5px solid #f1f1f1;
+            border-radius: 0;
+            box-shadow: 0 0 3px 3px #64686e;
+            max-width: 500px;
+            min-width: 320px;
+        }
+
+        #popup .button {
+            padding: 10px;
+            background: #efba09; /* Old browsers */
+            background: -moz-linear-gradient(top, #efba09 0%, #fb9709 50%, #efba09 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(top, #efba09 0%,#fb9709 50%,#efba09 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom, #efba09 0%,#fb9709 50%,#efba09 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#efba09', endColorstr='#efba09',GradientType=0 ); /* IE6-9 */
+        }
+</style>
+
+<style type="text/css">
+    .ullist li {
+        padding: 6px 4px;
+        font-size: 16px;
+    }
+
+    .uist li a {
+        font-weight: normal !important;
+        font-size: 20px;
+        line-height: 18px
+    }
+
+    .uist li {
+        font-weight: normal !important;
+        font-size: 20px;
+        line-height: 30px
+    }
+
+    .ullist {
+        padding-bottom: 10px;
+    }
+</style>
+
+@{
+    if (Session["LoginSession"] != null)
+    {
+        PsebJunior.Models.LoginSession LoginSession = (PsebJunior.Models.LoginSession)Session["LoginSession"];
+
+
+        <div class="container KDBG">
+
+            <h1>Exam Result for <b>@LoginSession.CurrentSession</b></h1>
+            <div class="row">
+                <div class="col-md-12">
+                   
+                    <ul class="ullist">
+                        @if (LoginSession.fifth == "Y")
+                        {
+                            <li><a href="/School/ResultDeclareSchoolWise/Primary"><samp>&#10093;</samp> <samp>13-05-2022</samp> Result For Primary (Session <b>@LoginSession.CurrentSession</b>)</a></li>
+							@*<li><a href="/School/StudentResultCertificate"><samp>&#10093;</samp> <samp>01-09-2020</samp> Download Certificate </a></li>*@
+						}
+
+                        @if (LoginSession.middle == "Y")
+                        {
+                            <li><a href="/School/ResultDeclareSchoolWise/Middle"><samp>&#10093;</samp> <samp>18-05-2022</samp> Middle Term-1 Marks (Session <b>@LoginSession.CurrentSession</b>)</a></li>
+							@*<li><a href="/School/StudentResultCertificate"><samp>&#10093;</samp> <samp>01-09-2020</samp>Download Certificate </a></li>*@
+						}
+
+                    </ul>                   
+                </div>
+            </div>
+
+
+        </div>
+
+
+    }
+}

@@ -1,0 +1,68 @@
+﻿@model PsebJunior.Models.ReportModel
+
+<style type="text/css">
+    td {
+        font-size: 11px;
+        padding: 1px;
+        vertical-align: top
+    }
+</style>
+<link rel="stylesheet" href="https://registration.pseb.ac.in/Content/Print-4P.css" />
+<h1 class="noprint">Primary Middle Summary Report</h1>
+        @if (ViewBag.TotalCount > 0)
+        {
+            <table style="border-collapse:collapse;width:100%;font-family:Arial, Helvetica, sans-serif;font-size:12px" border="1">
+                <tr>
+                    <td style="border-right:0 !important">
+                        <div style="padding:2px"><img src="~/Images/Printlogo.jpg" width="60px" height="60px" alt="PSEB" /></div>
+                    </td>
+                    <td colspan="14" style="font-size:14px;text-align:center;line-height:22px;vertical-align:top;border-left:0 !important;border-right:0 !important;padding-top:8px;">
+                        <span style="font-size:28px">Punjab School Education Board</span>
+                        <br />
+                        <span>Primary Middle Summary Report (@PsebPrimaryMiddle.Models.MasterClass.SessionFullYear)</span>
+                    </td>
+                    <td style="border-left:0 !important" align="right">Print Date : @DateTime.Today.ToString("dd/MM/yyyy") &nbsp;</td>
+                </tr>
+                <tr>
+                    <td width="13%" align="center">Total Schools</td>
+                    <td width="13%" align="center">Total Schools Started Entry</td>
+                    <td width="13%" align="center">Total Schools Not Started Entry</td>
+                    <td width="13%" align="center">Total Students</td>
+                    <td width="13%" align="center">Primary Students</td>
+                    <td width="13%" align="center">Middle Students</td>
+                    <td width="13%" align="center">Total Pending Students</td>
+                    <td width="13%" align="center">Primary Pending Students</td>
+                    <td width="13%" align="center">Middle Pending Students</td>
+                    <td width="13%" align="center">Total Students Registered</td>
+                    <td width="13%" align="center">Primary Students Registered</td>
+                    <td width="13%" align="center">Middle Students Registered</td>
+                    <td width="13%" align="center">Challan Generated</td>
+                    <td width="13%" align="center">Challan Verified</td>
+                    <td width="13%" align="center">Total Fee</td>
+                    <td width="13%" align="center">Total FeeReceived</td>
+
+                </tr>
+                @foreach (System.Data.DataRow dr in Model.StoreAllData.Tables[0].Rows)
+                {
+                <tr>
+                    <td align="center">@dr["TotalSchool"].ToString()</td>
+                    <td align="center">@dr["TotalSchoolsREg"].ToString()</td>
+                    <td align="center">@dr["TotalSchoolsNotREg"].ToString()</td>
+                    <td align="center">@dr["TotalStudents"].ToString()</td>
+                    <td align="center">@dr["PrimaryStudents"].ToString()</td>
+                    <td align="center">@dr["MiddleStudents"].ToString()</td>
+                    <td align="center">@dr["TotalPendingStudents"].ToString()</td>
+                    <td align="center">@dr["PrimaryPendingStudents"].ToString()</td>
+                    <td align="center">@dr["MiddlePendingStudents"].ToString()</td>
+                    <td align="center">@dr["TotalStudentsRegistered"].ToString()</td>
+                    <td align="center">@dr["PrimaryStudentsRegistered"].ToString()</td>
+                    <td align="center">@dr["MiddleStudentsRegistered"].ToString()</td>
+                    <td align="center">@dr["ChallanGenerated"].ToString()</td>
+                    <td align="center">@dr["ChallanVerified"].ToString()</td>
+                    <td align="center">@dr["TotalFee"].ToString()</td>
+                    <td align="center">@dr["TotalFeeReceived"].ToString()</td>
+                </tr>
+               }
+            </table>
+        }
+        <p style="height:160px"></p>

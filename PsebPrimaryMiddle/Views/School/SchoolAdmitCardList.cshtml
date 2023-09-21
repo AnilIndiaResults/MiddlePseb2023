@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "SchoolAdmitCardList";
+    Layout = "~/Views/Shared/_Headerui.cshtml";
+}
+
+<h1>School Admit Card</h1>
+@{
+    if (Session["LoginSession"] != null)
+    {
+        PsebJunior.Models.LoginSession loginSession = (PsebJunior.Models.LoginSession)Session["LoginSession"];
+        <div class="row">
+            <div class="col-md-12 text-right" style="display:none"><input type="button" value="Back" onclick="javascript:document.location.href='@Url.Action("SchoolAdmitCardList", "School" )'" /></div>
+            <div class="col-md-12">
+                <ul class="ullist">
+                    @if (loginSession.fifth == "Y")
+                    {
+                        <li><a href="/School/PrintAdmitCard/Primary"><samp>&#10093;</samp> Primary Admit Card</a>&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;<a href="/School/CutList_Schl/PrimaryError">Primary Error List</a></li>
+                    }
+                    @if (loginSession.middle == "Y")
+                    {
+
+                        <li><a href="/School/PrintAdmitCard/Middle"><samp>&#10093;</samp> Middle Admit Card</a>&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;<a href="/School/CutList_Schl/MiddleError"> Middle Error List</a></li> 
+                    }
+                </ul>
+            </div>
+        </div>
+
+    }
+
+}

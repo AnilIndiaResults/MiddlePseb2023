@@ -1,0 +1,101 @@
+﻿@model PsebJunior.Models.CenterSchoolModelList
+@{
+    ViewBag.Title = "View All Schools Allowed";
+    Layout = "~/Views/Shared/_CentreHeadLayout.cshtml";
+}
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+@if (Model.centerSchoolModels != null)
+{
+
+    <p>Total School : @Model.centerSchoolModels.Count()</p>
+    if (Model.centerSchoolModels.Count > 0)
+    {
+        <div class="table-responsive">
+            <table id="example" class="display table table-bordered" style="width:100%">
+                <thead>
+                    <tr class="active-tr">
+                        <th>Schl</th>
+                        <th>School Name</th>
+                        <th>Primary Students</th>
+                        <th>Last Date</th>
+                        <th>Final Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var obj in Model.centerSchoolModels)
+                    {
+                        <tr>
+                            <td>@obj.Schl</td>
+                            <td>@obj.SchlNME </td>
+                            <td>@obj.NOP </td>
+                            <td>@obj.LastDate </td>
+                            <td>@obj.FinalStatus </td>
+
+                            <td>
+                                <div class="cart">
+                                    Choose Action <span class="caret"></span>
+                                    <div id="sidebar">
+                                        <ul>
+                                            @if (obj.Fifth == "Y")
+                                            {
+                                                if (DateTime.Now.Date <= Convert.ToDateTime(obj.LastDate).Date)
+                                                {
+                                                    <li>@Html.ActionLink("Marks Entry", "MarksEntryPanel", new { id = "Primary", schl = obj.Schl })</li>
+                                                }
+                                                if (string.IsNullOrEmpty(obj.FinalSubmitLot))
+                                                {
+                                                    <li>@Html.ActionLink("Rough Report", "MarksRoughReport", new { id = "Primary", schl = obj.Schl })</li>
+                                                }
+                                                if (!string.IsNullOrEmpty(obj.FinalSubmitLot))
+                                                {
+                                                    <li>@Html.ActionLink("Final Report", "MarksFinalReport", new { id = "Primary", schl = obj.Schl })</li>
+                                                }
+                                            }
+
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    }
+    else
+    {
+        <p>Record Not Found</p>
+    }
+
+
+}
+
+<div class="clearfix"></div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#example').DataTable({
+            "responsive": true,
+            "lengthMenu": [[25, 50, 100], [25, 50, 100]],
+            "processing": true,
+            "pageLength": 25,
+            "order": [[0, 'desc']],
+            language: {
+                searchPlaceholder: "Search By Schl, School Name .."
+            },
+        })
+    });
+</script>
+
+
+
+
+
+
+
+

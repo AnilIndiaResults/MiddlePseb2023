@@ -1,0 +1,228 @@
+﻿@*@model PsebJunior.Models.CenterMasterForOnlineCentreCreationViews
+@{
+    Layout = "~/Views/Shared/_Headerui.cshtml";
+}
+
+<h1>Online Centre Creation</h1>
+
+@using (Html.BeginForm("OnlineCentreCreation", "School", FormMethod.Post, new { id = "searchform", enctype = "multipart/form-data" }))
+{
+<div class="row">
+    <div class="col-md-2">Cenbre Code</div>
+    <div class="col-md-2">
+        <label>@Html.DisplayFor(a => a.CENT, new { })</label>
+    </div>
+    <div class="col-md-2">
+        School Code <span class="rqf">*</span>
+    </div>
+    <div class="col-md-2">
+        <label>@Html.DisplayFor(a => a.CSCHL, new { })</label>
+    </div>
+    <div class="col-md-2">
+        USERTYPE <span class="rqf">*</span>
+    </div>
+    <div class="col-md-2">
+        <label><span class="">@Html.DisplayFor(a => a.USERTYPE, new { })</span></label>
+    </div>
+
+    <div class="clearfix"></div>
+    <div class="col-md-2">
+        Centre Name (English) <span class="rqf">*</span>
+    </div>
+    <div class="col-md-10"> <label>@Html.DisplayFor(a => a.SCHOOLE, new { })</label></div>
+
+    <div class="col-md-2">
+        Centre Name (Punjabi) <span class="rqf">*</span>
+    </div>
+
+    <div class="col-md-10"> <label><span class="kdsfont">@Html.DisplayFor(a => a.SCHOOLP, new { })</span></label></div>
+    <div class="clearfix"></div>
+    <div class="col-md-2">
+        DISTNM  (English) <span class="rqf">*</span>
+    </div>
+    <div class="col-md-4"><label>@Html.DisplayFor(a => a.DISTNM, new { })</label></div>
+    <div class="col-md-2">
+        DISTNM (Punjabi) <span class="rqf">*</span>
+    </div>
+
+    <div class="col-md-4"><label><span class="kdsfont">@Html.DisplayFor(a => a.DISTNMP, new { })</span></label></div>
+    <div class="clearfix"></div>
+    <div class="col-md-2">
+        ECENTRE <span class="rqf">*</span>
+    </div>
+    <div class="col-md-4">
+        <label>@Html.DisplayFor(a => a.ECENTRE, new { })</label>
+    </div>
+    <div class="col-md-2">
+        PCENTRE <span class="rqf">*</span>
+    </div>
+    <div class="col-md-4">
+        <label><span class="kdsfont">@Html.DisplayFor(a => a.PCENTRE, new { })</span></label>
+    </div>
+
+
+    <div class="clearfix"></div>
+
+
+    <div class="col-md-2">
+        MATREG<span class="rqf">*</span>
+    </div>
+    <div class="col-md-2"> <label>@Html.DisplayFor(a => a.MATREG, new { })</label></div>
+
+    <div class="col-md-2">
+        MATOPN <span class="rqf">*</span>
+    </div>
+    <div class="col-md-2"> <label><span class="">@Html.DisplayFor(a => a.MATOPN, new { })</span></label></div>
+    <div class="clearfix"></div>
+
+    <div class="col-md-2">
+        SSREG  <span class="rqf">*</span>
+    </div>
+    <div class="col-md-2"><label>@Html.DisplayFor(a => a.SSREG, new { })</label></div>
+    <div class="col-md-2">
+        SSOPN  <span class="rqf">*</span>
+    </div>
+    <div class="clearfix"></div>
+
+
+    <div class="col-md-2">
+        MATREG<span class="rqf">*</span>
+    </div>
+    <div class="col-md-2"> <label>@Html.DisplayFor(a => a.MATPVT, new { })</label></div>
+    <div class="col-md-2">
+        MATOPN <span class="rqf">*</span>
+    </div>
+    <div class="col-md-2"><label><span>@Html.DisplayFor(a => a.SSPVT, new { })</span></label></div>
+    <div class="clearfix"></div>
+    <div class="col-md-2">
+        STAFF <span class="rqf">*</span>
+    </div>
+    <div class="col-md-2">
+        <label>@Html.DisplayFor(a => a.STAFF, new { })</label>
+    </div>
+    <div class="col-md-2">
+        REQUIRED  STAFF <span class="rqf">*</span>
+    </div>
+    <div class="col-md-2">
+        <label><span class="">@Html.DisplayFor(a => a.REQSTAFF, new { })</span></label>
+    </div>
+
+</div>
+
+    <div class="clearfix"></div>
+
+    <h4>Enter Centre Details </h4>
+    <div class="row">
+        <div class="col-md-3">
+            Total No. of Room  for Exam Centre <span class="rqf">*</span>
+        </div>
+        <div class="col-md-3">
+            @Html.TextBoxFor(a => a.TotalRooms, new { @maxlength = "3", onkeypress = "return isNumberKey(event);", @required = "required" })
+        </div>
+        <div class="col-md-3">
+            Total Capacity of Exam Centre<span class="rqf">*</span>
+        </div>
+        <div class="col-md-3">
+            @Html.TextBoxFor(a => a.TotalCapacity, new { @maxlength = "3", onkeypress = "return isNumberKey(event);", @required = "required" })
+        </div>
+
+        <div class="clearfix"></div>
+
+
+        <div class="col-md-3"> Total No. of Room Other Than Exam Centre <span class="rqf">*</span></div>
+
+        <div class="col-md-3">
+            @Html.TextBoxFor(a => a.TotalRoomsOther, new { @maxlength = "3", onkeypress = "return isNumberKey(event);", @required = "required" })
+        </div>
+
+        <div class="col-md-3">
+            Single bench Furniture <span class="rqf">*</span>
+        </div>
+        <div class="col-md-3">
+            @Html.TextBoxFor(a => a.SingleBenchFurniture, new { @maxlength = "3", onkeypress = "return isNumberKey(event);", @required = "required" })
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-md-3">
+            Double Bench Furniture <span class="rqf">*</span>
+        </div>
+        <div class="col-md-3">
+            @Html.TextBoxFor(a => a.DoubleBenchFurniture, new { @maxlength = "3", onkeypress = "return isNumberKey(event);", @required = "required" })
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+    <div class="clearfix"></div>
+    <div class="col-md-12 text-center">
+
+        @if (string.IsNullOrEmpty(Model.CENT))
+        {<input type="submit" name="submit" value="Create New Centre and Final Submit " id="Submit" formmethod="post" onclick="return valForm();" /> }
+        else
+        {<input type="submit" name="submit" value="Save and Final Submit" id="Submit" formmethod="post" onclick="return valForm();" />}
+
+
+        <a href="javascript:void(0);" class="btn" onclick="history.go(-1);">Back</a>
+
+    </div>
+}
+
+@{
+    if (ViewData["result"] != null)
+    {
+        if (ViewData["result"].ToString() == "1")
+        {
+            <script type="text/javascript" language="javascript">
+                        alert(" Submitted Successfully.");
+                        window.location.href = '@Url.Action("Index", "Home")';
+            </script>
+        }
+
+        else
+        {
+            <script type="text/javascript" language="javascript">
+                alert("Submitted Failure");
+            </script>
+        }
+    }
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+
+
+
+<script type="text/javascript">
+    function ValidateAlpha(evt) {
+        var keyCode = (evt.which) ? evt.which : evt.keyCode
+        if ((keyCode < 65 || keyCode > 90) && (keyCode < 97 || keyCode > 123) && keyCode != 32 && keyCode != 8 && keyCode != 46 && keyCode != 9) {
+            alert("Only Characters Allowed!!");
+            return false;
+        }
+        else {
+            return true;
+        }
+
+    }
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if ((charCode >= 48 && charCode <= 57) || (charCode == 9) || (charCode == 8) || (charCode == 46)) {
+            return true;
+        }
+        else {
+            alert("Invalid character...Enter Only Number!!");
+            return false;
+        }
+    }</script>
+
+
+
+<script type="text/javascript">
+    function valForm() {
+
+     
+
+        return true;
+    }
+
+</script>*@

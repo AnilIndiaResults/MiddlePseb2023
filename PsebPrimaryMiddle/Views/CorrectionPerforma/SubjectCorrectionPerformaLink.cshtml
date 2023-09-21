@@ -1,0 +1,29 @@
+﻿@{
+    Layout = "~/Views/Shared/_Headerui.cshtml";
+}
+<h1>Subject Correction Performa</h1>
+
+@{
+    if (Session["LoginSession"] != null)
+    {
+        PsebJunior.Models.LoginSession loginSession = (PsebJunior.Models.LoginSession)Session["LoginSession"];
+
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="ullist">
+                    @if (loginSession.fifth == "Y")
+                    {
+                        <li><samp>&#10093;</samp> @Html.ActionLink("Subject Correction Performa Primary", "SubjectCorrectionPerforma", "CorrectionPerforma")</li>
+
+                    }
+                    @if (loginSession.middle == "Y")
+                    {
+                        <li><samp>&#10093;</samp> @Html.ActionLink("Subject Correction Performa Middle", "MiddleSubjectCorrectionPerforma", "CorrectionPerforma")</li>
+
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+
+}

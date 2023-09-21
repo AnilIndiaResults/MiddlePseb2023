@@ -1,0 +1,401 @@
+﻿@model PsebJunior.Models.SchoolModels
+@{
+    ViewBag.Title = "PracticalExamMarks";
+    Layout = "~/Views/Shared/_Headerui.cshtml";
+}
+<h1>Practical Exam Marks Entry Panel, March 2022</h1>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<link rel="stylesheet" href="https://43.224.136.120/Content/Print-4L.css" />
+<script src="/Scripts/jquery-ui.js"></script>
+<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+<style type="text/css">
+    .ktm {
+        padding: 0 8px !important;
+    }
+
+    .lft {
+        float: left;
+    }
+
+    .rft {
+        float: right;
+    }
+</style>
+
+@using (Html.BeginForm("PracticalExamMarks", "School", FormMethod.Post, new { id = "CCE", enctype = "multipart/form-data" }))
+{
+    <fieldset style="margin-bottom:15px">
+        <legend>Search</legend>
+        <form id="myForm">
+            <div class="clearefix"></div>
+            <div class="row">
+                <div class="col-md-2">
+                    Select Class:
+                    @Html.DropDownList("SelClass", new SelectList(ViewBag.MyClass, "Value", "Text", ViewBag.SelectedClass), "--All---", new { @class = "", required = "required" })
+                </div>
+                <div class="col-md-2">
+                    Select Exam Type:  @Html.DropDownList("SelRP", new SelectList(ViewBag.MyRP, "Value", "Text", ViewBag.SelectedRP), "--All---", new { @class = "", required = "required" })
+                </div>
+                <div class="col-md-2">
+                    Search By:  @Html.DropDownList("SelAction", new SelectList(ViewBag.MyAction, "Value", "Text", ViewBag.SelectedAction), "Select", new { @class = "" })
+                </div>
+                <div class="col-md-2">
+                    &nbsp;<br />
+                    <input type="text" id="SearchString" maxlength="30" name="SearchString" value="@Request["SearchString"]" />
+                </div>
+                <div class="col-md-4">
+                    <br />
+                    <input type="submit" value="Search" />
+                    @Html.Hidden("cid", (string)ViewBag.cid)
+                    @*<a href="/School/PracticalExamMarks" class="btn">Back</a>*@
+                    <a href="javascript:void(0);" onclick="history.go(-1);" class="btn">Back</a>
+                </div>
+            </div>
+
+            <div id="dialog" style="display: none" class="kdsfont">
+                ÓÛ.ÓÛ.¥Û. Âã ¤â¨ ÓÕÛ ¤¼ã ÂÏÝÓ¼ ÊÏã ¬¥ã ÕÅ, Ú¥ÓÂØ ÏÇ ÚÆâñ¶ °èó¨ ¨Ï ÚÐ¤Ø Ú¬¤Ø Õè ¤¼ã Ú¥Ó ÚÒó° ¨ë¥Û ÕëÏ ÓëÄ ÉØ¨Û ÅÕÛ× Õè¢Ìè× Ú¥Ó ÕÂØÚ¥¼ ¼ë× ²Ø»Þ ÕÙ Ú¨ ÇØ¥ÛÅÐ ÓÉÚÌ¶ ¦ÝÆÏâ¼ ¸Ø¶Ø ÐØ¨ Õë ²ØÒã¬Ø, Ú¥Ó ¦ÝÆÏâ¼ Ú¨Óã ÒÛ ÓÞÏ¼ ÚÒó° ¨ë¥Û ÒÛ ÓëÄ ÅÕÛ× ¨Û¼Û/¨ÏÒØ¥Û ²Ø Ó¨ã¬Û¢ Ìè× ÇØ¥ÛÅÐ ÓÉÚÌ¶ ¨ÏÅ Ð¥Û ÓÚÕÌ¼ ÕÙ¢
+            </div>
+        </form>
+    </fieldset>
+}
+<div id="loading1"></div>
+<div class="clearfix"></div>
+<div class="row" id="divMain1">
+    <div class="col-md-4">Grid Total:  @ViewBag.TotalCount</div>
+    <div class="col-md-8 text-right">
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="t01">
+                <tr class="active-tr">
+                    <th width="10%">STd_id</th>
+                    <th width="10%">Name/Fname/Mname</th>
+                    <th width="10%">Class</th>
+                    <th width="10%">Exam Type</th>
+                    <th width="10%">Subject Code</th>
+                    <th width="35%">Subject Name</th>
+                    @*<th width="10%">Total Candidate</th>*@
+                    <th width="10%">Submission Pending</th>
+                    <th width="15%">Action</th>
+                </tr>
+                @{
+                    if (ViewBag.TotalCount > 0)
+                    {
+                        DateTime todayDate = DateTime.Today;
+                        int d = 0;
+                        int Count = 0;
+                        if (ViewBag.pagesize == 1)
+                        {
+                            Count = 0;
+                        }
+                        else
+                        {
+                            Count = 20 * (ViewBag.pagesize - 1);
+                        }
+                        for (int i = 0; i < Model.StoreAllData.Tables[0].Rows.Count; i++)
+                        {
+                            d = d + 1;
+                            var Std_id = Model.StoreAllData.Tables[0].Rows[i]["Std_id"].ToString();
+                            var Name = Model.StoreAllData.Tables[0].Rows[i]["Name"].ToString();
+                            var FName = Model.StoreAllData.Tables[0].Rows[i]["FName"].ToString();
+                            var MName = Model.StoreAllData.Tables[0].Rows[i]["MName"].ToString();
+                            var Class = "5";// Model.StoreAllData.Tables[0].Rows[i]["Class1"].ToString();
+                            var ExamType = Model.StoreAllData.Tables[0].Rows[i]["RP"].ToString();
+                            var Centre = Model.StoreAllData.Tables[0].Rows[i]["pcent"].ToString();
+                            var SUB = Model.StoreAllData.Tables[0].Rows[i]["SUB"].ToString();
+                            var SUBNM = Model.StoreAllData.Tables[0].Rows[i]["SUBNM"].ToString();
+                            //var NOC = Model.StoreAllData.Tables[0].Rows[i]["cnt"].ToString();
+                            //var ME = Model.StoreAllData.Tables[0].Rows[i]["ME"].ToString();
+                            //var MP = Model.StoreAllData.Tables[0].Rows[i]["MP"].ToString();
+                            //var FS = Model.StoreAllData.Tables[0].Rows[i]["FS"].ToString();
+                            var FSP = "1";// Model.StoreAllData.Tables[0].Rows[i]["FSP"].ToString();
+
+
+
+                            var RP = Model.StoreAllData.Tables[0].Rows[i]["RP"].ToString();
+                            var cls = "5";// Model.StoreAllData.Tables[0].Rows[i]["Class"].ToString();
+                                          //DateTime LastDate = Convert.ToDateTime(Model.StoreAllData.Tables[0].Rows[i]["LastDate"].ToString());
+
+                            var parm = cls + "-" + RP + "-" + Centre + "-" + SUB;
+                            Count = Count + 1;
+                            <tr>
+                                <td>
+                                    @Std_id
+                                </td>
+                                <td>
+                                    @Name/ @FName/ @MName
+                                </td>
+                                <td>
+                                    @Class
+                                </td>
+                                <td>
+                                    @ExamType
+                                </td>
+                                <td>
+                                    @SUB
+                                </td>
+                                <td>
+                                    @SUBNM
+                                </td>
+                                @*<td>
+                                        @NOC
+                                    </td>*@
+                                <td>
+                                    @FSP
+                                </td>
+
+
+                                <td>
+                                    <a href="" data-toggle="modal" data-target="#myModal1-@Std_id">Enter Marks</a>
+
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="8">
+                                @ViewBag.Message
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </table>
+        </div>
+    </div>
+</div>
+@{
+    if (ViewBag.TotalCount > 0)
+    {
+        for (int i = 0; i < Model.StoreAllData.Tables[0].Rows.Count; i++)
+        {
+
+            var Std_id = Model.StoreAllData.Tables[0].Rows[i]["Std_id"].ToString();
+            var Name = Model.StoreAllData.Tables[0].Rows[i]["Name"].ToString();
+            var FName = Model.StoreAllData.Tables[0].Rows[i]["FName"].ToString();
+            var MName = Model.StoreAllData.Tables[0].Rows[i]["MName"].ToString();
+            var Class = "5";// Model.StoreAllData.Tables[0].Rows[i]["Class1"].ToString();
+            var ExamType = Model.StoreAllData.Tables[0].Rows[i]["RP"].ToString();
+            var Centre = Model.StoreAllData.Tables[0].Rows[i]["pcent"].ToString();
+            var SUB = Model.StoreAllData.Tables[0].Rows[i]["SUB"].ToString();
+            var SUBNM = Model.StoreAllData.Tables[0].Rows[i]["SUBNM"].ToString();
+            //var NOC = Model.StoreAllData.Tables[0].Rows[i]["cnt"].ToString();
+            //var ME = Model.StoreAllData.Tables[0].Rows[i]["ME"].ToString();
+            //var MP = Model.StoreAllData.Tables[0].Rows[i]["MP"].ToString();
+            //var FS = Model.StoreAllData.Tables[0].Rows[i]["FS"].ToString();
+            var FSP = "1";// Model.StoreAllData.Tables[0].Rows[i]["FSP"].ToString();
+            var OBTMARKSP = Model.StoreAllData.Tables[0].Rows[i]["OBTMARKSP"].ToString();
+            var schl = "123";
+        <div class="modal fade" id="myModal1-@Std_id" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title">Student Details</h3>
+                    </div>
+                    <div class="modal-body">
+                        <table width="100%">
+                            <tr>
+                                <td>Canidate Name</td>
+                                <td><label>@Name / @FName/ @MName </label></td>
+                            </tr>
+                            @*<tr>
+                                    <td>Father Name</td>
+                                    <td><label>@obj.Father_Name</label></td>
+                                </tr>
+                                <tr>
+                                    <td>Mother Name</td>
+                                    <td><label>@obj.Mother_Name</label></td>
+                                </tr>*@
+                            <tr>
+                                <td width="28%">Student ID</td>
+                                <td><label>@Std_id</label></td>
+                            </tr>
+
+                            <tr>
+                                <td width="28%">OBTMARKSP.</td>
+                                <td>
+                                    <input type="text" max="30" maxlength="2" id="ObtMarks-@Std_id" name="ObtMarks" onpaste="return false;" class="obtmarks" value="@OBTMARKSP"  />
+                                    <br />
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><input type="button" class="btn" value="Update Marks." id="btnSave" onclick="SubMarks(@Std_id)" /></td>
+                            </tr>
+
+
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+            }
+        }
+    }
+<script>
+    $(document).ready(function () {
+        $(".chkclass").off('keypress');
+
+        $(".chkclass").keypress(function (evt) {
+            var charCode = (evt.which) ? evt.which : evt.keyCode
+            if ((charCode >= 48 && charCode <= 57) || (charCode == 9) || (charCode == 8) || (charCode == 65) || (charCode == 67) || (charCode == 97) || (charCode == 99)) {
+                return true;
+            }
+            else {
+                alert("Invalid character, Enter Numeric Value or 'A' or 'C' !!");
+                return false;
+            }
+        });
+
+
+        var value = document.getElementById('SelFilter').value;
+        if (value == 6) {
+            $("#SearchString").datepicker("enable");
+            $("#SearchString").off('keypress');
+            $("#SearchString").keypress(function (evt) {
+                return false;
+
+            });
+            $("#SearchString").datepicker({
+                dateFormat: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+                maxDate: '0'
+                //maxDate: '-10Y',
+
+            });
+
+        }
+        else if (value == 3 || value == 4 || value == 5) {
+            $("#SearchString").datepicker("disable");
+            document.getElementById('SearchString').disabled = false;
+            $("#SearchString").off('keypress');
+            $("#SearchString").keypress(function (evt) {
+                var keyCode = (evt.which) ? evt.which : evt.keyCode
+                if ((keyCode < 65 || keyCode > 90) && (keyCode < 97 || keyCode > 123) && keyCode != 32) {
+                    alert("Only Characters Allowed!!");
+                    return false;
+                }
+                else {
+                    return true;
+                }
+
+            });
+        }
+
+        else {
+            $("#SearchString").datepicker("disable");
+            document.getElementById('SearchString').disabled = false;
+            $("#SearchString").off('keypress');
+        }
+    });
+
+    var form = $("#searchform").serialize();
+
+    $("#SelFilter").change(function () {
+        var value = document.getElementById('SelFilter').value;
+        $('#SearchString').val('');
+        if (value == 6) {
+            $("#SearchString").datepicker("enable");
+            $("#SearchString").off('keypress');
+            $("#SearchString").keypress(function (evt) {
+                return false;
+
+            });
+            $("#SearchString").datepicker({
+                dateFormat: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+                maxDate: '0'
+                //maxDate: '-10Y',
+
+            });
+
+        }
+        else if (value == 3 || value == 4 || value == 5) {
+            $("#SearchString").datepicker("disable");
+            document.getElementById('SearchString').disabled = false;
+            $("#SearchString").off('keypress');
+            $("#SearchString").keypress(function (evt) {
+                var keyCode = (evt.which) ? evt.which : evt.keyCode
+                if ((keyCode < 65 || keyCode > 90) && (keyCode < 97 || keyCode > 123) && keyCode != 32) {
+                    alert("Only Characters Allowed!!");
+                    return false;
+                }
+                else {
+                    return true;
+                }
+
+            });
+        }
+
+        else {
+            $("#SearchString").datepicker("disable");
+            document.getElementById('SearchString').disabled = false;
+            $("#SearchString").off('keypress');
+        }
+
+    });
+
+</script>
+
+<script type="text/javascript">
+    function SubMarks(stdid) {
+
+       var schl = "123";
+        var aa = $("#ObtMarks-" + stdid).val();
+        if (aa.length <= 0) {
+            alert(aa.length);
+            alert('Enter OBTMARKSP');
+            return false;
+        }
+        alert(aa);
+       // $('#loading1').html("<p><img src='https://registration.pseb.ac.in/images/loadingk.gif'></p>");
+        $.ajax({
+            type: "POST",
+            url: "/School/UpdatefifthPracObtMarks", // this for calling the web method function in cs code.
+            data: '{std_id: "' + stdid + '",obtmrk: "' + aa + '", SCHL:"' + schl + '"}',// user name or email value
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                //$('#loading1').empty();
+                if (response.sn == "Yes") {
+                    //$('#myModal1-' + stdid).modal('hide');
+                    alert("OBTMARKSP Updated Successfully");
+                    window.location.href = "/School/PracticalExamMarks/Primary";
+                }
+                else {
+                    alert("OBTMARKSP not Updated.");
+                   // $('#loading1').empty();
+                }
+            },
+            failure: function (response) {
+                alert(response);
+                //$('#loading1').empty();
+            }
+            
+        });
+    }
+
+</script>
+
+<style>
+    .input-validation-error {
+        background-color: #FF9494 !important;
+        border: solid 1px Red !important;
+    }
+    /*input:required {
+         background-color: #FF9494 !important;
+        border:1px solid #999;
+    }*/
+</style>

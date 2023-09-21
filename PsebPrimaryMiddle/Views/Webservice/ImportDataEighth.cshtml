@@ -1,0 +1,262 @@
+﻿@model PsebJunior.Models.webSerModel
+@{
+    Layout = "~/Views/Shared/_Headerui.cshtml";
+}
+
+@using (Html.BeginForm("ImportDataEighth", "Webservice", FormMethod.Post, new { id = "searchform", enctype = "multipart/form-data" }))
+{
+    <h1>
+        Import Data From E-punjab - Session @PsebPrimaryMiddle.Models.MasterClass.SessionFullYear
+    </h1>
+<p class="kdsfont-n">
+                    ਈ-ਪੰਜਾਬ (E-Punjab) ਤੋਂ ਪ੍ਰੀਖਿਆਰਥੀਆਂ ਦਾ ਡਾਟਾ ਇੰਮਪੋਰਟ (Import) ਕਰਨ ਲਈ ਸਕੂਲ ਦਾ UDISE Code ਅਪਡੇਟ ਹੋਣਾ ਲਾਜ਼ਮੀ ਹੈ। ਜੇਕਰ ਤੁਸੀਂ ਸਕੂਲ ਦਾ UDISE Code ਅਪਡੇਟ ਨਹੀਂ ਕੀਤਾ ਹੈ ਤਾਂ School Profile -> Update UDISE Code ਲਿੰਕ ਅਧੀਨ ਅਪਡੇਟ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ।
+                </p>
+                <p class="kdsfont-n">ਇਸ ਲਿੰਕ ਅਧੀਨ ਸਿਰਫ ਉਹਨਾਂ ਪ੍ਰੀਖਿਆਰਥੀਆਂ ਨੂੰ ਹੀ ਇੰਮਪੋਰਟ ਕੀਤਾ ਜਾਵੇ ਜਿੰਨ੍ਹਾਂ ਨੇ ਪਿਛਲੀ ਸ਼੍ਰੇਣੀ ਪੰਜਾਬ ਸਕੂਲ ਸਿੱਖਿਆ ਬੋਰਡ ਨਾਲ ਸਬੰਧਤ ਸਕੂਲਾਂ ਤੋਂ ਪਾਸ ਕੀਤੀ ਹੈ ਪ੍ਰੰਤੂ ਉਹਨਾਂ ਕੋਲ ਬੋਰਡ ਵੱਲੋਂ ਜਾਰੀ ਰਜਿਸਟਰੇਸ਼ਨ ਨੰਬਰ ਨਹੀਂ ਹੈ। </p>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-3">
+                UDISE CODE:
+            </div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.UdiseCode, new { @maxlength = "30", readOnly = "ReadOnly" })
+            </div>
+            <input type="Submit" value="Submit" name="cmd" />
+            <input type="submit" value="Import Selected Record" name="cmd" />
+            <input type="button" value="View All Inserted Records" onclick="javascript:document.location.href='@Url.Action("A1Formgrid", "RegistrationPortal")'" />
+            <input type="button" value="Import Data" onclick="javascript:document.location.href='@Url.Action("A1Master", "RegistrationPortal")'">
+
+        </div>
+        OR
+        <div class="col-md-12">
+            <div class="col-md-3">
+                IMPORT BY:
+            </div>
+            <div class="col-md-3">
+                @{
+                    List<SelectListItem> catgilist = new List<SelectListItem>();
+                    catgilist.Add(new SelectListItem { Text = "--SELECT--", Value = "0" });
+                    catgilist.Add(new SelectListItem { Text = "E-PUNJAB STUDENT ID", Value = "1" });
+                    catgilist.Add(new SelectListItem { Text = "AADHAR NO.", Value = "2" });
+
+                }
+
+                @Html.DropDownList("importBy", catgilist, new { id = "importBy" })
+
+            </div>
+            <div class="col-md-3">
+                <input type="text" id="SearchString" name="SearchString" value="@ViewBag.Searchstring" onclick="deetext()" />
+            </div>
+            <input type="submit" value="Import Records" name="cmd" /> <a href="/RegistrationPortal/A1Master" class="btn">Back</a>
+        </div>
+        <div class="clearfix"></div>
+	
+        <div class="col-md-12 ">
+		<span class="rqf">Note : Kindly select only 5 students at a time for Import Selected Records.</span>
+		<br>
+		1. ਜੋ ਵਿਦਿਆਰਥੀ ਪੰਜਾਬ ਸਕੂਲ ਸਿੱਖਿਆ ਬੋਰਡ ਦੇ ਕਿਸੇ ਵੀ ਸਕੂਲ ਤੋਂ ਪਿਛਲੇ ਤਿੰਨ ਸਾਲ ਦੌਰਾਨ ਸੱਤਵੀਂ ਪਾਸ ਹਨ, ਉਹਨਾਂ ਦੀ ਐਂਟਰੀ A1 ਫਾਰਮ ਵਿੱਚ ਕੀਤੀ ਜਾਵੇ। ਜੇਕਰ ਕਿਸੇ ਵਿਦਿਆਰਥੀ ਨੂੰ ਬੋਰਡ ਵੱਲੋਂ ਕਿਸੇ ਵੀ ਸ਼੍ਰੇਣੀ ਵਿੱਚ ਪਹਿਲਾਂ ਰਜਿਸਟਰੇਸ਼ਨ ਨੰਬਰ ਜਾਰੀ ਹੋਇਆ ਹੈ ਤਾਂ  "Yes I Have P.S.E.B Alloted Reg No. For This Candidate" ਆਪਸ਼ਨ ਨੂੱ ਟਿੱਕ ਕਰਕੇ ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਨੰਬਰ ਵਾਲੇ ਖਾਨੇ ਵਿੱਚ ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਨੰਬਰ ਜਰੂਰ ਭਰਿਆ ਜਾਵੇ।
+<br>2. ਇਸ ਫਾਰਮ ਅਧੀਨ ਕੀਤੀ ਜਾ ਚੁੱਕੀ ਐਂਟਰੀ ਨੂੰ ਵੇਖਣ ਲਈ View Inserted Records ਤੇ ਕਲਿੱਕ ਕਰੋ। Rough Print ਲੈਣ ਲਈ Rough report ਤੇ ਕਲਿੱਕ ਕਰੋ  (ਇਹ ਪ੍ਰਿੰਟ ਸਿਰਫ Proof Reading ਲਈ ਹੈ)। ਪ੍ਰੀਖਿਆਰਥੀਆਂ ਦੇ ਵੇਰਵਿਆਂ ਦੀ ਐਂਟਰੀ ਪੂਰੇ ਧਿਆਨ ਨਾਲ ਦਾਖਲਾ ਖਾਰਜ ਰਜਿਸਟਰ ਅਨੁਸਾਰ ਕੀਤੀ ਜਾਵੇ।
+<br>3. ਇਸ ਤੋ ਇਲਾਵਾ ਇਹ ਵੀ ਧਿਆਨ ਵਿੱਚ ਰੱਖਿਆ ਜਾਵੇ ਕਿ ਅੰਗਰੇਜ਼ੀ ਤੋਂ ਪੰਜਾਬੀ ਵਿੱਚ ਕੰਨਵਰਜਨ ਦੀ ਸੁਵਿਧਾ ਸਿਰਫ ਤੁਹਾਡੀ ਸਹਾਇਤਾ ਲਈ ਦਿੱਤੀ ਗਈ ਹੈ। ਜੇਕਰ ਕੰਨਵਰਜਨ ਦੌਰਾਨ ਪੰਜਾਬੀ ਦੇ ਵੇਰਵੇ ਸਹੀ ਕੰਨਵਰਟ ਨਹੀਂ ਹੁੰਦੇ ਤਾਂ ਇਸ ਨੂੰ ਪੰਜਾਬੀ ਵਾਲੇ ਖਾਨੇ ਦੇ ਨਾਲ ਲੱਗੇ ਕੀ ਬੋਰਡ ਤੋਂ ਠੀਕ ਕੀਤਾ ਜਾਵੇ। ਪੰਜਾਬੀ ਦੇ ਵੇਰਵਿਆਂ ਵਿੱਚ ਵੀ ਹੋਈ ਗਲਤੀ ਲਈ ਜਿੰਮੇਵਾਰੀ ਤੁਹਾਡੀ ਹੋਵੇਗੀ, ਇਸ ਲਈ ਸਬਮਿਟ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਸਾਰੇ ਵੇਰਵਿਆਂ ਨੂੰ ਚੈਕ ਕਰਨਾ ਯਕੀਨੀ ਬਣਾਇਆ ਜਾਵੇ।
+	<br>	
+		
+		</div>
+
+    </div>
+
+    <div class="table-responsive">
+        <div class="col-md-12">
+            <table class="table table-bordered" id="t01">
+                <tr class="active-tr">
+                    <th>Id</th>
+                    <th>Udisecode</th>
+                    <th>School Name</th>
+                    <th>Student ID</th>
+                    <th>Category</th>
+                    <th>Candidate Name</th>
+                    <th>Father's Name</th>
+                    <th>Mother's Name</th>
+                    <th>Aadhar No.</th>
+                    <th>Select for Import<input type="checkbox" id="select_all" /> </th>
+                    @*<th>Update Detail</th>*@
+
+                </tr>
+                @{
+                    DateTime dt = DateTime.Now;
+                    DateTime str = DateTime.Now; //DateTime.Parse(dt.ToString("MM/dd/yyyy").Replace('-', '/'));
+                    DateTime date = str;
+
+                    if (ViewBag.TotalCount > 0)
+                    {
+                        int d = 0;
+                        int Count = 0;
+                        for (int i = 0; i < Model.StoreAllData.Tables[0].Rows.Count; i++)
+                        {
+                            var udicode = Model.StoreAllData.Tables[0].Rows[i]["udisecode"].ToString();
+                            var schl = Model.StoreAllData.Tables[0].Rows[i]["SchoolName"].ToString();
+                            var stdid = Model.StoreAllData.Tables[0].Rows[i]["StudentID"].ToString();
+                            var canName = Model.StoreAllData.Tables[0].Rows[i]["StudentName"].ToString();
+                            var Fname = Model.StoreAllData.Tables[0].Rows[i]["FatherName"].ToString();
+                            var Mname = Model.StoreAllData.Tables[0].Rows[i]["MotherName"].ToString();
+                            var uid = Model.StoreAllData.Tables[0].Rows[i]["StudentUID"].ToString();
+                            var ImpStatus = Model.StoreAllData.Tables[0].Rows[i]["ImpStatus"].ToString();
+                            var cat = Model.StoreAllData.Tables[0].Rows[i]["Category"].ToString();
+                            Count = i + 1;
+                                <tr>
+                                    <td>
+                                        @Count
+                                    </td>
+                                    <td>
+                                        @udicode
+                                    </td>
+                                    <td>
+                                        @schl
+                                    </td>
+                                    <td>
+                                        @stdid
+                                    </td>
+
+                                    <td>
+                                        @cat
+                                    </td>
+
+                                    <td>
+                                        @canName
+                                    </td>
+                                    <td>
+                                        @Fname
+                                    </td>
+                                    <td>
+                                        @Mname
+                                    </td>
+                                    <td>
+                                        @uid
+                                    </td>
+
+                                    <td>
+                                        @if (@ImpStatus.ToUpper() != "OK")
+                                        {
+                                            <span>@ImpStatus</span>
+                                        }
+                                        else
+                                        {
+                                            <input type="checkbox" value="@stdid" name="ChkCNinthClass" class="checkbox" />
+
+                                        }
+
+                                    </td>
+                                </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="8">
+                                @ViewBag.Message
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    </div>
+
+}
+@{
+    if (TempData["result"] != null)
+    {
+        if (TempData["result"].ToString() == "1")
+        {
+            <script type="text/javascript" language="javascript">
+                var impcn = @TempData["TotImported"];
+                //alert(impcn);
+                alert(impcn+" Records Imported Successfully");
+                document.location.href = '@Url.Action("ImportDataEighth", "Webservice")';
+            </script>}
+			 else if (TempData["result"].ToString() == "Inserted")
+        {
+<script type="text/javascript" language="javascript">
+                alert("Please select only 5 students at a time.");
+                  document.location.href = '@Url.Action("ImportDataEighth", "Webservice")';
+</script>
+
+        }
+        else if (TempData["result"].ToString() == "5")
+        {
+            <script type="text/javascript" language="javascript">
+                alert("Webservice Of Epunjab  Is Not Responding , Please Try After Some Time");
+            </script>
+
+        }
+        else if (TempData["result"].ToString() == "10")
+        {
+            <script type="text/javascript" language="javascript">
+                alert("Please select only 5 students at a time.");
+                document.location.href = '@Url.Action("ImportDataEighth", "Webservice")';
+            </script>
+
+        }
+        else if (TempData["result"].ToString() == "-1")
+        {
+            <script type="text/javascript" language="javascript">
+                alert("Record Already Exist");
+                document.location.href = '@Url.Action("ImportDataEighth", "Webservice")';
+            </script>
+        }
+		else if (TempData["result"].ToString() == "0")
+        {
+            <script type="text/javascript" language="javascript">
+                alert("Students Record Not Found in E-punjab, Please Contact to PSEB Head OFfice");
+                document.location.href = '@Url.Action("ImportDataEighth", "Webservice")';
+            </script>
+        }
+		else 
+        {
+            <script type="text/javascript" language="javascript">
+                alert("Record Not Found, Please Contact to PSEB Head OFfice");
+                document.location.href = '@Url.Action("ImportDataEighth", "Webservice")';
+            </script>
+        }
+    }
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+@*<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">*@
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $("#select_all").change(function () {
+            //"select all" change
+            //alert("abc");
+            var status = this.checked; // "select all" checked status
+            $('.checkbox').each(function () { //iterate all listed checkbox items
+                this.checked = status; //change ".checkbox" checked status
+            });
+
+            if ($('input[type=checkbox]:checked').length > 5) {
+                alert("allowed only 5");
+                $("#select_all")[0].checked = false;
+                $('.checkbox').each(function () { //iterate all listed checkbox items
+                    this.checked = false; //change ".checkbox" checked status
+                });
+            }
+        });
+
+        //uncheck "select all", if one of the listed checkbox item is unchecked
+        $('.checkbox').change(function () { //".checkbox" change
+            //alert($('input[type=checkbox]:checked').length);
+            //alert($(this).val());
+            if (this.checked == false) { //if this item is unchecked
+                $("#select_all")[0].checked = false; //change "select all" checked status to false
+            }
+
+            if ($('input[type=checkbox]:checked').length > 5) {
+                alert("allowed only 5");
+                this.checked = false;
+                $("#select_all")[0].checked = false;
+            }
+        });
+
+    });
+</script>

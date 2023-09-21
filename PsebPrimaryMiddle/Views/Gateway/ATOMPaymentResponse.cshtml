@@ -1,0 +1,86 @@
+﻿@model PsebJunior.Models.PaymentSuccessModel
+
+@{
+    ViewBag.Title = "Payment Successful";
+    Layout = "~/Views/Shared/_Card_Header.cshtml";
+}
+
+@{
+    if (ViewData["response"] != null)
+    {
+        if (ViewData["response"].ToString().ToLower() == "success")
+        {
+<table width="600" align="center" border="1">
+    <tr>
+        <td align="left"><img src="/Images/Printlogo.jpg" height="75" alt="PSEB" /></td>
+        <td align="right"><img src="/Images/Printlogohdfc.png" width="200" height="75" alt="HDFC" /></td>
+    </tr>
+    <tr>
+        <td align="center" colspan="2"><h4>Punjab School Education Board</h4></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <h1>Thank You!</h1>
+            <p>Thank you for your payment with the details below:</p>
+        </td>
+    </tr>
+    <tr><td colspan="2"></td></tr>
+    <tr>
+        <td colspan="2"><h1>Transaction Acknowledgment</h1></td>
+    </tr>
+    <tr>
+        <td>Payment Status : </td>
+        <td class="text-primary">@Model.order_status</td>
+    </tr>
+    <tr>
+        <td>Transaction Id : </td>
+        <td>@Model.tracking_id</td>
+    </tr>
+    <tr>
+        <td>Payment Id : </td>
+        <td>@Model.order_id</td>
+    </tr>
+    <tr>
+        <td>Payment Date: </td>
+        <td>@Model.trans_date</td>
+    </tr>
+    <tr>
+        <td>Payment Amount: </td>
+        <td>@Model.amount</td>
+    </tr>
+</table>
+        }
+        else if (ViewData["response"].ToString().ToLower() == "failure")
+        {
+<table width="600" align="center" border="1">
+    <tr>
+        <td>Payment Status : </td>
+        <td class="text-primary">Failure</td>
+    </tr>
+    <tr>
+        <td>Payment Id : </td>
+        <td>@Model.order_id</td>
+    </tr>
+    <tr>
+        <td>Transaction Id : </td>
+        <td>@Model.tracking_id</td>
+    </tr>
+    <tr>
+        <td>Payment Date: </td>
+        <td>@Model.trans_date</td>
+    </tr>
+    <tr>
+        <td>Payment Amount: </td>
+        <td>@Model.amount</td>
+    </tr>
+</table>
+        }
+        else
+        {
+            <p class="rqf">Payment Cancel</p>
+
+        }
+<p style="text-align:center"><br />  <input type="button" value="Print" class="btn" onclick="window.print()" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/Home/FinalPrint" class="btn">Got to Home</a></p>
+    }
+}
+

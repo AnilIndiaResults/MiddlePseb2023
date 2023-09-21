@@ -1,0 +1,139 @@
+﻿@model PsebJunior.Models.LoginModel
+@{
+ 
+  Layout = "~/Views/Shared/_Login_Header.cshtml";
+}
+<style type="text/css">
+    .form-signin {
+        background-color: #eee;
+        border: 3px dotted rgba(0, 0, 0, 0.1);
+        margin: 0 auto;
+        margin-top: 0px;
+        margin-bottom: 20px !important;
+        max-width: 420px;
+        padding: 30px 38px 30px !important;
+        margin-top: 40px !important;
+    }
+
+    .lst span {
+        color: #cc0000
+    }
+</style>
+
+<div class="col-md-12" style="font-size:24px;padding-top:20px;text-align:center">
+    <a href="http://www.registration.pseb.ac.in/School/Schoollist" target="_blank" style="color:#cc0000">
+        Click here to find School Code / User ID
+    </a>
+    <div style="font-size:20px;padding-top:10px" class="lst kdsfont">
+        Ó¨ÞÐ ÂØ ¨ë¸ / ÍÞ²Ï ¤Ø¥Û. ¸Û. Æ¼Ø ¨ÏÅ Ð¥Û ¦ÝóÆÏ ÚÂó¼ã ÚÐâ¨ ¼ã ¨ÚÐó¨ ¨Ïë¢ ÓÞ°Û ÚÒó°ë× ¤ØÆ»ã Ó¨ÞÐ ÂØ ÅØÌ, Ó¶ãÓÖÅ ÂØ ÅØÌ ²Ù ÍÞ¸Ø¥ÛÓ ¨ë¸ ÆØ¨ã Ó¨ÞÐ ¨ë¸ / ÍÞ²Ï ¤Ø¥Û. ¸Û. ÐóÚÊ¤Ø ²Ø Ó¨ÂØ Õè¢
+    </div>
+</div>
+
+<div class="clearfix"></div>
+<form class="form-signin" name="Login_Form" method="post" action="">
+    <h3 class="form-signin-heading text-center">School Login Panel.</h3>
+    <br />
+    @Html.TextBoxFor(m => m.UserName, new { placeholder = "Username", @class = "form-control", required = "required", maxlength = "7", style = "text-transform: none;" })
+    @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Password", required = "required", style = "text-transform: none;" })
+    @if (ViewBag.SessionList != null)
+    {
+        @Html.DropDownList("Session", new SelectList(ViewBag.SessionList, "Value", "Text"), "---Select Session---", new { @class = "form-control", required = "required", style = "text-transform: none;padding-left:0" })
+    }
+    <div class="checkbox" id="remember">
+        <span>
+            <input type="checkbox" value="remember-me"> Remember me
+        </span>
+    </div><br />
+    <p style="text-align:center"><input type="submit" value="Login" />&nbsp;&nbsp;&nbsp;<a href="/Login/ForgotPassword" style="color:#cc0000">Forgot Password?</a></p>
+</form>
+<div class="clearfix"></div>
+<div class="col-md-12">
+    <div style="font-size:12px;padding:10px 0;text-align:center" class="lst">
+        <span style="font-size:16px;color:#cc0000">District Wise Helpline Number For Primary / Middle</span><br />
+        AMRITSAR, TARN TARAN, MANSA - <span>01725227308</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+        LUDHIANA, MOGA, FARIDKOT - <span>01725227309</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+        JALANDHAR, KAPURTHALLA, PATIALA, BARNALA - <span>01725227311</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+        GURDASPUR, PATHANKOT, BATHINDA,	MUKTSAR SAHIB - <span>01725227312</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+        FEROZEPUR, FAZILKA, MOHALI, SANGRUR - <span>01725227313</span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+        HOSHIARPUR, S.B.S NAGAR, ROPAR, FATEHGARH SAHIB - <span>01725227434</span>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="col-md-12"><div style="border-top:1px dashed #ccc;padding-top:10px"></div></div>
+<div class="clearfix"></div>
+<div class="col-md-2">
+    Toll Free Help Line No.<br />
+    For Technical Support
+</div>
+<div class="col-md-3">
+    <span style="font-size:26px">
+        18001234860<br /><span style="font-size:10px">Mon to Fri – 10:00 AM to 5:00 PM</span><br />
+        <span style="font-size:12px"><i class="fa fa-envelope"></i> <a href="mailto:Contact1@psebonline.in" target="_blank" class="redc">contact1@psebonline.in</a></span>
+    </span>
+</div>
+<div class="col-md-1">
+</div>
+@*<div class="col-md-1"></div>*@
+<div class="col-md-2">
+    Contact No.<br />
+    For Registration Query
+</div>
+<div class="col-md-4"><span style="font-size:26px">0172-5227438, 439, 440<br /><span style="font-size:11px"> Mon to Fri – 10:00 AM to 5:00 PM</span><br /><span style="font-size:12px"><i class="fa fa-envelope"></i> @*<a href="mailto:branchaffiliation@gmail.com" target="_blank" class="redc">branchaffiliation@gmail.com</a>*@</span></span></div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+<script type="text/javascript">
+    $(function () {
+        $("#dPending").dialog({
+            modal: true,
+            title: "Alert",
+            width: 400,
+            height: 250,
+            buttons: {                    
+                "OK": function () {                
+                    $(this).dialog("close");
+                },
+            }
+        });
+    });
+</script>
+@{
+    if (ViewData["result"] != null)
+    {
+        if (ViewData["result"].ToString() == "2")
+        {
+            <div id="dPending" style="font-size:24px;display: none;padding:30px 10px" align="center" class="kdsfont">
+                <span class="rqf">Your Account is disable.Please Contact to PSEB Head OFfice.</span>
+            </div>
+        }
+        else if (ViewData["result"].ToString() == "10")
+        {
+            <div id="dPending" style="font-size:24px;display: none;padding:30px 10px" align="center" class="kdsfont">
+                <span class="rqf">You are not allowed for primary and middle class. Please Contact to PSEB Head OFfice.</span>
+            </div>
+
+        }
+        else if (ViewData["result"].ToString() == "0")
+        {
+            <div id="dPending" style="font-size:24px;display: none;padding:30px 10px" align="center" class="kdsfont">
+                <span class="rqf">Wrong Credentials..Plz try again with valid Credentials</span>
+            </div>
+        }
+		else if (ViewData["result"].ToString() == "20")
+        {
+            <div id="dPending" style="font-size:22px;display: none;padding:30px 10px" align="center" class="kdsfont">
+                <span class="rqf">Affiliation Continuation is Pending For Session 2020-21. In order to complete it Kindly Login in Your Previous Session i.e 2019-2020 and Fill Annual Progress Report From Profile Menu.</span>
+            </div>
+
+        }
+        else if (ViewData["result"].ToString().Contains("Error"))
+        {
+            <div id="dPending" style="font-size:24px;display: none;padding:30px 10px" align="center" class="kdsfont">
+                <span class="rqf">@ViewData["result"]</span>
+            </div>
+        }
+    }
+}
+
+
+
+

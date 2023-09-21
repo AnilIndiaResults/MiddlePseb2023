@@ -1,0 +1,108 @@
+﻿@*@model List<PsebJunior.Models.SiteMenu>*@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title Punjab School Education Board</title>
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,600' rel='stylesheet' type='text/css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <noscript>
+        <style type="text/css">
+            #HPL {
+                display: none;
+            }
+        </style>
+        <charset style="background-color:#cc0000;color:#ffd800;font-size:24px;text-align:center;padding:10px 0">Your browser does not support JavaScript!</charset>
+
+    </noscript>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style type="text/css">
+        .nav > li > a {padding:10px 13px !important}
+    </style>
+</head>
+
+<body>
+
+    @{
+
+        if (Session["AdminLoginSession"] != null)
+        {
+            PsebJunior.Models.AdminLoginSession adminLoginSession = (PsebJunior.Models.AdminLoginSession)Session["AdminLoginSession"];
+            <div id="HPL">
+                <div class="header">
+                    <div class="container">
+                        <div class="row noprint">
+                            <div class="col-xs-3 col-md-3"><img src="~/Images/pseb_logo.png" alt="Punjab School Education Board" class="img-responsive" /></div>
+                            <div class="col-xs-9 col-md-6"><center> <img src="~/Images/PSEB_Text.png" alt="Punjab School Education Board" class="img-responsive" /></center></div>
+                            @*<div class="col-xs-12 col-md-3 text-right">Helpline no for technical issue<br />+91 9718803833</div>*@
+                            <div class="col-xs-12 col-md-3 text-right">
+                                <span style="color:#fff;display:none">Helpline No. For Technical Issue<br />+91 9718803833</span>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-12 text-center" style="color:#fff">
+                                <span>
+                                   @adminLoginSession.USERNAME
+                                </span> &nbsp;
+                                [<span>@adminLoginSession.CurrentSession</span>]
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="navbar navbar-inverse">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div class="navbar-collapse collapse">
+                            @if (ViewBag.SiteMenu != null)
+                            {
+                                List<PsebJunior.Models.SiteMenu> Model = ((List<PsebJunior.Models.SiteMenu>)ViewBag.SiteMenu);
+
+                                <ul class="nav navbar-nav">                                   
+                                    @MenuView.GetMenuView(Model, Model.FirstOrDefault().ParentMenuID)                                   
+                                </ul>
+                            }                         
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown">
+                                        &#128274;
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>@Html.ActionLink("Change Password", "Change_Password", "Admin")</li>
+                                        <li>@Html.ActionLink("Logout", "Logout", "Admin")</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container KDBG">
+                    @RenderBody()
+                </div>
+
+                <footer class="bs-docs-footer">
+                    <div class="container text-center">
+                        All Rights Reserved at Punjab School Education Board, 1969 - 2017
+                    </div>
+                </footer>
+            </div>
+
+
+        }
+
+
+    }
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/Content/bootstrap")
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

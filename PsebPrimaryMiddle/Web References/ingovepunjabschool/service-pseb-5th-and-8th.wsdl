@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="https://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="https://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="https://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="https://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="https://tempuri.org/" xmlns:http="https://schemas.xmlsoap.org/wsdl/http/" xmlns:s="https://www.w3.org/2001/XMLSchema" xmlns:soap12="https://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="https://tempuri.org/" xmlns:wsdl="https://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="https://tempuri.org/">
+      <s:element name="get5thAnd8ththClassAllStudents">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="paramerter" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="get5thAnd8ththClassAllStudentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="get5thAnd8ththClassAllStudentsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="get5thAnd8thClassStudentDetails_ByStudents">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="paramerter" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="get5thAnd8thClassStudentDetails_ByStudentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="get5thAnd8thClassStudentDetails_ByStudentsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="get5thAnd8ththClassStudentDetails_ByUID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="paramerter" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="get5thAnd8ththClassStudentDetails_ByUIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="get5thAnd8ththClassStudentDetails_ByUIDResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getSchoolDetailsByUdiseCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="paramerter" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getSchoolDetailsByUdiseCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getSchoolDetailsByUdiseCodeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="get5thAnd8ththClassAllStudentsSoapIn">
+    <wsdl:part name="parameters" element="tns:get5thAnd8ththClassAllStudents" />
+  </wsdl:message>
+  <wsdl:message name="get5thAnd8ththClassAllStudentsSoapOut">
+    <wsdl:part name="parameters" element="tns:get5thAnd8ththClassAllStudentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="get5thAnd8thClassStudentDetails_ByStudentsSoapIn">
+    <wsdl:part name="parameters" element="tns:get5thAnd8thClassStudentDetails_ByStudents" />
+  </wsdl:message>
+  <wsdl:message name="get5thAnd8thClassStudentDetails_ByStudentsSoapOut">
+    <wsdl:part name="parameters" element="tns:get5thAnd8thClassStudentDetails_ByStudentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="get5thAnd8ththClassStudentDetails_ByUIDSoapIn">
+    <wsdl:part name="parameters" element="tns:get5thAnd8ththClassStudentDetails_ByUID" />
+  </wsdl:message>
+  <wsdl:message name="get5thAnd8ththClassStudentDetails_ByUIDSoapOut">
+    <wsdl:part name="parameters" element="tns:get5thAnd8ththClassStudentDetails_ByUIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="getSchoolDetailsByUdiseCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:getSchoolDetailsByUdiseCode" />
+  </wsdl:message>
+  <wsdl:message name="getSchoolDetailsByUdiseCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:getSchoolDetailsByUdiseCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="get5thAnd8ththClassAllStudentsHttpGetIn">
+    <wsdl:part name="paramerter" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="get5thAnd8ththClassAllStudentsHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="get5thAnd8thClassStudentDetails_ByStudentsHttpGetIn">
+    <wsdl:part name="paramerter" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="get5thAnd8thClassStudentDetails_ByStudentsHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="get5thAnd8ththClassStudentDetails_ByUIDHttpGetIn">
+    <wsdl:part name="paramerter" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="get5thAnd8ththClassStudentDetails_ByUIDHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="getSchoolDetailsByUdiseCodeHttpGetIn">
+    <wsdl:part name="paramerter" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="getSchoolDetailsByUdiseCodeHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="get5thAnd8ththClassAllStudentsHttpPostIn">
+    <wsdl:part name="paramerter" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="get5thAnd8ththClassAllStudentsHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="get5thAnd8thClassStudentDetails_ByStudentsHttpPostIn">
+    <wsdl:part name="paramerter" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="get5thAnd8thClassStudentDetails_ByStudentsHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="get5thAnd8ththClassStudentDetails_ByUIDHttpPostIn">
+    <wsdl:part name="paramerter" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="get5thAnd8ththClassStudentDetails_ByUIDHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="getSchoolDetailsByUdiseCodeHttpPostIn">
+    <wsdl:part name="paramerter" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="getSchoolDetailsByUdiseCodeHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="service_pseb_5th_and_8thSoap">
+    <wsdl:operation name="get5thAnd8ththClassAllStudents">
+      <wsdl:input message="tns:get5thAnd8ththClassAllStudentsSoapIn" />
+      <wsdl:output message="tns:get5thAnd8ththClassAllStudentsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="get5thAnd8thClassStudentDetails_ByStudents">
+      <wsdl:input message="tns:get5thAnd8thClassStudentDetails_ByStudentsSoapIn" />
+      <wsdl:output message="tns:get5thAnd8thClassStudentDetails_ByStudentsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="get5thAnd8ththClassStudentDetails_ByUID">
+      <wsdl:input message="tns:get5thAnd8ththClassStudentDetails_ByUIDSoapIn" />
+      <wsdl:output message="tns:get5thAnd8ththClassStudentDetails_ByUIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getSchoolDetailsByUdiseCode">
+      <wsdl:input message="tns:getSchoolDetailsByUdiseCodeSoapIn" />
+      <wsdl:output message="tns:getSchoolDetailsByUdiseCodeSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="service_pseb_5th_and_8thHttpGet">
+    <wsdl:operation name="get5thAnd8ththClassAllStudents">
+      <wsdl:input message="tns:get5thAnd8ththClassAllStudentsHttpGetIn" />
+      <wsdl:output message="tns:get5thAnd8ththClassAllStudentsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="get5thAnd8thClassStudentDetails_ByStudents">
+      <wsdl:input message="tns:get5thAnd8thClassStudentDetails_ByStudentsHttpGetIn" />
+      <wsdl:output message="tns:get5thAnd8thClassStudentDetails_ByStudentsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="get5thAnd8ththClassStudentDetails_ByUID">
+      <wsdl:input message="tns:get5thAnd8ththClassStudentDetails_ByUIDHttpGetIn" />
+      <wsdl:output message="tns:get5thAnd8ththClassStudentDetails_ByUIDHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getSchoolDetailsByUdiseCode">
+      <wsdl:input message="tns:getSchoolDetailsByUdiseCodeHttpGetIn" />
+      <wsdl:output message="tns:getSchoolDetailsByUdiseCodeHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="service_pseb_5th_and_8thHttpPost">
+    <wsdl:operation name="get5thAnd8ththClassAllStudents">
+      <wsdl:input message="tns:get5thAnd8ththClassAllStudentsHttpPostIn" />
+      <wsdl:output message="tns:get5thAnd8ththClassAllStudentsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="get5thAnd8thClassStudentDetails_ByStudents">
+      <wsdl:input message="tns:get5thAnd8thClassStudentDetails_ByStudentsHttpPostIn" />
+      <wsdl:output message="tns:get5thAnd8thClassStudentDetails_ByStudentsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="get5thAnd8ththClassStudentDetails_ByUID">
+      <wsdl:input message="tns:get5thAnd8ththClassStudentDetails_ByUIDHttpPostIn" />
+      <wsdl:output message="tns:get5thAnd8ththClassStudentDetails_ByUIDHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getSchoolDetailsByUdiseCode">
+      <wsdl:input message="tns:getSchoolDetailsByUdiseCodeHttpPostIn" />
+      <wsdl:output message="tns:getSchoolDetailsByUdiseCodeHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="service_pseb_5th_and_8thSoap" type="tns:service_pseb_5th_and_8thSoap">
+    <soap:binding transport="https://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="get5thAnd8ththClassAllStudents">
+      <soap:operation soapAction="https://tempuri.org/get5thAnd8ththClassAllStudents" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="get5thAnd8thClassStudentDetails_ByStudents">
+      <soap:operation soapAction="https://tempuri.org/get5thAnd8thClassStudentDetails_ByStudents" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="get5thAnd8ththClassStudentDetails_ByUID">
+      <soap:operation soapAction="https://tempuri.org/get5thAnd8ththClassStudentDetails_ByUID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSchoolDetailsByUdiseCode">
+      <soap:operation soapAction="https://tempuri.org/getSchoolDetailsByUdiseCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="service_pseb_5th_and_8thSoap12" type="tns:service_pseb_5th_and_8thSoap">
+    <soap12:binding transport="https://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="get5thAnd8ththClassAllStudents">
+      <soap12:operation soapAction="https://tempuri.org/get5thAnd8ththClassAllStudents" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="get5thAnd8thClassStudentDetails_ByStudents">
+      <soap12:operation soapAction="https://tempuri.org/get5thAnd8thClassStudentDetails_ByStudents" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="get5thAnd8ththClassStudentDetails_ByUID">
+      <soap12:operation soapAction="https://tempuri.org/get5thAnd8ththClassStudentDetails_ByUID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSchoolDetailsByUdiseCode">
+      <soap12:operation soapAction="https://tempuri.org/getSchoolDetailsByUdiseCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="service_pseb_5th_and_8thHttpGet" type="tns:service_pseb_5th_and_8thHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="get5thAnd8ththClassAllStudents">
+      <http:operation location="/get5thAnd8ththClassAllStudents" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="get5thAnd8thClassStudentDetails_ByStudents">
+      <http:operation location="/get5thAnd8thClassStudentDetails_ByStudents" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="get5thAnd8ththClassStudentDetails_ByUID">
+      <http:operation location="/get5thAnd8ththClassStudentDetails_ByUID" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSchoolDetailsByUdiseCode">
+      <http:operation location="/getSchoolDetailsByUdiseCode" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="service_pseb_5th_and_8thHttpPost" type="tns:service_pseb_5th_and_8thHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="get5thAnd8ththClassAllStudents">
+      <http:operation location="/get5thAnd8ththClassAllStudents" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="get5thAnd8thClassStudentDetails_ByStudents">
+      <http:operation location="/get5thAnd8thClassStudentDetails_ByStudents" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="get5thAnd8ththClassStudentDetails_ByUID">
+      <http:operation location="/get5thAnd8ththClassStudentDetails_ByUID" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSchoolDetailsByUdiseCode">
+      <http:operation location="/getSchoolDetailsByUdiseCode" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="service_pseb_5th_and_8th">
+    <wsdl:port name="service_pseb_5th_and_8thSoap" binding="tns:service_pseb_5th_and_8thSoap">
+      <soap:address location="https://www.epunjabschool.gov.in/webservice/service-pseb-5th-and-8th.asmx" />
+    </wsdl:port>
+    <wsdl:port name="service_pseb_5th_and_8thSoap12" binding="tns:service_pseb_5th_and_8thSoap12">
+      <soap12:address location="https://www.epunjabschool.gov.in/webservice/service-pseb-5th-and-8th.asmx" />
+    </wsdl:port>
+    <wsdl:port name="service_pseb_5th_and_8thHttpGet" binding="tns:service_pseb_5th_and_8thHttpGet">
+      <http:address location="https://www.epunjabschool.gov.in/webservice/service-pseb-5th-and-8th.asmx" />
+    </wsdl:port>
+    <wsdl:port name="service_pseb_5th_and_8thHttpPost" binding="tns:service_pseb_5th_and_8thHttpPost">
+      <http:address location="https://www.epunjabschool.gov.in/webservice/service-pseb-5th-and-8th.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

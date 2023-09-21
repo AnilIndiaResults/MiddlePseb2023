@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "SchoolCutList";
+    Layout = "~/Views/Shared/_Headerui.cshtml";
+}
+
+<h1>School Cut List</h1>
+
+@{
+    if (Session["LoginSession"] != null)
+    {
+        PsebJunior.Models.LoginSession loginSession = (PsebJunior.Models.LoginSession)Session["LoginSession"];
+        <div class="row">
+            <div class="col-md-12 text-right" style="display:none"><input type="button" value="Back" onclick="javascript:document.location.href='@Url.Action("SchoolCutList", "School" )'" /></div>
+            <div class="col-md-12">
+                <ul class="ullist">
+                    @if (loginSession.fifth == "Y")
+                    {
+                        <li><a href="/School/CutList_Schl/Primary"><samp>&#10093;</samp> Primary Cut List</a>&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;<a href="/School/CutList_Schl/PrimaryError">Primary Error List</a></li>
+                    }                    
+                    @if (loginSession.middle == "Y")
+                    {
+
+                        <li><a href="/School/CutList_Schl/Middle"><samp>&#10093;</samp> Middle Cut List</a>&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;<a href="/School/CutList_Schl/MiddleError"> Middle Error List</a></li>
+                    }                  
+                </ul>
+            </div>
+        </div>
+
+    }
+
+}

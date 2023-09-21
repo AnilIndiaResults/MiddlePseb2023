@@ -1,0 +1,121 @@
+﻿@model PsebJunior.Models.BankModels
+@{
+    ViewBag.Title = "View Profile";
+    Layout = "~/Views/Shared/_BankLayout.cshtml";
+}
+
+<h1>View Profile</h1>
+
+@using (Html.BeginForm("ViewProfile", "Bank", FormMethod.Post, new { id = "searchform", enctype = "multipart/form-data" }))
+{
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+          <table style="width:50%">
+              <tr>
+                  <td width="15%">ID</td>
+                  <td width="35%"><label>@Html.DisplayFor(m => m.ID)</label></td>
+              </tr>
+              <tr>
+                  <td>BCODE</td>
+                  <td><label>@Html.DisplayFor(m => m.BCODE)</label></td>
+              </tr>
+              <tr>
+                  <td>BANK NAME</td>
+                  <td><label>@Html.DisplayFor(m => m.BANKNAME)</label></td>
+              </tr>
+              <tr>
+                  <td>ADDRESS</td>
+                  <td><label>@Html.DisplayFor(m => m.ADDRESS, new { id = "", @maxlength = "200" })</label></td>
+              </tr>
+              <tr>
+                  <td>DISTRICT</td>
+                   <td><label>@Html.DisplayFor(m => m.DISTRICT, new { id = "", @maxlength = "200" })</label></td>
+              </tr>
+              <tr>
+                  <td>PINCODE</td>
+                   <td><label>@Html.DisplayFor(m => m.PINCODE, new { id = "", @maxlength = "200" })</label></td>
+              </tr>
+              <tr>
+                  <td>MOBILE No.</td>
+                   <td><label>@Html.DisplayFor(m => m.MOBILE, new { id = "", @maxlength = "200" })</label></td>
+              </tr>
+              <tr>
+                  <td>STD Code</td>
+                   <td><label>@Html.DisplayFor(m => m.STD, new { id = "", @maxlength = "200" })</label></td>
+              </tr>
+              <tr>
+                  <td>PHONE No.</td>
+                   <td><label>@Html.DisplayFor(m => m.PHONE, new { id = "", @maxlength = "200" })</label></td>
+              </tr>
+              <tr>
+                  <td>EMAILID 1</td>
+                   <td><label>@Html.DisplayFor(m => m.EMAILID1, new { id = "", @maxlength = "200" })</label></td>
+              </tr>
+              <tr>
+                  <td>EMAILID 2</td>
+                   <td><label>@Html.DisplayFor(m => m.EMAILID2, new { id = "", @maxlength = "200" })</label></td>
+              </tr>
+              <tr>
+                  <td>AC NO.</td>
+                  <td><label>@Html.DisplayFor(m => m.ACNO)</label></td>
+                   @*<td><label>@Html.DisplayFor(m => m.ACNO, new { id = "", @maxlength = "200" })</label></td>*@
+              </tr>
+              <tr>
+                  <td>IFSC</td>
+                  <td><label>@Html.DisplayFor(m => m.IFSC)</label></td>
+                   @*<td><label>@Html.DisplayFor(m => m.IFSC, new { id = "", @maxlength = "200" })</label></td>*@
+              </tr>
+              <tr>
+                  <td>MICR</td>
+                   <td><label>@Html.DisplayFor(m => m.MICR, new { id = "", @maxlength = "200" })</label></td>
+              </tr>
+              <tr>
+                  <td>BRANCH CODE</td>
+                  <td><label>@Html.DisplayFor(m => m.BRNCODE)</label></td>
+                   @*<td><label>@Html.DisplayFor(m => m.BRNCODE, new { id = "", @maxlength = "200" })</label></td>*@
+              </tr>
+              <tr>
+                  <td>NODAL BRANCH</td>
+                   <td><label>@Html.DisplayFor(m => m.NODAL_BRANCH, new { id = "", @maxlength = "200" })</label></td>
+              </tr>
+              <tr>
+                  <td>MANAGER NAME</td>
+                   <td><label>@Html.DisplayFor(m => m.MNAGER_NM, new { id = "", @maxlength = "200" })</label></td>
+              </tr>
+              <tr>
+                  <td>TECHNICAL PERSON</td>
+                   <td><label>@Html.DisplayFor(m => m.TECHNICAL_PERSON, new { id = "", @maxlength = "200" })</label></td>
+              </tr>
+              <tr>
+                  <td>OTHER CONTACT NO.</td>
+                   <td><label>@Html.DisplayFor(m => m.OTCONTACT, new { id = "", @maxlength = "200" })</label></td>
+              </tr>             
+              @*<tr>                 
+                   <td><input type="submit" value="Click Here To Updated Information" onclick="return valForm();" />  <br />&nbsp;<br /></td>                  
+              </tr>*@
+          </table>
+        </div>
+    </div>
+</div>
+}
+
+
+
+@{
+    if (ViewData["result"] != null)
+    {
+        if (ViewData["result"].ToString() == "1")
+        {
+            <script type="text/javascript" language="javascript">
+               alert("Data Updated Successfully");            
+                window.location.href = '@Url.Action("Welcome", "Bank")';
+            </script>}
+        else
+        {
+            <script type="text/javascript" language="javascript">
+                    alert("Data not updated..plz try again");
+            </script>
+        }        
+    }
+}

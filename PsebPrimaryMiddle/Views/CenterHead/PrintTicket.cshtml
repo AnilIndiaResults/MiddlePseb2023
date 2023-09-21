@@ -1,0 +1,21 @@
+﻿@model PsebJunior.Models.GenerateTicketModel
+@{
+    ViewBag.Title = "PrintTicket";
+}
+
+<h2>PrintTicket</h2>
+
+
+
+@if (Model != null)
+{
+<div>
+    <div>Ticket No @Model.TicketNumber</div>
+    <div>E-Centre @Model.SchoolCode</div>
+    <div>Subject @Model.ComplaintTypeName</div>
+    <div>Posted On @Model.CreatedOn</div>
+    <div>Statue @Model.FinalTicketStatus</div>
+    <div>Message : @Model.QueryMessage</div>
+</div>
+
+}

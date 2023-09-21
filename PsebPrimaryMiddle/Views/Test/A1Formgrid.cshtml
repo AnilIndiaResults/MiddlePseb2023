@@ -1,0 +1,74 @@
+﻿@model PsebJunior.Models.RegistrationSearchModelList
+@{   
+    //Layout = "~/Views/Shared/_Headerui.cshtml";
+}
+
+<table id="example" class="display" style="width:100%">
+    <thead>
+        <tr class="active-tr">
+            <th>Unique Id</th>
+            <th>Admission Date</th>
+            <th>Candidate Name</th>
+            <th>Father's Name</th>
+            <th>Mother's Name</th>
+            <th>DOB</th>
+            <th>Lot</th>
+            <th>Modify Date</th>
+            <th>Update Detail</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model.RegistrationSearchModel)
+        {
+        <tr>
+            <td>@obj.Std_id </td>
+            <td>@obj.Admission_Date </td>
+            <td>@obj.Candi_Name </td>
+            <td>@obj.Father_Name </td>
+            <td>@obj.Mother_Name </td>
+            <td>@obj.DOB</td>
+            <td>@obj.LOT</td>
+            <td>@obj.UPDT</td>
+            <td>
+                <div class="cart">
+                    Choose Action <span class="caret"></span>
+                    <div id="sidebar">
+                        <ul>
+                            <li><a href="/RegistrationPortal/A1formview/@encrypt.QueryStringModule.Encrypt(@obj.Std_id.ToString())">View</a></li>
+                            @if (obj.LOT.ToString() == "0")
+                            {
+                                <li><a href="/RegistrationPortal/A1form/@encrypt.QueryStringModule.Encrypt(@obj.Std_id.ToString())">Modify</a></li>
+                                <li><a href="/RegistrationPortal/A1FormDelete/@encrypt.QueryStringModule.Encrypt(@obj.Std_id.ToString())">Delete</a></li>
+                            }
+                            <li><a href="" data-toggle="modal" data-target="#myModal1-@obj.Std_id.ToString()">Modify Aadhar No.</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        }
+    </tbody>
+
+</table>
+
+     <!-- #region datatables files -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/dataTables.bootstrap4.min.js"></script>
+    <!-- #endregion -->
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#example').DataTable({
+                "responsive": true,
+                "lengthMenu": [[25, 50, 100], [25, 50, 100]],
+                "processing": true, 
+                "pageLength": 25,
+                "order": [[0, 'desc']],
+                language: {
+                    searchPlaceholder: "Search by the UniqueId.."
+                },
+            })
+        });  
+    </script>
+ 

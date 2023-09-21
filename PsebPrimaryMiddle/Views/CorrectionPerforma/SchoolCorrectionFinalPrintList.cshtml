@@ -1,0 +1,120 @@
+﻿@model PsebJunior.Models.RegistrationModels
+@{
+    Layout = "~/Views/Shared/_Headerui.cshtml";
+}
+<h1>
+    Correction Performa Final Print - Session @PsebPrimaryMiddle.Models.MasterClass.SessionFullYear
+</h1>
+
+@using (Html.BeginForm("SchoolCorrectionFinalPrintList", "CorrectionPerforma", FormMethod.Post, new { id = "CorrectionLot" }))
+{
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <a href="javascript:history.back()" class="btn">Back</a>
+
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="t01">
+                            <tr class="active-tr">
+                                <th>Serial No.</th>
+                                <th>Correction Lot</th>
+                                <th>Class</th>
+                                <th>Correction Field</th>
+                                <th>Final Submitted Date</th>
+                                <th>Action</th>
+
+                            </tr>
+                            @{
+                                int Count = 0;
+                                if (ViewBag.TotalCountadded > 0)
+                                {
+                                    int d = 0;
+
+                                    for (int i = 0; i < Model.CorrectionPerformaModel.Correctiondata.Tables[0].Rows.Count; i++)
+                                    {
+                                        d = d + 1;
+                                        var CorrectionLot = Model.CorrectionPerformaModel.Correctiondata.Tables[0].Rows[i]["CorrectionLot"].ToString();
+                                        var Class = Model.CorrectionPerformaModel.Correctiondata.Tables[0].Rows[i]["Class"].ToString();
+                                        var CorrectionField = Model.CorrectionPerformaModel.Correctiondata.Tables[0].Rows[i]["CTypeNM"].ToString();
+                                        var CorrectionFinalSubmitDt = Model.CorrectionPerformaModel.Correctiondata.Tables[0].Rows[i]["CorrectionFinalSubmitDt"].ToString();
+                                        Count = Count + 1;
+                                        <tr>
+                                            <td>
+                                                @Count
+                                            </td>
+                                            <td>
+                                                @CorrectionLot
+                                            </td>
+                                            <td>
+                                                @Class
+                                            </td>
+                                            <td>
+                                                @CorrectionField
+                                            </td>
+                                            <td>
+                                                @CorrectionFinalSubmitDt
+                                            </td>
+                                            <td>
+                                                <div class="cart">
+                                                    @Html.ActionLink("Print", "SchoolCorrectionPerformaFinalPrintSession", new { id = CorrectionLot })
+                                                    <a href="/CorrectionPerforma/VerifySchoolCorrection" class="btn btn-danger">Verify School Correction</a>
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                    }
+                                }
+                                if (ViewBag.TotalCountaddedSub > 0)
+                                {
+                                    int d = 0;
+                                    //int Count = 0;
+                                    for (int i = 0; i < Model.CorrectionPerformaModel.Correctiondata.Tables[1].Rows.Count; i++)
+                                    {
+                                        d = d + 1;
+                                        var CorrectionLot = Model.CorrectionPerformaModel.Correctiondata.Tables[1].Rows[i]["CorrectionLot"].ToString();
+                                        var Class = Model.CorrectionPerformaModel.Correctiondata.Tables[1].Rows[i]["Class"].ToString();
+                                        var CorrectionField = Model.CorrectionPerformaModel.Correctiondata.Tables[1].Rows[i]["CTypeNM"].ToString();
+                                        var CorrectionFinalSubmitDt = Model.CorrectionPerformaModel.Correctiondata.Tables[1].Rows[i]["CorrectionFinalSubmitDt"].ToString();
+                                        Count = Count + 1;
+                                        <tr>
+                                            <td>
+                                                @Count
+                                            </td>
+                                            <td>
+                                                @CorrectionLot
+                                            </td>
+                                            <td>
+                                                @Class
+                                            </td>
+                                            <td>
+                                                @CorrectionField
+                                            </td>
+                                            <td>
+                                                @CorrectionFinalSubmitDt
+                                            </td>
+                                            <td>
+                                                <div class="cart">
+                                                    @Html.ActionLink("Print", "SchoolCorrectionPerformaFinalPrintSession", new { id = CorrectionLot })
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                    }
+                                }
+                            }
+                        </table>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}

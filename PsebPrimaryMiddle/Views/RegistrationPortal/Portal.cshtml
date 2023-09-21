@@ -1,0 +1,146 @@
+﻿@model PsebJunior.Models.RegistrationModels
+@{
+    Layout = "~/Views/Shared/_Headerui.cshtml";
+}
+
+<h1>
+    Online Registration Portal (Registration/Continuation of Students) - Session @PsebPrimaryMiddle.Models.MasterClass.SessionFullYear
+</h1>
+<style type="text/css">
+    #ac-wrapper {
+        background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
+        height: 100%;
+        left: 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1001;
+    }
+   #popup1 {
+       min-height: auto;
+        left: 0;
+        padding: 15%;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+   #popup1 table {
+            background: #fff none repeat scroll 0 0;
+            border-radius:25px;
+            max-width: 500px;
+            min-width: 320px;
+            height: 165px;
+        }
+
+        #popup1 .button {
+            padding: 10px;
+            background: #efba09; /* Old browsers */
+            background: -moz-linear-gradient(top, #efba09 0%, #fb9709 50%, #efba09 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(top, #efba09 0%,#fb9709 50%,#efba09 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom, #efba09 0%,#fb9709 50%,#efba09 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#efba09', endColorstr='#efba09',GradientType=0 ); /* IE6-9 */
+        }
+</style>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="panel-group" id="accordion">
+		
+		 <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse9">Check Reg No.</a>
+                    </h4>
+                </div>
+                <div id="collapse9" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <ul>
+                            <li>@Html.ActionLink("Check Reg No. of Session 2023-24", "CheckRegularRegno", "RegistrationPortal")</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+		
+		
+		
+            <div class="panel panel-default" style="@(ViewBag.Fifth=="1" ? "display:block" : "display:none")">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Primary School</a>
+                    </h4>
+                </div>
+                <div id="collapse5" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <ul>
+                            <li class="kdsfont"><a href="@Url.Action("Agree", "RegistrationPortal", new { id = "F1" })"><span>F1 Form </span></a></li>
+                            <li class="kdsfont"><a href="@Url.Action("Agree", "RegistrationPortal", new { id = "F2" })"><span>F2 Form</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="panel panel-default" style="@(ViewBag.Eighth=="1" ? "display:block" : "display:none")">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Middle School</a>
+                    </h4>
+                </div>
+                <div id="collapse6" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <ul>
+                            <li class="kdsfont"><a href="@Url.Action("Agree", "RegistrationPortal", new { id = "A1" })"><span>A1 Form </span></a></li>
+                            <li class="kdsfont"><a href="@Url.Action("Agree", "RegistrationPortal", new { id = "A2" })"><span>A2 Form</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse19">Calculate Fee</a>
+                    </h4>
+                </div>
+                <div id="collapse19" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <ul>
+                            <li>@Html.ActionLink("Calculate Fee & Final Submit", "CalculateFee", "Home")</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a href="/Home/finalprint">Final Submission Print</a>
+                    </h4>
+                </div>
+            </div>
+		
+            <div class="panel panel-default" style="display :none">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a href="/RegistrationPortal/OtherBoardAllottedRegno">Other Board Allotted Reg. No.</a>
+                    </h4>
+                </div>
+            </div>
+            
+        </div>
+
+
+
+        </div>
+    <div class="col-md-9">
+        <h4>
+            Instructions<br />
+            <img src="~/Images/Online_Messages.png" alt="Online Messages" class="img-responsive" />
+
+
+        </h4>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,41 @@
+﻿@model PsebJunior.Models.Printlist
+@{
+    ViewBag.Title = "Welcome";
+    Layout = "~/Views/Shared/_CentreHeadLayout.cshtml";
+}
+<style type="text/css">
+    .ullist {
+        padding-bottom: 100px
+    }
+</style>
+
+@{
+    if (Session["CenterHeadLoginSession"] != null)
+    {
+        PsebJunior.Models.CenterHeadLoginSession centerHeadLoginSession = (PsebJunior.Models.CenterHeadLoginSession)Session["CenterHeadLoginSession"];
+        <h1>Welcome to Punjab School Education Board Online Registration - Session :<span class="rqf">@centerHeadLoginSession.CurrentSession</span></h1>
+        <div class="row">
+            @*<div class="col-md-6">
+                             <ul class="ullist">
+        <li><samp>&#10093;</samp> @Html.ActionLink("Marks Entry Panel", "ViewAllSchoolsAllowed", "CenterHead")</li>
+                            </ul>
+                        </div>*@
+            <div class="col-md-9">
+                <h1>Instructions</h1>
+                <ul class="ullist">
+				
+				
+				@*<li><samp>&#10093;</samp> <span style="color:#ff0000">22/03/2022</span> <a href="/PDF/Instructions For Centre Head  Marking Term 2.pdf" target="_blank">Instructions For Centre Head  Marking Term 2</a></li>*@
+				
+            @*<li><samp>&#10093;</samp> <span style="color:#ff0000">12/03/2021</span> <a href="/PDF/Online Marking 5th Class Steps 2020.pdf" target="_blank">Online Marking 5th Class Steps </a></li>*@
+            <!-- <li><samp>&#10093;</samp> <span style="color:#ff0000">1203/2021</span> <a href="/PDF/Instruction-For-Marking-For-5th-Class.pdf" target="_blank">Instruction For Marking For 5th Class</a></li> -->
+                                </ul>
+
+
+
+            </div>
+        </div>
+    }
+
+}
+

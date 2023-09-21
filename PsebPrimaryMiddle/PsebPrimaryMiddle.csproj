@@ -1,0 +1,961 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C7FC797E-9359-43E1-A982-80FBBE207340}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PsebPrimaryMiddle</RootNamespace>
+    <AssemblyName>PsebPrimaryMiddle</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AWSSDK.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
+      <HintPath>..\packages\AWSSDK.Core.3.7.200.15\lib\net45\AWSSDK.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="AWSSDK.S3, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
+      <HintPath>..\packages\AWSSDK.S3.3.7.201.13\lib\net45\AWSSDK.S3.dll</HintPath>
+    </Reference>
+    <Reference Include="ClosedXML, Version=0.95.4.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.Signed.0.95.4\lib\net40\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.7.2.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.7.2\lib\net40\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelNumberFormat, Version=1.0.10.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelNumberFormat.1.0.10\lib\net20\ExcelNumberFormat.dll</HintPath>
+    </Reference>
+    <Reference Include="IronPdf, Version=2019.8.9.21868, Culture=neutral, PublicKeyToken=94e1c31412563c75, processorArchitecture=MSIL">
+      <HintPath>..\packages\IronPdf.2019.8.9\lib\net40\IronPdf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MCPG.CCA.Util">
+      <HintPath>..\ExternalReferences\MCPG.CCA.Util.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.0\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common">
+      <HintPath>..\ExternalReferences\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data">
+      <HintPath>..\ExternalReferences\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ObjectBuilder2">
+      <HintPath>..\ExternalReferences\Microsoft.Practices.ObjectBuilder2.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NReco.PdfGenerator, Version=1.1.15.0, Culture=neutral, PublicKeyToken=231663d50a41b451, processorArchitecture=MSIL">
+      <HintPath>..\packages\NReco.PdfGenerator.1.1.15\lib\net20\NReco.PdfGenerator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="QRCoder, Version=1.4.3.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
+      <HintPath>..\packages\QRCoder.1.4.3\lib\net40\QRCoder.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net45\System.Diagnostics.DiagnosticSource.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.2.0.20126.16343\lib\net40\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.2.0.20126.16343\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard1.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.9\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.9\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Abstractions, Version=5.11.7.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Abstractions.5.11.7\lib\net45\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Container, Version=5.11.11.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Container.5.11.11\lib\net45\Unity.Container.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mvc5, Version=1.4.0.0, Culture=neutral, PublicKeyToken=43da31bc42a85347, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Mvc5.1.4.0\lib\net45\Unity.Mvc5.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AbstractLayer\AdminDB.cs" />
+    <Compile Include="AbstractLayer\AffiliationDB.cs" />
+    <Compile Include="AbstractLayer\BankDB.cs" />
+    <Compile Include="AbstractLayer\CaptchaClass.cs" />
+    <Compile Include="AbstractLayer\CenterHeadDB.cs" />
+    <Compile Include="AbstractLayer\ChallanDB.cs" />
+    <Compile Include="AbstractLayer\CorrectionPerformaDB.cs" />
+    <Compile Include="AbstractLayer\DBClass.cs" />
+    <Compile Include="AbstractLayer\ErrorLog.cs" />
+    <Compile Include="AbstractLayer\GatewayService.cs" />
+    <Compile Include="AbstractLayer\MigrateSchoolDB.cs" />
+    <Compile Include="AbstractLayer\OnDemandCertificateDB.cs" />
+    <Compile Include="AbstractLayer\PsebAPIServiceDB.cs" />
+    <Compile Include="AbstractLayer\QueryStringModule.cs" />
+    <Compile Include="AbstractLayer\RegistrationDB.cs" />
+    <Compile Include="AbstractLayer\ReportDB.cs" />
+    <Compile Include="AbstractLayer\SchoolDB.cs" />
+    <Compile Include="AbstractLayer\StaticDB.cs" />
+    <Compile Include="AbstractLayer\WebSerDB.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AdmitCardController.cs" />
+    <Compile Include="Controllers\AffiliationContinuationController.cs" />
+    <Compile Include="Controllers\BankController.cs" />
+    <Compile Include="Controllers\CenterHeadController.cs" />
+    <Compile Include="Controllers\ChallanController.cs" />
+    <Compile Include="Controllers\CorrectionPerformaController.cs" />
+    <Compile Include="Controllers\GatewayController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MasterController.cs" />
+    <Compile Include="Controllers\MigrateSchoolController.cs" />
+    <Compile Include="Controllers\OnDemandCertificateController.cs" />
+    <Compile Include="Controllers\RegistrationPortalController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\SchoolController.cs" />
+    <Compile Include="Controllers\SchoolProfileController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\WebserviceController.cs" />
+    <Compile Include="Filters\AdminLoginCheckFilterAttribute.cs" />
+    <Compile Include="Filters\AdminMenuFilterAttribute.cs" />
+    <Compile Include="Filters\BankLoginCheckFilterAttribute.cs" />
+    <Compile Include="Filters\CenterHeadAfterLoginFilterAttribute.cs" />
+    <Compile Include="Filters\CenterHeadLoginCheckFilterAttribute.cs" />
+    <Compile Include="Filters\ClassFifthFilterAttribute.cs" />
+    <Compile Include="Filters\SessionCheckFilterAttribute.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\CollectionHelper.cs" />
+    <Compile Include="Helpers\Enums.cs" />
+    <Compile Include="Helpers\Helper.cs" />
+    <Compile Include="Models\AdminModels.cs" />
+    <Compile Include="Models\AffiliationModel.cs" />
+    <Compile Include="Models\AtomViewModel.cs" />
+    <Compile Include="Models\BankModels.cs" />
+    <Compile Include="Models\CcAvenueViewModel.cs" />
+    <Compile Include="Models\CentreHeadModel.cs" />
+    <Compile Include="Models\Challan.cs" />
+    <Compile Include="Models\ClassFifthInitilizeListModel.cs" />
+    <Compile Include="Models\CommonModel.cs" />
+    <Compile Include="Models\DBContext.cs" />
+    <Compile Include="Models\HomeModels.cs" />
+    <Compile Include="Models\Import.cs" />
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\MasterClass.cs" />
+    <Compile Include="Models\MigrateSchoolModels.cs" />
+    <Compile Include="Models\OnDemandCertificateModel.cs" />
+    <Compile Include="Models\PsebAPIModel.cs" />
+    <Compile Include="Models\RegistrationModels.cs" />
+    <Compile Include="Models\ReportModel.cs" />
+    <Compile Include="Models\SchoolMigration.cs" />
+    <Compile Include="Models\SchoolModels.cs" />
+    <Compile Include="Models\SessionSettingMasters.cs" />
+    <Compile Include="Models\tblSchUsersModel.cs" />
+    <Compile Include="Models\webSerModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\AdminRepository.cs" />
+    <Compile Include="Repository\BankRepository.cs" />
+    <Compile Include="Repository\CenterHeadRepository.cs" />
+    <Compile Include="Repository\ChallanRepository.cs" />
+    <Compile Include="Repository\CorrectionPerformaRepository.cs" />
+    <Compile Include="Repository\AffiliationRepository.cs" />
+    <Compile Include="Repository\MasterRepository.cs" />
+    <Compile Include="Repository\MigrateSchoolRepository.cs" />
+    <Compile Include="Repository\RegistrationRepository.cs" />
+    <Compile Include="Repository\ReportRepository.cs" />
+    <Compile Include="Repository\SchoolRepository.cs" />
+    <Compile Include="Repository\SessionSettingMastersRepository.cs" />
+    <Compile Include="Web References\ingovepunjabschool\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Antlr3.Runtime.dll" />
+    <Content Include="bin\Antlr3.Runtime.pdb" />
+    <Content Include="bin\ClosedXML.dll" />
+    <Content Include="bin\DocumentFormat.OpenXml.dll" />
+    <Content Include="bin\EntityFramework.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\IronPdf.dll" />
+    <Content Include="bin\MCPG.CCA.Util.dll" />
+    <Content Include="bin\Microsoft.AspNet.TelemetryCorrelation.dll" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
+    <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Common.dll" />
+    <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Data.dll" />
+    <Content Include="bin\Microsoft.Practices.ObjectBuilder2.dll" />
+    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\NReco.PdfGenerator.dll" />
+    <Content Include="bin\PsebPrimaryMiddle.dll" />
+    <Content Include="bin\PsebPrimaryMiddle.pdb" />
+    <Content Include="bin\PsebPrimaryMiddle.XmlSerializers.dll" />
+    <Content Include="bin\roslyn\csc.exe" />
+    <Content Include="bin\roslyn\csi.exe" />
+    <Content Include="bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll" />
+    <Content Include="bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll" />
+    <Content Include="bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll" />
+    <Content Include="bin\roslyn\System.AppContext.dll" />
+    <Content Include="bin\roslyn\System.Collections.Immutable.dll" />
+    <Content Include="bin\roslyn\System.Diagnostics.StackTrace.dll" />
+    <Content Include="bin\roslyn\System.IO.FileSystem.dll" />
+    <Content Include="bin\roslyn\System.IO.FileSystem.Primitives.dll" />
+    <Content Include="bin\roslyn\System.Reflection.Metadata.dll" />
+    <Content Include="bin\roslyn\vbc.exe" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe" />
+    <Content Include="bin\System.Diagnostics.DiagnosticSource.dll" />
+    <Content Include="bin\System.Net.Http.Formatting.dll" />
+    <Content Include="bin\System.Runtime.CompilerServices.Unsafe.dll" />
+    <Content Include="bin\System.Web.Helpers.dll" />
+    <Content Include="bin\System.Web.Mvc.dll" />
+    <Content Include="bin\System.Web.Optimization.dll" />
+    <Content Include="bin\System.Web.Razor.dll" />
+    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
+    <Content Include="bin\System.Web.WebPages.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.dll" />
+    <Content Include="bin\Unity.Abstractions.dll" />
+    <Content Include="bin\Unity.Abstractions.pdb" />
+    <Content Include="bin\Unity.Container.dll" />
+    <Content Include="bin\Unity.Container.pdb" />
+    <Content Include="bin\Unity.Mvc5.dll" />
+    <Content Include="bin\WebGrease.dll" />
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\jquery.dataTables.min.css" />
+    <Content Include="Content\kdcs.css" />
+    <Content Include="Content\keyboard.css" />
+    <Content Include="Content\style.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Images\Apply.png" />
+    <Content Include="Images\arrowdown.gif" />
+    <Content Include="Images\attachmenticon.png" />
+    <Content Include="Images\cancel_icon.png" />
+    <Content Include="Images\Delete.png" />
+    <Content Include="Images\disable.gif" />
+    <Content Include="Images\Edit_Icon.png" />
+    <Content Include="Images\Edit_Icon1.png" />
+    <Content Include="Images\enable.gif" />
+    <Content Include="Images\ErrorStatusBank.PNG" />
+    <Content Include="Images\favicon.ico" />
+    <Content Include="Images\fbloader.gif" />
+    <Content Include="Images\help_icon.png" />
+    <Content Include="Images\Home.png" />
+    <Content Include="Images\Important_Instructions_2016.jpg" />
+    <Content Include="Images\keyboard.png" />
+    <Content Include="Images\lo.gif" />
+    <Content Include="Images\loadingAnim.gif" />
+    <Content Include="Images\loadingk.gif" />
+    <Content Include="Images\new.gif" />
+    <Content Include="Images\NOImage.jpg" />
+    <Content Include="Images\NOImages.jpg" />
+    <Content Include="Images\noimages.png" />
+    <Content Include="Images\NOPhoto.jpg" />
+    <Content Include="Images\NOPhoto.png" />
+    <Content Include="Images\NOSignature.jpg" />
+    <Content Include="Images\NOSignature.png" />
+    <Content Include="Images\NOSignature.png.jpg" />
+    <Content Include="Images\Online_Messages.png" />
+    <Content Include="Images\Pending.png" />
+    <Content Include="Images\Photo.png" />
+    <Content Include="Images\PNBbank.gif" />
+    <Content Include="Images\PNB_Character_Map.jpg" />
+    <Content Include="Images\Printlogo.jpg" />
+    <Content Include="Images\Printlogohdfc.png" />
+    <Content Include="Images\Printlogot.jpg" />
+    <Content Include="Images\pseblogo.jpg" />
+    <Content Include="Images\pseb_logo.png" />
+    <Content Include="Images\PSEB_Slider.jpg" />
+    <Content Include="Images\PSEB_Text.png" />
+    <Content Include="Images\punjab.png" />
+    <Content Include="Images\SBIbank.png" />
+    <Content Include="Images\SBPbank11.png" />
+    <Content Include="Images\shadow.png" />
+    <Content Include="Images\sign_migration.JPG" />
+    <Content Include="Images\Slogo.jpg" />
+    <Content Include="Images\Slogo.png" />
+    <Content Include="Images\Ssig.jpg" />
+    <Content Include="Images\tick_icon.png" />
+    <Content Include="Images\ucedit\punjabi.png" />
+    <Content Include="Images\view_icon.png" />
+    <Content Include="Scripts\ai.0.15.0-build58334.js" />
+    <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
+    <Content Include="Scripts\app.min.js" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\custom.js" />
+    <Content Include="Scripts\dataTables.bootstrap4.min.js" />
+    <Content Include="Scripts\esm\popper-utils.js" />
+    <Content Include="Scripts\esm\popper-utils.min.js" />
+    <Content Include="Scripts\esm\popper.js" />
+    <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="App_Code\MenuView.cshtml" />
+    <Content Include="PDF\FeeMasterStructure.xls" />
+    <Content Include="PDF\StdRollNoRangeSample.xls" />
+    <Content Include="PDF\StudentRollNoSample.xls" />
+    <Content Include="PDF\ExamErrorSample.xls" />
+    <Content Include="PDF\PracticalSubmissionUnlocked.xlsx" />
+    <Content Include="PDF\PracticalCentUpdateMasterSample2019.xlsx" />
+    <Content Include="PDF\PracticalCentUpdateMasterStd.xlsx" />
+    <Content Include="PDF\UnlockClusterTheoryMarksSample.xls" />
+    <Content Include="bin\PsebPrimaryMiddle.dll.config" />
+    <Content Include="bin\roslyn\csc.exe.config" />
+    <Content Include="bin\roslyn\csc.rsp" />
+    <Content Include="bin\roslyn\csi.rsp" />
+    <Content Include="bin\roslyn\Microsoft.CSharp.Core.targets" />
+    <Content Include="bin\roslyn\Microsoft.VisualBasic.Core.targets" />
+    <Content Include="bin\roslyn\vbc.exe.config" />
+    <Content Include="bin\roslyn\vbc.rsp" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="PDF\RegistrationContinuationInstructions.pdf" />
+    <Content Include="libman.json" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Scripts\index.js.flow" />
+    <Content Include="Scripts\esm\popper.min.js.map" />
+    <Content Include="Scripts\esm\popper.js.map" />
+    <Content Include="Scripts\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\ChallanDepositDetails.js" />
+    <Content Include="Scripts\common.js" />
+    <Content Include="Scripts\daterangepicker.js" />
+    <Content Include="Scripts\gridmvc.js" />
+    <Content Include="Scripts\gridmvc.lang.ru.js" />
+    <Content Include="Scripts\gridmvc.min.js" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-1.12.4.js" />
+    <Content Include="Scripts\jquery-1.7.1.min.js" />
+    <Content Include="Scripts\jquery-2.2.3.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery.dataTables.min.js" />
+    <Content Include="Scripts\jquery.json.js" />
+    <Content Include="Scripts\jquery.json.min.js" />
+    <Content Include="Scripts\jquery.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\keyboard.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\picker_date.js" />
+    <Content Include="Scripts\popper-utils.js" />
+    <Content Include="Scripts\popper-utils.min.js" />
+    <Content Include="Scripts\popper.js" />
+    <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\punjabi.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\src\index.js" />
+    <Content Include="Scripts\src\methods\defaults.js" />
+    <Content Include="Scripts\src\methods\destroy.js" />
+    <Content Include="Scripts\src\methods\disableEventListeners.js" />
+    <Content Include="Scripts\src\methods\enableEventListeners.js" />
+    <Content Include="Scripts\src\methods\placements.js" />
+    <Content Include="Scripts\src\methods\update.js" />
+    <Content Include="Scripts\src\modifiers\applyStyle.js" />
+    <Content Include="Scripts\src\modifiers\arrow.js" />
+    <Content Include="Scripts\src\modifiers\computeStyle.js" />
+    <Content Include="Scripts\src\modifiers\flip.js" />
+    <Content Include="Scripts\src\modifiers\hide.js" />
+    <Content Include="Scripts\src\modifiers\index.js" />
+    <Content Include="Scripts\src\modifiers\inner.js" />
+    <Content Include="Scripts\src\modifiers\keepTogether.js" />
+    <Content Include="Scripts\src\modifiers\offset.js" />
+    <Content Include="Scripts\src\modifiers\preventOverflow.js" />
+    <Content Include="Scripts\src\modifiers\shift.js" />
+    <Content Include="Scripts\src\utils\clockwise.js" />
+    <Content Include="Scripts\src\utils\computeAutoPlacement.js" />
+    <Content Include="Scripts\src\utils\debounce.js" />
+    <Content Include="Scripts\src\utils\find.js" />
+    <Content Include="Scripts\src\utils\findCommonOffsetParent.js" />
+    <Content Include="Scripts\src\utils\findIndex.js" />
+    <Content Include="Scripts\src\utils\getBordersSize.js" />
+    <Content Include="Scripts\src\utils\getBoundaries.js" />
+    <Content Include="Scripts\src\utils\getBoundingClientRect.js" />
+    <Content Include="Scripts\src\utils\getClientRect.js" />
+    <Content Include="Scripts\src\utils\getFixedPositionOffsetParent.js" />
+    <Content Include="Scripts\src\utils\getOffsetParent.js" />
+    <Content Include="Scripts\src\utils\getOffsetRect.js" />
+    <Content Include="Scripts\src\utils\getOffsetRectRelativeToArbitraryNode.js" />
+    <Content Include="Scripts\src\utils\getOppositePlacement.js" />
+    <Content Include="Scripts\src\utils\getOppositeVariation.js" />
+    <Content Include="Scripts\src\utils\getOuterSizes.js" />
+    <Content Include="Scripts\src\utils\getParentNode.js" />
+    <Content Include="Scripts\src\utils\getPopperOffsets.js" />
+    <Content Include="Scripts\src\utils\getReferenceNode.js" />
+    <Content Include="Scripts\src\utils\getReferenceOffsets.js" />
+    <Content Include="Scripts\src\utils\getRoot.js" />
+    <Content Include="Scripts\src\utils\getRoundedOffsets.js" />
+    <Content Include="Scripts\src\utils\getScroll.js" />
+    <Content Include="Scripts\src\utils\getScrollParent.js" />
+    <Content Include="Scripts\src\utils\getStyleComputedProperty.js" />
+    <Content Include="Scripts\src\utils\getSupportedPropertyName.js" />
+    <Content Include="Scripts\src\utils\getViewportOffsetRectRelativeToArtbitraryNode.js" />
+    <Content Include="Scripts\src\utils\getWindow.js" />
+    <Content Include="Scripts\src\utils\getWindowSizes.js" />
+    <Content Include="Scripts\src\utils\includeScroll.js" />
+    <Content Include="Scripts\src\utils\index.js" />
+    <Content Include="Scripts\src\utils\isBrowser.js" />
+    <Content Include="Scripts\src\utils\isFixed.js" />
+    <Content Include="Scripts\src\utils\isFunction.js" />
+    <Content Include="Scripts\src\utils\isIE.js" />
+    <Content Include="Scripts\src\utils\isModifierEnabled.js" />
+    <Content Include="Scripts\src\utils\isModifierRequired.js" />
+    <Content Include="Scripts\src\utils\isNumeric.js" />
+    <Content Include="Scripts\src\utils\isOffsetContainer.js" />
+    <Content Include="Scripts\src\utils\removeEventListeners.js" />
+    <Content Include="Scripts\src\utils\runModifiers.js" />
+    <Content Include="Scripts\src\utils\setAttributes.js" />
+    <Content Include="Scripts\src\utils\setStyles.js" />
+    <Content Include="Scripts\src\utils\setupEventListeners.js" />
+    <Content Include="Scripts\umd\popper-utils.js" />
+    <Content Include="Scripts\umd\popper-utils.min.js" />
+    <Content Include="Scripts\umd\popper.js" />
+    <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Scripts\umd\popper.min.js.map" />
+    <Content Include="Scripts\umd\popper.js.map" />
+    <Content Include="Scripts\umd\popper.js.flow" />
+    <Content Include="Scripts\umd\popper-utils.min.js.map" />
+    <Content Include="Scripts\umd\popper-utils.js.map" />
+    <Content Include="Scripts\README.md" />
+    <Content Include="Scripts\popper.min.js.map" />
+    <Content Include="Scripts\popper.js.map" />
+    <Content Include="Scripts\popper-utils.min.js.map" />
+    <Content Include="Scripts\popper-utils.js.map" />
+    <None Include="Scripts\_references.js" />
+    <Content Include="Views\Gateway\AtomCheckoutUrl.cshtml" />
+    <Content Include="Views\Gateway\ATOMPaymentResponse.cshtml" />
+    <Content Include="Views\Gateway\Payment.cshtml" />
+    <Content Include="Views\Gateway\CCAvenuePaymentSuccessful.cshtml" />
+    <Content Include="Views\Gateway\CcAvenue.cshtml" />
+    <Content Include="Views\Home\CalculateFee.cshtml" />
+    <Content Include="Views\Home\PaymentForm.cshtml" />
+    <Content Include="Views\Home\GenerateChallaan.cshtml" />
+    <Content Include="Views\Home\FinalPrint.cshtml" />
+    <Content Include="Views\Test\A1Formgrid.cshtml" />
+    <Content Include="Views\Bank\Login.cshtml" />
+    <Content Include="Views\Bank\ChangePassword.cshtml" />
+    <Content Include="Views\Bank\CheckChallanStatus.cshtml" />
+    <Content Include="Views\Bank\DownloadChallan.cshtml" />
+    <Content Include="Views\Bank\DownloadPreviousChallan.cshtml" />
+    <Content Include="Views\Bank\ErrorList.cshtml" />
+    <Content Include="Views\Bank\Index.cshtml" />
+    <Content Include="Views\Bank\VerifyMIS.cshtml" />
+    <Content Include="Views\Bank\VerifyMISCancel.cshtml" />
+    <Content Include="Views\Bank\VerifyMISPSEB.cshtml" />
+    <Content Include="Views\Bank\ViewAllFeeDeposit.cshtml" />
+    <Content Include="Views\Bank\ViewMISDetails.cshtml" />
+    <Content Include="Views\Bank\ViewProfile.cshtml" />
+    <Content Include="Views\Bank\Welcome.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\Change_Password.cshtml" />
+    <Content Include="Views\Admin\Welcome.cshtml" />
+    <Content Include="Views\Report\PrimaryMiddleSummaryReports.cshtml" />
+    <Content Include="Views\Report\_primarymiddle_summaryreport.cshtml" />
+    <Content Include="Views\Admin\MenuMaster.cshtml" />
+    <Content Include="Views\Admin\PageNotAuthorized.cshtml" />
+    <Content Include="Views\Admin\FinalSubmittedRecordsAllAdmin.cshtml" />
+    <Content Include="Views\Challan\ChallanDetails.cshtml" />
+    <Content Include="Views\Login\ForgotPassword.cshtml" />
+    <Content Include="Views\Admin\ViewUser.cshtml" />
+    <Content Include="Views\Admin\AssignMenuToUser.cshtml" />
+    <Content Include="Views\Admin\CreateUser.cshtml" />
+    <Content Include="Views\Admin\ModifyUser.cshtml" />
+    <Content Include="Views\Report\_primarymiddle_formwisereport.cshtml" />
+    <Content Include="Views\Report\SubjectWiseReports.cshtml" />
+    <Content Include="Views\Bank\FileSeparator.cshtml" />
+    <Content Include="Views\Home\ChallanDepositDetails.cshtml" />
+    <Content Include="Views\Admin\CommanFormView.cshtml" />
+    <Content Include="Views\CorrectionPerforma\SchoolCorrection.cshtml" />
+    <Content Include="Views\CorrectionPerforma\SchoolCorrectionFinalPrintList.cshtml" />
+    <Content Include="Views\CorrectionPerforma\SchoolCorrectionPerformaFinalPrintSession.cshtml" />
+    <Content Include="Views\CorrectionPerforma\SchoolCorrectionAllRecord.cshtml" />
+    <Content Include="Views\Home\FinalReport.cshtml" />
+    <Content Include="Views\CorrectionPerforma\Instructions.cshtml" />
+    <Content Include="Views\CorrectionPerforma\SubjectCorrectionPerformaLink.cshtml" />
+    <Content Include="Views\CorrectionPerforma\SubjectCorrectionPerforma.cshtml" />
+    <Content Include="Views\CorrectionPerforma\SchoolCorrectionPerformaRoughReport.cshtml" />
+    <Content Include="Views\CorrectionPerforma\SchoolCorrectionPerformaRoughReportSJ.cshtml" />
+    <Content Include="Views\Report\_RegExamFormFeeSummary.cshtml" />
+    <Content Include="Views\Report\_pendingschoolsforregistration.cshtml" />
+    <Content Include="Views\Test\CalculateFee.cshtml" />
+    <Content Include="Views\Test\PaymentForm.cshtml" />
+    <Content Include="Views\Admin\FirmExamDataDownload.cshtml" />
+    <Content Include="Views\CorrectionPerforma\VerifySchoolCorrection.cshtml" />
+    <Content Include="Views\CorrectionPerforma\VerifySchoolCorrectionUpdated.cshtml" />
+    <Content Include="Views\CorrectionPerforma\VerifySchoolCorrectionFinalSubmit.cshtml" />
+    <Content Include="Views\Admin\AdminAllotRegNo.cshtml" />
+    <Content Include="Views\Admin\AllotRegNo.cshtml" />
+    <Content Include="Views\Home\FinalReportPrint.cshtml" />
+    <Content Include="Views\Admin\ViewAllotRegNo.cshtml" />
+    <Content Include="Views\Home\PrintUndertaking.cshtml" />
+    <Content Include="Views\CorrectionPerforma\SchoolCorrectionStatus.cshtml" />
+    <Content Include="Views\CorrectionPerforma\RejectSchoolCorrection.cshtml" />
+    <Content Include="Views\CorrectionPerforma\FirmSchoolCorrection.cshtml" />
+    <Content Include="Views\CorrectionPerforma\FirmSchoolCorrectionUpdated.cshtml" />
+    <Content Include="Views\CorrectionPerforma\FirmSchoolCorrectionFinalSubmit.cshtml" />
+    <Content Include="Views\CorrectionPerforma\AdminSchoolCorrection.cshtml" />
+    <Content Include="Views\School\SchoolAdmitCardList.cshtml" />
+    <Content Include="Views\School\MarksEntryPanel.cshtml" />
+    <Content Include="Views\Challan\CalculateFeeAdmin.cshtml" />
+    <Content Include="Views\Challan\PSEBChallanDetails.cshtml" />
+    <Content Include="Views\Admin\FeeEntry.cshtml" />
+    <Content Include="Views\RegistrationPortal\OtherBoardAllottedRegno.cshtml" />
+    <Content Include="Views\Report\RegistrationReport.cshtml" />
+    <Content Include="Views\Report\_regnoerrorsummary.cshtml" />
+    <Content Include="Views\School\SchoolCutList.cshtml" />
+    <Content Include="Views\School\CutList_Schl.cshtml" />
+    <Content Include="Views\CenterHead\Index.cshtml" />
+    <Content Include="Views\CenterHead\Welcome.cshtml" />
+    <Content Include="Views\CenterHead\MarksEntryPanel.cshtml" />
+    <Content Include="Views\CenterHead\ViewAllSchoolsAllowed.cshtml" />
+    <Content Include="Views\CenterHead\MarksRoughReport.cshtml" />
+    <Content Include="Views\CenterHead\MarksFinalReport.cshtml" />
+    <Content Include="Views\School\CCE_Marks.cshtml" />
+    <Content Include="Views\School\CCEReport.cshtml" />
+    <Content Include="Views\School\CCEFinalReport.cshtml" />
+    <Content Include="Views\School\CCE_Portal.cshtml" />
+    <Content Include="Views\School\CCE_Agree.cshtml" />
+    <Content Include="Views\School\PracticalChartLink.cshtml" />
+    <Content Include="Views\School\PracticalChart.cshtml" />
+    <Content Include="Views\School\PracticalAgree.cshtml" />
+    <Content Include="Views\School\PracticalExamMarks.cshtml" />
+    <Content Include="Views\School\PracExamViewList.cshtml" />
+    <Content Include="Views\School\PracExamEnterMarks.cshtml" />
+    <Content Include="Views\School\ViewPracExamFinalSubmit.cshtml" />
+    <Content Include="Views\School\PracExamRoughReport.cshtml" />
+    <Content Include="Views\School\PracExamFinalReport.cshtml" />
+    <Content Include="Views\School\PracExamFinalSubmit.cshtml" />
+    <Content Include="Views\Home\CalculateFeeWithoutLateFee.cshtml" />
+    <Content Include="Views\Home\PaymentFormWithoutLateFee.cshtml" />
+    <Content Include="Views\School\PrintAdmitCard.cshtml" />
+    <Content Include="Views\Admin\ErrorListMIS.cshtml" />
+    <Content Include="Views\Admin\StudentRollNoMIS.cshtml" />
+    <Content Include="Views\Admin\ViewCandidateExamErrorList.cshtml" />
+    <Content Include="Views\MigrateSchool\Index.cshtml" />
+    <Content Include="Views\MigrateSchool\ViewAllCandidatesOfSchool.cshtml" />
+    <Content Include="Views\MigrateSchool\MigrationForm.cshtml" />
+    <Content Include="Views\MigrateSchool\MigrationRec.cshtml" />
+    <Content Include="Views\MigrateSchool\MigrationDetailView.cshtml" />
+    <Content Include="Views\MigrateSchool\MigrationPrint.cshtml" />
+    <Content Include="Views\Admin\AllowCCE.cshtml" />
+    <Content Include="Views\Admin\PracticalSubmissionUnlocked.cshtml" />
+    <Content Include="Views\Admin\PracticalCentUpdateMaster.cshtml" />
+    <Content Include="Views\Report\_UserTypeWiseStudentCount.cshtml" />
+    <Content Include="Views\Report\ClassSummaryReport.cshtml" />
+    <Content Include="Views\Report\BankWiseFeeCollectionDetails.cshtml" />
+    <Content Include="Views\Report\CategoryWiseFeeCollectionDetails.cshtml" />
+    <Content Include="Views\Report\DateWiseFeeCollectionDetails.cshtml" />
+    <Content Include="Views\Admin\ViewCircular.cshtml" />
+    <Content Include="Views\Admin\Circular.cshtml" />
+    <Content Include="Views\Report\MigrationCount.cshtml" />
+    <Content Include="Views\Report\StatusofCorrection.cshtml" />
+    <Content Include="Views\School\SignatureChart.cshtml" />
+    <Content Include="Views\School\ConfidentialList.cshtml" />
+    <Content Include="Views\CenterHead\GenerateTicket.cshtml" />
+    <Content Include="Views\School\CapacityLetter.cshtml" />
+    <Content Include="Views\School\ExamCentre.cshtml" />
+    <Content Include="Views\School\PhyChlMarksEntryPanel.cshtml" />
+    <Content Include="Views\School\PhyChlMarksEntryReport.cshtml" />
+    <Content Include="Views\School\PhyChlMarksEntryFinalReport.cshtml" />
+    <Content Include="Views\School\PhyChlMarksEntry_Agree.cshtml" />
+    <Content Include="Views\CenterHead\ViewProfile.cshtml" />
+    <Content Include="Views\School\PhyChl_Portal.cshtml" />
+    <Content Include="Views\Report\ClusterRegisterReport.cshtml" />
+    <Content Include="Views\CenterHead\PrintTicket.cshtml" />
+    <Content Include="Views\School\ElectiveTheoryMarksPanel.cshtml" />
+    <Content Include="Views\School\ElectiveTheoryFinalReport.cshtml" />
+    <Content Include="Views\School\ElectiveTheoryReport.cshtml" />
+    <Content Include="Views\Admin\ViewTicketList.cshtml" />
+    <Content Include="Views\CenterHead\Change_Password.cshtml" />
+    <Content Include="Views\School\ElectiveTheory_Portal.cshtml" />
+    <Content Include="Views\Report\ClusterMarkingStatusReport.cshtml" />
+    <Content Include="Views\RegistrationPortal\ImportDataF3Form.cshtml" />
+    <Content Include="Views\RegistrationPortal\F3Formgrid.cshtml" />
+    <Content Include="Views\RegistrationPortal\CheckRegularRegno.cshtml" />
+    <Content Include="Views\RegistrationPortal\F3Form.cshtml" />
+    <Content Include="Views\RegistrationPortal\ImportDataA3Form.cshtml" />
+    <Content Include="Views\RegistrationPortal\A3Form.cshtml" />
+    <Content Include="Views\RegistrationPortal\A3Formgrid.cshtml" />
+    <Content Include="Views\AffiliationContinuation\Index.cshtml" />
+    <Content Include="Views\AffiliationContinuation\Activities.cshtml" />
+    <Content Include="Views\AffiliationContinuation\BalanceSheet.cshtml" />
+    <Content Include="Views\AffiliationContinuation\BooksPurchaseDetails.cshtml" />
+    <Content Include="Views\AffiliationContinuation\CalculateFee.cshtml" />
+    <Content Include="Views\AffiliationContinuation\FinalPrintForm.cshtml" />
+    <Content Include="Views\AffiliationContinuation\GenerateChallaan.cshtml" />
+    <Content Include="Views\AffiliationContinuation\OtherInformation.cshtml" />
+    <Content Include="Views\AffiliationContinuation\PrintForm.cshtml" />
+    <Content Include="Views\AffiliationContinuation\ResultStatics.cshtml" />
+    <Content Include="Views\AffiliationContinuation\SafetyDetails.cshtml" />
+    <Content Include="Views\AffiliationContinuation\SchoolProfile.cshtml" />
+    <Content Include="Views\AffiliationContinuation\StudentFeeDetails.cshtml" />
+    <Content Include="Views\AffiliationContinuation\UploadAffiliationContinuationDocuments.cshtml" />
+    <Content Include="Views\AffiliationContinuation\ViewTeacherList.cshtml" />
+    <Content Include="Web References\ingovepunjabschool\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\School\PreBoardExamTheory_Portal.cshtml" />
+    <Content Include="Views\School\PreBoardExamTheoryAgree.cshtml" />
+    <Content Include="Views\School\PreBoardExamTheory.cshtml" />
+    <Content Include="Views\School\PreBoardExamTheoryReport.cshtml" />
+    <Content Include="Views\School\PreBoardExamTheoryFinalReport.cshtml" />
+    <Content Include="Views\School\ApplyStudentSchoolMigration.cshtml" />
+    <Content Include="Views\School\StudentSchoolMigrationApplied.cshtml" />
+    <Content Include="Views\School\StudentSchoolMigrationReceived.cshtml" />
+    <Content Include="Views\School\StudentMigrationPayFee.cshtml" />
+    <Content Include="Views\School\StudentMigrationView.cshtml" />
+    <Content Include="Views\School\StudentMigrationPrintCertificate.cshtml" />
+    <Content Include="Views\Admin\UnlockClusterTheoryMarks.cshtml" />
+    <Content Include="Views\Report\ClusterSubjectStatusReport.cshtml" />
+    <Content Include="Views\Report\TheoryMarksStatusReport.cshtml" />
+    <Content Include="Views\RegistrationPortal\CommonFormView.cshtml" />
+    <Content Include="Views\RegistrationPortal\LateAdmissionSchl.cshtml" />
+    <Content Include="Views\School\SignatureChartMeritorious.cshtml" />
+    <Content Include="Views\School\ConfidentialListMeritorious.cshtml" />
+    <Content Include="Views\School\MeritoriousExamCentre.cshtml" />
+    <Content Include="Views\RegistrationPortal\LateAdmPrintLetter.cshtml" />
+    <Content Include="Views\School\OnlineCentreCreation.cshtml" />
+    <Content Include="Views\RegistrationPortal\ReExamStudents.cshtml" />
+    <Content Include="Views\School\ReExamTermAppliedStudentList.cshtml" />
+    <Content Include="Views\School\ReExamTermStudentCalculateFee.cshtml" />
+    <Content Include="Views\School\ReExamTermStudentPaymentForm.cshtml" />
+    <Content Include="Views\School\ReExamTermStudents_ChallanList.cshtml" />
+    <Content Include="Views\School\ViewReExamTermStudentList.cshtml" />
+    <Content Include="Views\OnDemandCertificate\OnDemandCertificateAppliedStudentList.cshtml" />
+    <Content Include="Views\OnDemandCertificate\OnDemandCertificateCalculateFee.cshtml" />
+    <Content Include="Views\OnDemandCertificate\OnDemandCertificatePaymentForm.cshtml" />
+    <Content Include="Views\OnDemandCertificate\OnDemandCertificate_ChallanList.cshtml" />
+    <Content Include="Views\OnDemandCertificate\ViewStudentList.cshtml" />
+    <Content Include="Views\RegistrationPortal\OnDemandCertificate.cshtml" />
+    <Content Include="Views\School\SchoolBasedExamsAgree.cshtml" />
+    <Content Include="Views\School\SchoolBasedExamsFinalReport.cshtml" />
+    <Content Include="Views\School\SchoolBasedExamsMarks.cshtml" />
+    <Content Include="Views\School\SchoolBasedExamsPortal.cshtml" />
+    <Content Include="Views\School\SchoolBasedExamsReport.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_AffiliationHeading.cshtml" />
+    <Content Include="Views\Shared\_AffiliationMenu.cshtml" />
+    <Content Include="Views\Shared\_BankLayout.cshtml" />
+    <Content Include="Views\Shared\_Card_Header.cshtml" />
+    <Content Include="Views\Shared\_CentreHeadLayout.cshtml" />
+    <Content Include="Views\Shared\_ChallanDepositDetails.cshtml" />
+    <Content Include="Views\Shared\_Header.cshtml" />
+    <Content Include="Views\Shared\_Headerui.cshtml" />
+    <Content Include="Views\Shared\_Home_Header.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Login_Header.cshtml" />
+    <Content Include="Views\Shared\_PrintChallan.cshtml" />
+    <Content Include="Views\Shared\_PrintLayout.cshtml" />
+    <Content Include="Views\School\CapacityLetter - Copy.cshtml" />
+    <Content Include="Views\School\ConfidentialListPrivate.cshtml" />
+    <Content Include="Views\School\ExamCentre.cshtml--oold" />
+    <Content Include="Views\School\ExamCentre.cshtml-bak" />
+    <Content Include="Views\School\PhyChlMarksEntryPanel.cshtml_BKP_9mar" />
+    <Content Include="Views\School\PracExamEnterMarks.cshtml_9apr" />
+    <Content Include="Views\School\PracticalExamMarks.cshtml---" />
+    <Content Include="Views\School\PracticalExamMarks.cshtml_9apr" />
+    <Content Include="Views\School\SignatureChartPrivate.cshtml" />
+    <Content Include="Views\School\ViewPracExamFinalSubmit.cshtml_9apr" />
+    <Content Include="Views\Home\Index.cshtml.bak" />
+    <Content Include="Views\School\CapacityLetter--.cshtml" />
+    <Content Include="Views\Shared\_Home_Header.cshtml-BKP" />
+    <Content Include="Views\RegistrationPortal\InterBoardMigrationSchl.cshtml" />
+    <Content Include="Views\RegistrationPortal\InterBoardMigrationPayFee.cshtml" />
+    <Content Include="Views\RegistrationPortal\InterBoardMigrationLetter.cshtml" />
+    <Content Include="Views\AdmitCard\Index.cshtml" />
+    <Content Include="Views\School\PhyChlMarksEntry_Portal.cshtml" />
+    <Content Include="Views\School\ExamCentreResources.cshtml" />
+    <Content Include="Views\School\ExamCentreConfidentialResources.cshtml" />
+    <Content Include="Views\School\InfrasturePerforma.cshtml" />
+    <Content Include="Views\School\ViewInfrasturePerformas.cshtml" />
+    <None Include="Web References\ingovepunjabschool\service-pseb-5th-and-8th.disco" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Home\Home.cshtml" />
+    <Content Include="Views\SchoolProfile\Change_Password.cshtml" />
+    <Content Include="Views\SchoolProfile\Update_School_Information.cshtml" />
+    <Content Include="Views\RegistrationPortal\Portal.cshtml" />
+    <Content Include="Views\RegistrationPortal\A1Form.cshtml" />
+    <Content Include="Views\RegistrationPortal\A1Formgrid.cshtml" />
+    <Content Include="Views\RegistrationPortal\A1Master.cshtml" />
+    <Content Include="Views\RegistrationPortal\A2Form.cshtml" />
+    <Content Include="Views\RegistrationPortal\A2Formgrid.cshtml" />
+    <Content Include="Views\RegistrationPortal\Agree.cshtml" />
+    <Content Include="Views\RegistrationPortal\F1Form.cshtml" />
+    <Content Include="Views\RegistrationPortal\F1Formgrid.cshtml" />
+    <Content Include="Views\RegistrationPortal\F1Master.cshtml" />
+    <Content Include="Views\RegistrationPortal\F2Form.cshtml" />
+    <Content Include="Views\RegistrationPortal\F2Formgrid.cshtml" />
+    <Content Include="Views\RegistrationPortal\FinalReport.cshtml" />
+    <Content Include="Views\RegistrationPortal\RoughReportJunior.cshtml" />
+    <Content Include="Views\RegistrationPortal\StudentVerificationFormJunior.cshtml" />
+    <Content Include="Views\Webservice\ImportDataEighth.cshtml" />
+    <Content Include="Views\Webservice\ImportDataFifth.cshtml" />
+    <None Include="Web References\ingovepunjabschool\service-pseb-5th-and-8th.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="https://www.epunjabschool.gov.in/webservice/service-pseb-5th-and-8th.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\ingovepunjabschool\</RelPath>
+      <UpdateFromURL>https://www.epunjabschool.gov.in/webservice/service-pseb-5th-and-8th.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>PsebPrimaryMiddle_ingovepunjabschool_service_pseb_5th_and_8th</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\AWSSDK.S3.3.7.201.13\analyzers\dotnet\cs\AWSSDK.S3.CodeAnalysis.dll" />
+    <Analyzer Include="..\packages\AWSSDK.S3.3.7.201.13\analyzers\dotnet\cs\SharedAnalysisCode.dll" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>57360</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:57360/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>
