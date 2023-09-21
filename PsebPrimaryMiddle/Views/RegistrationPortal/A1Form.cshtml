@@ -1352,17 +1352,20 @@
     var ApprovalUp = "";
 
     $(document).ready(function () {
-
+       
         var selectedVal = $("#DA").val();//document.getElementById("#MyDist");
         if (selectedVal == "N.A.") {
+            console.log("selectedVal", selectedVal)
             $('#sw').css("display", "none");
             $(DP).val("");
         }
         if (selectedVal == "") {
+            console.log("selectedValblank", selectedVal)
             $('#sw').css("display", "none");//BY AMARDEEP
             $(DP).val("");
         }
         else {
+            console.log("selectedValelse", selectedVal)
             $('#sw').css("display", "block");
         }
 
