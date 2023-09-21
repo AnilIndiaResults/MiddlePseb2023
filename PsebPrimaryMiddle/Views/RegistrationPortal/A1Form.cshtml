@@ -218,7 +218,7 @@
         <div class="col-md-2 kdsfont">
             ÚÒÚÂ¤ØÏÁÛ ÂØ ÅØÌ <span class="rqf">*</span>
         </div>
-        <div class="col-md-4 kdsfont">
+        <div class="col-md-4 ">
             @if (Model.Category == "7TH PASSED" || Model.Category == null)
             {
                 @Html.TextBoxFor(m => m.Candi_Name_P, new
@@ -237,7 +237,7 @@
             }
             else
             {
-                <label>@Html.DisplayFor(a => a.Candi_Name_P)</label>
+                <label class="kdsfont">@Html.DisplayFor(a => a.Candi_Name_P)</label>
                 @Html.HiddenFor(model => model.Candi_Name_P)
                 @*@Html.TextBoxFor(m => m.Candi_Name_P, new
             {
@@ -275,7 +275,7 @@
         <div class="col-md-2 kdsfont">
             ÚÆ¼Ø ÂØ ÅØÌ <span class="rqf">*</span>
         </div>
-        <div class="col-md-4 kdsfont">
+        <div class="col-md-4">
             @if (Model.Category == "7TH PASSED" || Model.Category == null)
             {
                 @Html.TextBoxFor(m => m.Father_Name_P, new
@@ -294,7 +294,7 @@
             }
             else
             {
-                <label>@Html.DisplayFor(a => a.Father_Name_P)</label>
+                <label class="kdsfont">@Html.DisplayFor(a => a.Father_Name_P)</label>
                 @Html.HiddenFor(model => model.Father_Name_P)
                 @*@Html.TextBoxFor(m => m.Father_Name_P, new
             {
@@ -331,7 +331,7 @@
         <div class="col-md-2 kdsfont">
             ÌØ¼Ø ÂØ ÅØÌ <span class="rqf">*</span>
         </div>
-        <div class="col-md-4 kdsfont">
+        <div class="col-md-4">
             @if (Model.Category == "7TH PASSED" || Model.Category == null)
             {
                 @Html.TextBoxFor(m => m.Mother_Name_P, new
@@ -350,7 +350,7 @@
             }
             else
             {
-                <label>@Html.DisplayFor(a => a.Mother_Name_P)</label>
+                <label class="kdsfont">@Html.DisplayFor(a => a.Mother_Name_P)</label>
                 @Html.HiddenFor(model => model.Mother_Name_P)
                 @*@Html.TextBoxFor(m => m.Mother_Name_P, new
             {
