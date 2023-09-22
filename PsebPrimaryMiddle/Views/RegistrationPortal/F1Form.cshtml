@@ -117,19 +117,30 @@
         @*@Html.TextBoxFor(m => m.Registration_num, new { id = "Registrationnum", @maxlength = "50", style = "visibility:hidden", @disabled = "disabled" })*@
     }
 </div>
-        <div class="col-md-6">
-            @if (Model.Category == "4TH PASSED" || Model.Category == null)
-            {
-                @Html.CheckBoxFor(m => m.IsPSEBRegNum, new { id = "IsPSEBRegNum", onclick = "return MyRegcheck(this);" })
-                <p>Yes I Have P.S.E.B Alloted Reg No. For This Candidate</p>
+              <div class="col-md-6">
+                  @if (Model.Category == "4TH PASSED" || Model.Category == null)
+                  {
+                      @Html.CheckBoxFor(m => m.IsPSEBRegNum, new { id = "IsPSEBRegNum", onclick = "return MyRegcheck(this);" })
+                      <p>Yes I Have P.S.E.B Alloted Reg No. For This Candidate</p>
 
-            }
-            else
-            {
-                @Html.CheckBoxFor(m => m.IsPSEBRegNum, new { id = "IsPSEBRegNum", @disabled = "disabled", onclick = "return MyRegcheck(this);" })
-                <p>Yes I Have P.S.E.B Alloted Reg No. For This Candidate</p>
-            }
-        </div>
+                  }
+                  else
+                  {
+
+                      if (Model.Registration_num == null || Model.Registration_num == "")
+                      {
+                          @Html.CheckBoxFor(m => m.IsPSEBRegNum, new { id = "IsPSEBRegNum", onclick = "return MyRegcheck(this);", @disabled = "disabled" })
+                          <p> Yes I Have P.S.E.B Alloted Reg No. For This Candidate</p>
+                      }
+                      else
+                      {
+                          @Html.CheckBoxFor(m => m.IsPSEBRegNum, new { id = "IsPSEBRegNum", onclick = "return MyRegcheck(this);" })
+                          <p> Yes I Have P.S.E.B Alloted Reg No. For This Candidate</p>
+                      }
+
+                     
+                  }
+              </div>
     </div>
     <div class="clearfix"></div>
     <h4>

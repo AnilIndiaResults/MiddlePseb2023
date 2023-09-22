@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Inter Board Migration  Form";
     Layout = "~/Views/Shared/_Headerui.cshtml";
+    var AWS_URL = System.Configuration.ConfigurationManager.AppSettings["AWSURL"].ToString();
 }
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -25,12 +26,12 @@
             @*<p class="kdsfont kdsrc">Note: When you get permission regarding late admission of candidate. Fill form normally under registration portal in cocerned form like other candidates and click on check box option "Is late admission" near date of admission celender. When you tick check box you will get a text box in which you have to entre Request id (That request Id you already have on your permission page) . If request id is approved and candidate details matched then it will allow to fill late admission date in pop up calender. Challan will generate at school level and fee correspondig to this will submit in bank, if candidate from other board, Inter Board Migation Fee automatically calculatated with registration fee.</p>
                 <p class="kdsfont">²ã¨Ï ÆñÛÚª¤ØÏÁÛ ÅÞâ Ðã¶ ÂØªÐã ÂÛ ÆñÒØÅ¬Û ÚÌÐ ¬¥Û Õè ¼Ù ÆñÛÚª¤ØÏÁÛ ÂÛ ÏÚ²Ó¶ñãÓÖÅ ¨ÏÅ Ð¥Û ÏÚ²ÓÖ¶ñãÓÖÅ ÆëÏ¶Ð ¤ÄÛÅ ÓÉâÄ¼ ÇØÏÌ ÚÒó° ÉØ¨Û ÆñÛÚª¤ØÏÁÛ¤Ù ÂÛ ¼ÏðÙ ÆñÛÚª¤ØÏÁÛ ÂØ ¸Ø¶Ø ¤è×¶Ï/Ú¥âÌÆëÏ¶ ¨Û¼Ø ²ØÒã¢ ÂØªÐã ÂÛ ÚÌ¼Û ÒØÐã ¨ØÐÌ ¨ëÐ ÚÂó¼Û ¤ØÆÓÖÅ Is Late Admission Âã ¤ó¬ã Ðó¬ã °è¨ ÉØ¨Ó ÅÞâ ²Âë× ¼ÝÓÛÖ Ú¶ó¨ ¨Ïë¬ã, ¼Ù Ú¥ó¨ ÅÒÙ ¨ØÐÌ ªÝóÐã¬Ø, Ú²Ó ÚÒó° ÆñÛÚª¤ØÏÁÛ ÂÛ Late Admission ÒØÐÛ Request ID ÊÏÛ ²ØÒã¢ Ú²Ó ÚÌ¼Û ¼ó¨ ÆñÛÚª¤ØÏÁÛ ÂÛ ÂØªÐã ÂÛ ÆñÒØÅ¬Û ÚÌÐÛ Õë¥ã¬Û, ¦ÝÓ ÚÌ¼Û ¼ó¨ ¨èÐâ¸Ï ªÝóÐ ²ØÒã¬Ø ¤¼ã ²ã¨Ï ÊÏÛ ¬¥Û Request ID Âã ÒãÏÒã ÇØÏÌ ÅØÐ ÌãÐ ¨ÏÂã Õë»¬ã ¼Ù ÇØÏÌ ÓãÒ ¨Û¼Ø ²Ø Ó¨ã¬Ø¢ Ú¥ÕÅÙ ÂÛ ÇØ¥ÛÅÐ ÓÉÚÌÓÖÅ ¤¼ã °ÐØÅ ²ÅÏã¶ Ó¨ÞÐ ÆóÄÏ ¼ã Õë¥ã¬Ø ¤¼ã ÇÛÓ Éè×¨ ÚÒó° ²ÌðÙ ÕëÒã¬Û¢ ²ã¨Ï ÆñÛÚª¤ØÏÁÛ Ú¨Óã ÉØÕÏÐã ÉëÏ¸ ÂØ ÕëÒã¬Ø ¼Ù ¦ÝÓÂÛ Ú¥â¶Ï ÉëÏ¸ ÌØ¥Û¬ãñÓÖÅ ÇÛÓ ¤Ø¶ëÌèÚ¶¨ ÏÚ²ÓÖ¶ãñÓÖÅ ÇÛÓ Âã ÅØÐ ÕÛ ¨èÐ¨ÞÐã¶ Õë ²ØÒã¬Û¢ </p>
             *@
-            <p class="kdsfont-n">
-                ਬੋਰਡ ਵੱਲੋਂ ਜਾਰੀ ਦਾਖਲਾ ਸ਼ਡਿਊਲ ਦੀਆਂ ਮਿਤੀਆਂ ਖਤਮ ਹੋਣ ਉਪਰੰਤ ਦੂਜੇ ਰਾਜ/ਬੋਰਡ ਤੋਂ ਪੜ੍ਹਦੇ ਆ ਰਹੇ ਵਿਦਿਆਰਥੀ ਜੇਕਰ ਪੰਜਾਬ ਸਕੂਲ ਸਿੱਖਿਆ ਬੋਰਡ ਨਾਲ ਸਬੰਧਤ ਸਕੂਲ ਵਿੱਚ ਦਾਖਲਾ ਲੈਣਾ ਚਾਹੁੰਦੇ ਹਨ ਤਾਂ ਦੂਜੇ ਰਾਜ/ਬੋਰਡ ਦੇ ਸਕੂਲ ਤੋਂ ਟੀ.ਸੀ. ਕਟਵਾਉਣ ਦੇ 15 ਦਿਨ ਦੇ ਵਿੱਚ-ਵਿੱਚ ਜਿਸ ਸਕੂਲ ਵਿੱਚ ਦਾਖਲਾ ਲੈਣਾ ਹੈ, ਨੂੰ  ਇੰਟਰ-ਬੋਰਡ ਮਾਈਗਰੇਸ਼ਨ ਕਰਵਾਉਣ  ਸਬੰਧੀ ਬੇਨਤੀ-ਪੱਤਰ ਦੇਣਗੇ। ਇਹ ਇੰਟਰ-ਬੋਰਡ ਮਾਈਗਰੇਸ਼ਨ ਪੰਜਾਬ ਸਕੂਲ ਸਿੱਖਿਆ ਬੋਰਡ ਦੀਆਂ ਸਲਾਨਾ ਪ੍ਰੀਖਿਆਵਾਂ ਸ਼ੁਰੂ ਹੋਣ ਤੋਂ 45 ਦਿਨ ਪਹਿਲਾਂ ਤੱਕ ਕਰਵਾਈ ਜਾ ਸਕਦੀ ਹੈ।
-            </p>
-            <p class="kdsfont-n kdsrc">
-                As per the board’s prescribed admission schedule,When the last/closing date of admission gets over, the other state/board students will take admission in any of the Punjab School Education Board School only if they bring a TC/School leaving Certificate from their last studied other board School within 15 days tenure and their dues should be paid till that date. This inter-board migration can be done 45 days before the commencement  of final exams.
-            </p>
+            @*<p class="kdsfont-n">
+                    ਬੋਰਡ ਵੱਲੋਂ ਜਾਰੀ ਦਾਖਲਾ ਸ਼ਡਿਊਲ ਦੀਆਂ ਮਿਤੀਆਂ ਖਤਮ ਹੋਣ ਉਪਰੰਤ ਦੂਜੇ ਰਾਜ/ਬੋਰਡ ਤੋਂ ਪੜ੍ਹਦੇ ਆ ਰਹੇ ਵਿਦਿਆਰਥੀ ਜੇਕਰ ਪੰਜਾਬ ਸਕੂਲ ਸਿੱਖਿਆ ਬੋਰਡ ਨਾਲ ਸਬੰਧਤ ਸਕੂਲ ਵਿੱਚ ਦਾਖਲਾ ਲੈਣਾ ਚਾਹੁੰਦੇ ਹਨ ਤਾਂ ਦੂਜੇ ਰਾਜ/ਬੋਰਡ ਦੇ ਸਕੂਲ ਤੋਂ ਟੀ.ਸੀ. ਕਟਵਾਉਣ ਦੇ 15 ਦਿਨ ਦੇ ਵਿੱਚ-ਵਿੱਚ ਜਿਸ ਸਕੂਲ ਵਿੱਚ ਦਾਖਲਾ ਲੈਣਾ ਹੈ, ਨੂੰ  ਇੰਟਰ-ਬੋਰਡ ਮਾਈਗਰੇਸ਼ਨ ਕਰਵਾਉਣ  ਸਬੰਧੀ ਬੇਨਤੀ-ਪੱਤਰ ਦੇਣਗੇ। ਇਹ ਇੰਟਰ-ਬੋਰਡ ਮਾਈਗਰੇਸ਼ਨ ਪੰਜਾਬ ਸਕੂਲ ਸਿੱਖਿਆ ਬੋਰਡ ਦੀਆਂ ਸਲਾਨਾ ਪ੍ਰੀਖਿਆਵਾਂ ਸ਼ੁਰੂ ਹੋਣ ਤੋਂ 45 ਦਿਨ ਪਹਿਲਾਂ ਤੱਕ ਕਰਵਾਈ ਜਾ ਸਕਦੀ ਹੈ।
+                </p>
+                <p class="kdsfont-n kdsrc">
+                    As per the board’s prescribed admission schedule,When the last/closing date of admission gets over, the other state/board students will take admission in any of the Punjab School Education Board School only if they bring a TC/School leaving Certificate from their last studied other board School within 15 days tenure and their dues should be paid till that date. This inter-board migration can be done 45 days before the commencement  of final exams.
+                </p>*@
 
             <p>
                 <br>
@@ -108,7 +109,7 @@
                             var ApprovalDate = Model.StoreAllData.Tables[0].Rows[i]["ApprovalDate"].ToString();
                             var ApprovalUpto = Model.StoreAllData.Tables[0].Rows[i]["ApprovalUpto"].ToString();
                             var FilePath = Model.StoreAllData.Tables[0].Rows[i]["FilePath"].ToString();
-                            if (FilePath.ToString() != "") { FilePath = "https://registration.pseb.ac.in/upload/Upload2023/LateAdmission/" + FilePath; }
+                            if (FilePath.ToString() != "") { FilePath = @AWS_URL + "" + FilePath; }
                             var Statusmsg = Model.StoreAllData.Tables[0].Rows[i]["StatusName"].ToString();
                             //if (Status == "0") { Statusmsg = "Created"; }
                             //if (Status == "1") { Statusmsg = "Submitted"; }
@@ -192,7 +193,7 @@
 @*/ BEGIN Add new record/*@
 @using (Html.BeginForm("AddLateAdmissionSchl", "RegistrationPortal", FormMethod.Post, new { id = "searchform", enctype = "multipart/form-data" }))
 {
-    <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal fade" id="myModal" role="dialog" style="opacity:1;padding-top:140px;">
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
@@ -284,7 +285,9 @@
                             </tr>
                             <tr>
                                 <td><input type="Text" value="Student Contanct No *" style="background-color:lightgray" disabled="disabled" /></td>
-                                <td style="width:350px;"><input type="Text" id="mobileno" name="mobileno" class="obt" /> </td>
+                                <td style="width:350px;">
+                                    <input type="text" maxlength="10"  id="mobileno" name="mobileno" class="obt" onkeypress = "return isNumberKey(event);"  />
+                                </td>
                             </tr>
                             <tr>
                                 <td><input type="Text" value="Attach File *" style="background-color:lightgray" disabled="disabled" /></td>
@@ -341,10 +344,10 @@
             var ApprovalDate = Model.StoreAllData.Tables[0].Rows[i]["ApprovalDate"].ToString();
             var ApprovalUpto = Model.StoreAllData.Tables[0].Rows[i]["ApprovalUpto"].ToString();
             var FilePath = Model.StoreAllData.Tables[0].Rows[i]["FilePath"].ToString();
-            if (FilePath.ToString() != "") { FilePath = "https://registration.pseb.ac.in/upload/Upload2023/LateAdmission/" + FilePath; }
+            if (FilePath.ToString() != "") { FilePath = @AWS_URL + "" + FilePath; }
             using (Html.BeginForm("ModifyLateAdmissionSchl", "RegistrationPortal", new { RequestID = @RequestID }, FormMethod.Post, new { id = "searchform", enctype = "multipart/form-data" }))
             {
-                <div class="modal fade" id="myModalModify-@RequestID" role="dialog">
+                <div class="modal fade" id="myModalModify-@RequestID" role="dialog" style="opacity:1;padding-top:140px;">
                     <div class="modal-dialog">
                         <!-- Modal content-->
                         <div class="modal-content">
@@ -362,7 +365,7 @@
                                             <td style="width:350px;">
                                                 @{
                                                     List<SelectListItem> classItem = new List<SelectListItem>();
-                                                    classItem.Add(new SelectListItem { Text = "---Select---", Value = "0" });                                                  
+                                                    classItem.Add(new SelectListItem { Text = "---Select---", Value = "0" });
                                                     classItem.Add(new SelectListItem { Text = "5th", Value = "5" });
                                                     classItem.Add(new SelectListItem { Text = "8th", Value = "8" });
                                                 }
@@ -437,8 +440,8 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><input type="Text" value="Student Contanct No" style="background-color:lightgray" disabled="disabled" /></td>
-                                            <td style="width:350px;"><input type="Text" id="mobileno" value="@mobileno" name="mobileno" class="obt" /> </td>
+                                            <td><input type="Text" value="Student Contanct No" style="background-color:lightgray" disabled="disabled" /></td>                                            
+                                            <td style="width:350px;"><input type="Text" id="mobileno" maxlength="10" value="@mobileno" name="mobileno" class="obt" onkeypress="return isNumberKey(event);" /> </td>
                                         </tr>
                                         <tr>
                                             <td><input type="Text" value="Attach File" style="background-color:lightgray" disabled="disabled" /></td>
@@ -600,7 +603,7 @@
         if (cls == "8") {
             $("#formNM").append('<option value="">--Select --</option>');
             $("#formNM").append('<option value="A2">A2</option>');
-        }        
+        }
     })
 
     $("#classM").change(function () {
@@ -614,7 +617,7 @@
         if (cls == "8") {
             $("#formNMM").append('<option value="">--Select --</option>');
             $("#formNMM").append('<option value="A2">A2</option>');
-        }        
+        }
     })
 
     $("#formNM").change(function () {
@@ -730,7 +733,17 @@
                     alert(response);
                 }
             });
+    }
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if ((charCode >= 48 && charCode <= 57) || (charCode == 9) || (charCode == 8) || (charCode == 46)) {
+            return true;
         }
+        else {
+            alert("Invalid character...Enter Only Number!!");
+            return false;
+        }
+    }
     function findSizeAndPreview(input) {
         if (typeof ($("#file")[0].files) != "undefined") {
 
