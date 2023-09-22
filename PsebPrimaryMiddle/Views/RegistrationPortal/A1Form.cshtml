@@ -216,7 +216,7 @@
         <div class="col-md-4">
             @if (Model.Category == "7TH PASSED" || Model.Category == null)
             {
-                @Html.TextBoxFor(m => m.Candi_Name, new { id = "Candi_Name", @maxlength = "50", onfocusout = "checkCandidateName()", onkeypress = "return ValidateAlpha(event);", @required = "required" })
+                @Html.TextBoxFor(m => m.Candi_Name, new { id = "Candi_Name", @maxlength = "50", onkeypress = "return ValidateAlpha(event);", @required = "required" })
             }
             else
             {
