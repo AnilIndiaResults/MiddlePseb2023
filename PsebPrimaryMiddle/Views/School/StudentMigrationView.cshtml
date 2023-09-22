@@ -9,7 +9,7 @@
 
         Layout = "~/Views/Shared/_Headerui.cshtml";
     }
-
+    var AWS_URL = System.Configuration.ConfigurationManager.AppSettings["AWSURL"].ToString();
 }
 <h1>Migration Detail</h1>
 
@@ -29,7 +29,7 @@
             <div class="col-md-4">New School Details</div><div class="col-md-8"> @Html.TextBoxFor(a => a.NewSchlDetails, new { id = "SchlCodeNew", @ReadOnly = "ReadOnly" })</div>
             <div class="col-md-4"><b>Applied On</b></div><div class="col-md-8"> @Html.TextBoxFor(a => a.CreatedDate, new { @ReadOnly = "ReadOnly" })</div>
             <div class="col-md-4">Student Migration Letter </div><div class="col-md-8">
-                <a href="/Upload/@Model.StudentMigrationLetter" target="_blank" class="btn">View File</a><br />
+                <a href="@AWS_URL@Model.StudentMigrationLetter" target="_blank" class="btn">View File</a><br />
             </div>
 
 
