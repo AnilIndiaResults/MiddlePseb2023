@@ -1775,10 +1775,12 @@
         document.getElementById("Year").disabled = true;
 
         if (IsPSEBRegNum.checked) {
-            document.getElementById("Registrationnum").style.visibility = 'visible';
+            //document.getElementById("Registrationnum").style.visibility = 'visible';
+            $('#Registrationnum').css("visibility", "visible");
         }
         else {
-            document.getElementById("Registrationnum").style.visibility = 'hidden';
+            /*document.getElementById("Registrationnum").style.visibility = 'hidden';*/
+            $('#Registrationnum').css("visibility", "hidden");
         }
 
         var selectedVal = '@Model.Category';
