@@ -216,7 +216,7 @@
         <div class="col-md-4">
             @if (Model.Category == "7TH PASSED" || Model.Category == null)
             {
-                @Html.TextBoxFor(m => m.Candi_Name, new { id = "Candi_Name", @maxlength = "50", onfocusout = "checkCandidateName()", onkeypress = "return ValidateAlpha(event);", @required = "required" })
+                @Html.TextBoxFor(m => m.Candi_Name, new { id = "Candi_Name", @maxlength = "50", onkeypress = "return ValidateAlpha(event);", @required = "required" })
             }
             else
             {
@@ -1352,17 +1352,20 @@
     var ApprovalUp = "";
 
     $(document).ready(function () {
-
+       
         var selectedVal = $("#DA").val();//document.getElementById("#MyDist");
         if (selectedVal == "N.A.") {
+            console.log("selectedVal", selectedVal)
             $('#sw').css("display", "none");
             $(DP).val("");
         }
         if (selectedVal == "") {
+            console.log("selectedValblank", selectedVal)
             $('#sw').css("display", "none");//BY AMARDEEP
             $(DP).val("");
         }
         else {
+            console.log("selectedValelse", selectedVal)
             $('#sw').css("display", "block");
         }
 
