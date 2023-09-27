@@ -396,13 +396,13 @@
         <div class="col-md-4">
             @Html.DropDownListFor(m => m.CandiMedium, new SelectList(Model.ClassFifthInitilizeListModel.MyMedium, "Value", "Text"), "---Select---", new { id = "CandiMedium", @required = "required" })
         </div>
-        @*<div class="col-md-2">
+        <div class="col-md-2">
             Want Hard Copy of Certificate?<sup style="color:red;font-size:15px;">*</sup>
         </div>
         <div class="col-md-4">
             @Html.DropDownListFor(model => model.IsHardCopyCertificate, new SelectList(Model.ClassFifthInitilizeListModel.YesNoListText, "Value", "Text"), "---Select---", new { @required = "required" })
             @Html.HiddenFor(model => model.IsHardCopyCertificate)
-        </div>*@
+        </div>
     </div>
 
     <div class="clearfix"></div>

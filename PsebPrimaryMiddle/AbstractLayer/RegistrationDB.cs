@@ -563,7 +563,7 @@ namespace PsebJunior.AbstractLayer
                 cmd.CommandText = "insert_F1_F2_Subject_Forms_Sp";
                 cmd.Parameters.AddWithValue("@MotherTongue", RM.MotherTongue);
                 //cmd.Parameters.AddWithValue("@IsHardCopyCertificate", RM.IsHardCopyCertificate);
-                cmd.Parameters.AddWithValue("@IsHardCopyCertificate", "YES");
+                cmd.Parameters.AddWithValue("@IsHardCopyCertificate", RM.IsHardCopyCertificate);
                 cmd.Parameters.AddWithValue("@EligibilityCriteria", RM.EligibilityCriteria);
                 cmd.Parameters.AddWithValue("@IsNRICandidate", RM.IsNRICandidate);
                 cmd.Parameters.AddWithValue("@form_Name", FormType);
@@ -740,7 +740,7 @@ namespace PsebJunior.AbstractLayer
                 cmd.CommandText = "Update_F1_F2_SubjectsForms_Sp";
 
                 cmd.Parameters.AddWithValue("@MotherTongue", RM.MotherTongue);
-                cmd.Parameters.AddWithValue("@IsHardCopyCertificate", "YES");
+                cmd.Parameters.AddWithValue("@IsHardCopyCertificate", RM.IsHardCopyCertificate);
                 cmd.Parameters.AddWithValue("@EligibilityCriteria", RM.EligibilityCriteria);
                 cmd.Parameters.AddWithValue("@IsNRICandidate", RM.IsNRICandidate);
                 cmd.Parameters.AddWithValue("@Std_id", stdid);
@@ -925,7 +925,7 @@ namespace PsebJunior.AbstractLayer
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "insert_A1_A2_Subject_Forms_Sp";
                 cmd.Parameters.AddWithValue("@MotherTongue", RM.MotherTongue);
-                cmd.Parameters.AddWithValue("@IsHardCopyCertificate", "YES");
+                cmd.Parameters.AddWithValue("@IsHardCopyCertificate", RM.IsHardCopyCertificate);
                 cmd.Parameters.AddWithValue("@EligibilityCriteria", RM.EligibilityCriteria);
                 cmd.Parameters.AddWithValue("@IsNRICandidate", RM.IsNRICandidate);
                 cmd.Parameters.AddWithValue("@form_Name", FormType);
@@ -1101,7 +1101,7 @@ namespace PsebJunior.AbstractLayer
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "Update_A1_A2_SubjectsForms_Sp";
                 cmd.Parameters.AddWithValue("@MotherTongue", RM.MotherTongue);
-                cmd.Parameters.AddWithValue("@IsHardCopyCertificate", "YES");
+                cmd.Parameters.AddWithValue("@IsHardCopyCertificate", RM.IsHardCopyCertificate);
                 cmd.Parameters.AddWithValue("@EligibilityCriteria", RM.EligibilityCriteria);
                 cmd.Parameters.AddWithValue("@IsNRICandidate", RM.IsNRICandidate);
                 cmd.Parameters.AddWithValue("@Std_id", stdid);
