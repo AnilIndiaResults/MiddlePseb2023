@@ -216,7 +216,7 @@
         <div class="col-md-4">
             @if (Model.Category == "7TH PASSED" || Model.Category == null)
             {
-                @Html.TextBoxFor(m => m.Candi_Name, new { id = "Candi_Name", @maxlength = "50", onfocusout = "checkCandidateName()", onkeypress = "return ValidateAlpha(event);", @required = "required" })
+                @Html.TextBoxFor(m => m.Candi_Name, new { id = "Candi_Name", @maxlength = "50", onkeypress = "return ValidateAlpha(event);", @required = "required" })
             }
             else
             {
@@ -579,15 +579,15 @@
                 @Html.DropDownListFor(m => m.CandiMedium, new SelectList(Model.ClassMiddleInitilizeListModel.MyMedium, "Value", "Text"), "---Select---", new { id = "CandiMedium", @required = "required" })
            
         </div>
-        @*<div class="col-md-2">
+        <div class="col-md-2">
                 Want Hard Copy of Certificate?<sup style="color:red;font-size:15px;">*</sup>
             </div>
             <div class="col-md-4">
                 @Html.DropDownListFor(model => model.IsHardCopyCertificate, new SelectList(Model.ClassMiddleInitilizeListModel.YesNoListText, "Value", "Text"), "---Select---", new { @required = "required" })
                 @Html.HiddenFor(model => model.IsHardCopyCertificate)
-            </div>*@
-        @*<div class="clearfix"></div>
-            <div class="col-md-12 rqf">*Candidate Medium Of Study Will Be Print On Marksheet Certificate </div>*@
+            </div>
+        <div class="clearfix"></div>
+            <div class="col-md-12 rqf">*Candidate Medium Of Study Will Be Print On Marksheet Certificate </div>
     </div>
 
     <div class="clearfix"></div>
@@ -1085,7 +1085,7 @@
             changeYear: true,
             // maxDate: '-9Y',
             yearRange: '1969:' + (new Date().getFullYear()),
-            maxDate: new Date('2013/03/31'),
+            maxDate: new Date('2013/12/31'),
         });
         //$("#DOB").datepicker({
         //    dateFormat: "dd/mm/yy",
@@ -1352,17 +1352,20 @@
     var ApprovalUp = "";
 
     $(document).ready(function () {
-
+       
         var selectedVal = $("#DA").val();//document.getElementById("#MyDist");
         if (selectedVal == "N.A.") {
+            console.log("selectedVal", selectedVal)
             $('#sw').css("display", "none");
             $(DP).val("");
         }
         if (selectedVal == "") {
+            console.log("selectedValblank", selectedVal)
             $('#sw').css("display", "none");//BY AMARDEEP
             $(DP).val("");
         }
         else {
+            console.log("selectedValelse", selectedVal)
             $('#sw').css("display", "block");
         }
 

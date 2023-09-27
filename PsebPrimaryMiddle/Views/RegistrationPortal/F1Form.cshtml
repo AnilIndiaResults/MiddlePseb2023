@@ -209,7 +209,7 @@
         <div class="col-md-4">
             @if (Model.Category == "4TH PASSED" || Model.Category == null)
             {
-                @Html.TextBoxFor(m => m.Candi_Name, new { id = "Candi_Name", @maxlength = "50", onkeypress = "return ValidateAlpha(event);", onfocusout = "checkCandidateName()", @required = "required" })
+                @Html.TextBoxFor(m => m.Candi_Name, new { id = "Candi_Name", @maxlength = "50", onkeypress = "return ValidateAlpha(event);",  @required = "required" })
             }
             else
             {
@@ -556,15 +556,15 @@
         <div class="col-md-4">
             @Html.DropDownListFor(m => m.CandiMedium, new SelectList(Model.ClassFifthInitilizeListModel.MyMedium, "Value", "Text"), "---Select---", new { id = "CandiMedium", @required = "required" })
         </div>
-        @*<div class="col-md-2">
+        <div class="col-md-2">
                 Want Hard Copy of Certificate?<sup style="color:red;font-size:15px;">*</sup>
             </div>
             <div class="col-md-4">
                 @Html.DropDownListFor(model => model.IsHardCopyCertificate, new SelectList(Model.ClassFifthInitilizeListModel.YesNoListText, "Value", "Text"), "---Select---", new { @required = "required" })
                 @Html.HiddenFor(model => model.IsHardCopyCertificate)
-            </div>*@
-        @*<div class="clearfix"></div>
-            <div class="col-md-12 rqf">*Candidate Medium Of Study Will Be Print On Marksheet Certificate </div>*@
+            </div>
+        <div class="clearfix"></div>
+            <div class="col-md-12 rqf">*Candidate Medium Of Study Will Be Print On Marksheet Certificate </div>
     </div>
 
     <div class="clearfix"></div>
@@ -1775,10 +1775,12 @@
         document.getElementById("Year").disabled = true;
 
         if (IsPSEBRegNum.checked) {
-            document.getElementById("Registrationnum").style.visibility = 'visible';
+            //document.getElementById("Registrationnum").style.visibility = 'visible';
+            $('#Registrationnum').css("visibility", "visible");
         }
         else {
-            document.getElementById("Registrationnum").style.visibility = 'hidden';
+            /*document.getElementById("Registrationnum").style.visibility = 'hidden';*/
+            $('#Registrationnum').css("visibility", "hidden");
         }
 
         var selectedVal = '@Model.Category';
