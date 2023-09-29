@@ -2259,7 +2259,9 @@ namespace PsebJunior.AbstractLayer
             InfrasturePerformas obj = new InfrasturePerformas();
             if (LM != null)
             {
-                obj = context.InfrasturePerformas.SingleOrDefault(x => x.SCHL.Trim() == LM.SCHL.Trim());
+                //obj = context.InfrasturePerformas.SingleOrDefault(x => x.SCHL.Trim() == LM.SCHL.Trim());
+                obj = context.InfrasturePerformas.FirstOrDefault(x => x.SCHL.Trim() == LM.SCHL.Trim());
+                
                 if (obj == null)
                 {
                     var ipsNew = new InfrasturePerformas()
@@ -2268,7 +2270,12 @@ namespace PsebJunior.AbstractLayer
                     };
                     context.InfrasturePerformas.Add(ipsNew);
                     context.SaveChanges();
-                    obj = context.InfrasturePerformas.SingleOrDefault(x => x.SCHL.Trim() == LM.SCHL.Trim());
+                    //obj = context.InfrasturePerformas.SingleOrDefault(x => x.SCHL.Trim() == LM.SCHL.Trim());
+                    obj = context.InfrasturePerformas.FirstOrDefault(x => x.SCHL.Trim() == LM.SCHL.Trim());
+
+
+
+
                 }
 
             }
