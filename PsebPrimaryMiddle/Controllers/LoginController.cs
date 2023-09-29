@@ -73,6 +73,7 @@ namespace PsebPrimaryMiddle.Controllers
                         ViewBag.Matric = result.Tables[1].Rows[0]["Matric"].ToString();
                         loginSession.Senior = result.Tables[1].Rows[0]["Senior"].ToString();
                         loginSession.Matric = result.Tables[1].Rows[0]["Matric"].ToString();
+                        HttpContext.Session["SCHL"] = result.Tables[1].Rows[0]["schl"].ToString();
                     }
 
                     loginSession.CurrentSession = lm.Session;
