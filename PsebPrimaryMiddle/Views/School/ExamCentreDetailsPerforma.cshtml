@@ -1,0 +1,303 @@
+﻿@model PsebJunior.Models.LoginSession
+@{
+    ViewBag.Title = "Exam Centre Details Performa View";
+    string schlcode = "";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,600' rel='stylesheet' type='text/css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <noscript>
+        <style type="text/css">
+            #HPL {
+                display: none;
+            }
+        </style>
+        <charset style="background-color:#cc0000;color:#ffd800;font-size:24px;text-align:center;padding:10px 0">Your browser does not support JavaScript!</charset>
+    </noscript>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style type="text/css">
+        td, th {
+            padding: 5px
+        }
+    </style>
+</head>
+<body>
+
+    <table width="100%" border="1" class="table-bordered" style="margin-top:100px;">
+
+        <tr>
+            <td colspan="6" style="padding:0">
+                <table width="100%" border="0">
+                    <tr>
+                        <td width="10%">
+                            <div style="padding:3px">
+                                <img src="https://registration2022.pseb.ac.in/Images/Printlogo.jpg" height="80px" alt="PSEB">
+                            </div>
+                        </td>
+                        <td width="80%" style="font-size:16px;text-align:center;line-height:24px;">
+                            <span style="font-size:26px;">Punjab School Education Board</span><br>
+                            <span style="display:block">
+                                @if (Model.Finalsubmittedforchoice == 1)
+                                {
+                                    <span>Final Print</span>
+                                }
+                                else
+                                {
+                                    <span>Rough Print</span>
+                                }
+                                - Exam Centre Details Performa Session 2023–24
+                            </span>
+                        </td>
+                        <td width="10%"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            @if (ViewBag.SchoolModel != null)
+            {
+                schlcode = @ViewBag.SchoolModel.SCHL;
+                <td>
+                    <div class="row">
+                        <div class="col-md-2">
+                            School Code/User ID <span class="rqf">*</span>
+                        </div>
+                        <div class="col-md-2">
+                            <label>@ViewBag.SchoolModel.SCHL</label>
+                        </div>
+                        <div class="col-md-2">
+                            ID No. <span class="rqf">*</span>
+                        </div>
+                        <div class="col-md-2"><label>@ViewBag.SchoolModel.idno</label></div>
+
+                        <div class="col-md-2">
+                            Study Center Code <span class="rqf">*</span>
+                        </div>
+                        <div class="col-md-2"> <label>@ViewBag.SchoolModel.OCODE</label></div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-2">
+                            School Type <span class="rqf">*</span>
+                        </div>
+                        <div class="col-md-2"><label>@ViewBag.SchoolModel.USERTYPE</label></div>
+                        <div class="col-md-2">
+                            Class <span class="rqf">*</span>
+                        </div>
+                        <div class="col-md-2"><label>@ViewBag.SchoolModel.CLASS</label></div>
+                        <div class="col-md-2">
+                            School Area  <span class="rqf">*</span>
+                        </div>
+                        <div class="col-md-2"><label>@ViewBag.SchoolModel.AREA</label></div>
+                        <div class="col-md-2">
+                            UDICE Code <span class="rqf">*</span>
+                        </div>
+                        <div class="col-md-2">
+                            <label>@ViewBag.SchoolModel.udisecode</label>
+                            @*@Html.TextBoxFor(a => a.udisecode, new { id = "udisecode", onkeypress = "return isNumberKey(event);", @maxlength="11" })*@
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+
+
+
+                    <h4 colspan="6" style="color:#fff !important;background-color:#000 !important;text-align:left">School Details(In English)</h4>
+                    <div class="row">
+                        <div class="col-md-12">
+                            School Name <label> @ViewBag.SchoolModel.SCHLE</label>
+                        </div>
+                        <div class="col-md-6">
+                            District Name  <label> @ViewBag.SchoolModel.DISTE</label>
+                        </div>
+                        <div class="col-md-6">
+                            Station Name  <label>@ViewBag.SchoolModel.STATIONE</label>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <h4 colspan="6" style="color:#fff !important;background-color:#000 !important;text-align:left">School Details(In Punjabi)</h4>                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            School Name <label> <span class="kdsfont"> @ViewBag.SchoolModel.SCHLP</span></label>
+                            @*School Name @Html.TextBoxFor(a => a.SCHLP, new
+                })@Html.HiddenFor(a => a.DISTP, new { })
+                    id = "SCHLP",
+                    onkeydown = "return false;",
+                    onKeyPress = "javascript:convertThis(event)",
+                    onpaste = "return false;",
+                    oncopy = "return false;",
+                    oncut = "return false;",
+                    onclick = "toggleKBMode1(event)",
+                    lang = "pa"
+                })*@
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-6">
+                            District Name  <label><span class="kdsfont">@ViewBag.SchoolModel.DISTP</span></label>
+                        </div>
+                        <div class="col-md-6">
+                            Station Name
+                            <label><span class="kdsfont">@ViewBag.SchoolModel.STATIONP</span></label>
+                            @*@Html.TextBoxFor(a => a.STATIONP, new
+                {
+                    id = "STATIONP",
+                    onkeydown = "return false;",
+                    @class = "keyboardInput",
+                    onKeyPress = "javascript:convertThis(event)",
+                    onpaste = "return false;",
+                    oncopy = "return false;",
+                    oncut = "return false;",
+                    onclick = "toggleKBMode1(event)",
+                    lang = "pa"
+                })*@
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table id="t01" class="table table-bordered">
+                                <tr style="font-weight: bold;">
+                                    <td style="text-align:left;width:20%">Description</td>
+                                    <td style="text-align:center">Primary</td>
+                                    <td style="text-align:center">Middle</td>
+                                </tr>
+                                <tr style="font-weight: bold;">
+                                    <td>Groups</td>
+                                    <td>GEN</td>
+                                    <td>GEN</td>
+                                </tr>
+                                <tr style="font-weight: bold;">
+                                    <td>Status</td>
+                                    <td>  @ViewBag.SchoolModel.fifth</td>
+                                    <td>  @ViewBag.SchoolModel.middle</td>
+                                </tr>
+                                <tr style="font-weight: bold;">
+                                    <td>Type</td>
+                                    <td>  @ViewBag.SchoolModel.FIF_UTYPE</td>
+                                    <td>  @ViewBag.SchoolModel.MID_UTYPE</td>
+
+                                </tr>
+                                <tr style="font-weight: bold;">
+                                    <td>Year</td>
+                                    <td>  @ViewBag.SchoolModel.FIF_YR</td>
+                                    <td>  @ViewBag.SchoolModel.MID_YR</td>
+                                </tr>
+                                <tr style="font-weight: bold;">
+                                    <td>Sections</td>
+                                    <td>  @ViewBag.SchoolModel.FIF_S</td>
+                                    <td>  @ViewBag.SchoolModel.MID_S</td>
+                                </tr>
+
+
+
+
+                            </table>
+
+                        </div>
+
+
+                    </div>
+                    <div class="clearfix"></div>
+                </td>
+        }
+            </tr>
+
+            <td colspan="6" style="padding:0">
+                <table width="100%" border="1" class="table-bordered">
+                    <tr>
+                        <td colspan="6" style="color:#fff !important;background-color:#000 !important;text-align:left">School Profile Details</td>
+                    </tr>
+                    <tr>
+                        <td>School Name</td>
+                        <td colspan="3">
+                            @Html.DisplayFor(a => a.SCHLNME, new { })
+                        </td>
+                        <td>School Code</td>
+                        <td colspan="2">
+                            @schlcode
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td width="20%">PRINCIPAL NAME</td>
+                        <td width="15%">@Html.DisplayFor(a => a.PRINCIPAL, new { })</td>
+                        <td width="20%">STD CODE</td>
+                        <td width="15%">@Html.DisplayFor(a => a.STDCODE, new { })</td>
+                        <td width="15%">PHONE</td>
+                        <td width="15%">@Html.DisplayFor(a => a.PHONE, new { })</td>
+                    </tr>
+
+                    <tr>
+                        <td width="20%">MOBILE</td>
+                        <td width="15%">@Html.DisplayFor(a => a.MOBILE, new { })</td>
+                        <td width="20%">Name Of Second Head of School</td>
+                        <td width="15%">@Html.DisplayFor(a => a.PrincipalName2, new { })</td>
+                        <td width="15%">Mobile No. of the Second head</td>
+                        <td width="15%">@Html.DisplayFor(a => a.PrincipalMobile2, new { })</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+            </tr>
+
+            @if (ViewBag.objGroupList != null && ViewBag.objGroupList.Count > 0)
+            {
+                <tr>
+                    <td colspan="6" style="color:#fff !important;background-color:#000 !important;text-align:left">Centre Choice Details</td>
+                </tr>
+                <tr>
+                    <td colspan="6" style="padding:0">
+                        <table class="table-bordered" width="100%">
+                            <thead>
+                                <tr>
+                                    <td width="10%">  Choice Center Name</td>
+                                    <td width="10%"> Choice Center School Code</td>
+                                    <td width="10%">Distance</td>
+                                    <td width="10%">Insert Date</td>
+                                </tr>
+                            </thead>
+
+                            @foreach (var item in (IList<PsebJunior.Models.ExamCenterDetail>)ViewBag.objGroupList)
+                            {
+                                <tr>
+                                    <td width="6%">
+                                        <label>@item.choiceschlcode</label>
+                                    </td>
+                                    <td width="6%">
+                                        <label>@item.choiceschoolcode</label>
+                                    </td>
+                                    <td width="6%">
+                                        <label>@item.distance</label>
+                                    </td>
+                                    <td width="6%">
+                                        <label>@item.insertdate</label>
+                                    </td>
+                                </tr>
+                            }
+
+                        </table>
+                    </td>
+                </tr>
+            }
+        </table>
+    <div class="col-md-12" style="margin-top: 127px;">
+        <div class="col-md-6">
+            <p style="text-align:left;font-size:14px;">
+                Stamp & Signature of Principal
+            </p>
+        </div>
+        <div class="col-md-6">
+            <p style="text-align: right; font-size: 14px;">
+                Stamp & Signature of Distt Manager
+            </p>
+        </div>
+    </div>
+</body>
+</html>

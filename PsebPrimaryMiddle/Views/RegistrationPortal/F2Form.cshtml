@@ -198,7 +198,7 @@
         <div class="col-md-2">
             Candidate's Name <span class="rqf">*</span>
         </div>
-        <div class="col-md-4">@Html.TextBoxFor(m => m.Candi_Name, new { id = "Candi_Name", @maxlength = "50", onfocusout = "checkCandidateName()", onkeypress = "return ValidateAlpha(event);", @required = "required" })</div> @*onblur = "PnbCandidateName(this);"*@
+        <div class="col-md-4">@Html.TextBoxFor(m => m.Candi_Name, new { id = "Candi_Name", @maxlength = "50", onkeypress = "return ValidateAlpha(event);", @required = "required" })</div> @*onblur = "PnbCandidateName(this);"*@
         <div class="col-md-2 kdsfont">
             ÚÒÚÂ¤ØÏÁÛ ÂØ ÅØÌ <span class="rqf">*</span>
         </div>
@@ -396,13 +396,13 @@
         <div class="col-md-4">
             @Html.DropDownListFor(m => m.CandiMedium, new SelectList(Model.ClassFifthInitilizeListModel.MyMedium, "Value", "Text"), "---Select---", new { id = "CandiMedium", @required = "required" })
         </div>
-        @*<div class="col-md-2">
+        <div class="col-md-2">
             Want Hard Copy of Certificate?<sup style="color:red;font-size:15px;">*</sup>
         </div>
         <div class="col-md-4">
             @Html.DropDownListFor(model => model.IsHardCopyCertificate, new SelectList(Model.ClassFifthInitilizeListModel.YesNoListText, "Value", "Text"), "---Select---", new { @required = "required" })
             @Html.HiddenFor(model => model.IsHardCopyCertificate)
-        </div>*@
+        </div>
     </div>
 
     <div class="clearfix"></div>

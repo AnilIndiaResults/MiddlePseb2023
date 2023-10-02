@@ -6,6 +6,7 @@
     <title>@ViewBag.Title Punjab School Education Board</title>
     <link rel="shortcut icon" href="/Images/favicon.ico" />
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,600' rel='stylesheet' type='text/css' />
+    <link href="~/Content/bootstrap-chosen.css" rel="stylesheet" />
     <noscript>
         <style type="text/css">
             #HPL {
@@ -46,7 +47,7 @@
                                 </span>
                                 <span class="kdcs-wt-color kdcs-font-12">
                                     <br />
-                                    Reg Branch : <span class="kdcs-or-color">0172-5227432</span>
+                                    Reg Branch : <span class="kdcs-or-color">0172-5227438,0172-5227439,<br />0172-5227440</span>
                                 </span>
                             </div>
 
@@ -93,7 +94,9 @@
                                             @if (loginSession.Matric == "0" && loginSession.Senior == "0")
                                             {
                                                 <li>@Html.ActionLink("Infrastructure Performa", "InfrasturePerforma", "School")</li>
+                                                <li>@Html.ActionLink("Exam Centre Details", "ExamCentreDetails", "School")</li>
                                             }
+
                                             <li>@Html.ActionLink("Update School Information", "Update_School_Information", "SchoolProfile")</li>
                                             <li>@Html.ActionLink("Change Password", "Change_Password", "SchoolProfile")</li>
                                         </ul>
@@ -180,16 +183,16 @@
                                                       </li>*@
 
                                     <li class="dropdown">
-                                            <a class="dropdown-toggle" data-toggle="dropdown">
-                                                School Migration
-                                                <span class="caret"></span>
-                                            </a>
-                                            <ul class="dropdown-menu">
-                                                <li>@Html.ActionLink("Apply For Migration", "ApplyStudentSchoolMigration", "School")</li>
-                                                <li>@Html.ActionLink("Applied List", "StudentSchoolMigrationApplied", "School")</li>
-                                                <li>@Html.ActionLink("Received List", "StudentSchoolMigrationReceived", "School")</li>
-                                            </ul>
-                                        </li>
+                                        <a class="dropdown-toggle" data-toggle="dropdown">
+                                            School Migration
+                                            <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>@Html.ActionLink("Apply For Migration", "ApplyStudentSchoolMigration", "School")</li>
+                                            <li>@Html.ActionLink("Applied List", "StudentSchoolMigrationApplied", "School")</li>
+                                            <li>@Html.ActionLink("Received List", "StudentSchoolMigrationReceived", "School")</li>
+                                        </ul>
+                                    </li>
 
 
                                     @*<li><a href="/school/ExamCentre">Practical Exam Centre</a></li>*@
@@ -248,5 +251,6 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script src="~/Scripts/chosen.jquery.js"></script>
 </body>
 </html>

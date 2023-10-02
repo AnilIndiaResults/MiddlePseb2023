@@ -361,12 +361,15 @@
     <Content Include="bin\Unity.Container.pdb" />
     <Content Include="bin\Unity.Mvc5.dll" />
     <Content Include="bin\WebGrease.dll" />
+    <Content Include="Content\bootstrap-chosen.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\chosen-sprite%402x.png" />
+    <Content Include="Content\chosen-sprite.png" />
     <Content Include="Content\jquery.dataTables.min.css" />
     <Content Include="Content\kdcs.css" />
     <Content Include="Content\keyboard.css" />
@@ -432,6 +435,8 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\chosen.jquery.js" />
+    <Content Include="Scripts\chosen.jquery.min.js" />
     <Content Include="Scripts\custom.js" />
     <Content Include="Scripts\dataTables.bootstrap4.min.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
@@ -465,6 +470,8 @@
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="PDF\RegistrationContinuationInstructions.pdf" />
     <Content Include="libman.json" />
+    <Content Include="Content\bootstrap-chosen.scss" />
+    <Content Include="Content\bootstrap-chosen.less" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -844,6 +851,8 @@
     <Content Include="Views\School\ExamCentreConfidentialResources.cshtml" />
     <Content Include="Views\School\InfrasturePerforma.cshtml" />
     <Content Include="Views\School\ViewInfrasturePerformas.cshtml" />
+    <Content Include="Views\School\ExamCentreDetailsPerforma.cshtml" />
+    <Content Include="Views\School\ExamCentreDetails.cshtml" />
     <None Include="Web References\ingovepunjabschool\service-pseb-5th-and-8th.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
