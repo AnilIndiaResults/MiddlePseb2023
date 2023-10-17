@@ -309,7 +309,15 @@ namespace PsebPrimaryMiddle.Controllers
                 TempData["PaymentForm"] = null;
                 TempData["FeeStudentList"] = null;
                 ViewBag.selectedClass = "";
-                return View(fhvm);
+                if (loginSession.USERTYPE != "GOV" && loginSession.USERTYPE != "R&A")
+                {
+                    return View(fhvm);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                   
             }
             catch (Exception ex)
             {
