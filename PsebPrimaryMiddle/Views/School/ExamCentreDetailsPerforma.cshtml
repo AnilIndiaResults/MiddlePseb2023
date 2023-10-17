@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Exam Centre Details Performa View";
     string schlcode = "";
+    int count = 1;
 }
 <!DOCTYPE html>
 <html>
@@ -257,7 +258,8 @@
                         <table class="table-bordered" width="100%">
                             <thead>
                                 <tr>
-                                    <td width="10%">  Choice Center Name</td>
+                                    <td width="2%">  Preference No.</td>
+                                    <td width="30%">  Choice Center Name</td>
                                     <td width="10%"> Choice Center School Code</td>
                                     <td width="10%">Distance</td>
                                     <td width="10%">Insert Date</td>
@@ -267,6 +269,9 @@
                             @foreach (var item in (IList<PsebJunior.Models.ExamCenterDetail>)ViewBag.objGroupList)
                             {
                                 <tr>
+                                    <td width="2%">
+                                        <label>@count</label>
+                                    </td>
                                     <td width="6%">
                                         <label>@item.choiceschlcode</label>
                                     </td>
