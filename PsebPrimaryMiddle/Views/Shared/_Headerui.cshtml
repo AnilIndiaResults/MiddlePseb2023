@@ -118,7 +118,12 @@
                                             <span class="caret"></span>
                                         </a>
                                         <ul class="dropdown-menu">
-                                            <li>@Html.ActionLink("Registration Portal", "Portal", "RegistrationPortal")</li>
+
+                                            @if (loginSession.USERTYPE != "GOV" && loginSession.USERTYPE != "R&A")
+                                            {
+                                                <li>@Html.ActionLink("Registration Portal", "Portal", "RegistrationPortal")</li>
+                                            }
+
                                             @*<li>@Html.ActionLink("Late Admission Request", "LateAdmissionSchl", "RegistrationPortal")</li>*@
                                             <li>@Html.ActionLink("Inter Board Migration", "InterBoardMigrationSchl", "RegistrationPortal")</li>
                                         </ul>

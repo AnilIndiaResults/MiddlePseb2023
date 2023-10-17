@@ -14,6 +14,7 @@ namespace PsebPrimaryMiddle.Filters
 
             if (HttpContext.Current.Session["LoginSession"] == null)
             {
+                
                 filterContext.Result = new RedirectToRouteResult(
                       new RouteValueDictionary
                     {
