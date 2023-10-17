@@ -8670,7 +8670,7 @@ namespace PsebPrimaryMiddle.Controllers
                             CENT = dataRow.Field<string>("CENT").ToString(),
                             CLASS = dataRow.Field<string>("CLASS").ToString(),
                             schlnme = dataRow.Field<string>("schlnme").ToString()
-                        }).ToList();
+                        }).ToList();    
                         ViewBag.SchoolCenterName = schoolCenterNames;
                     }
 
