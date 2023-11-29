@@ -211,7 +211,8 @@ namespace PsebJunior.AbstractLayer
                         loginSession.PRINCIPAL = DBNull.Value != reader["PRINCIPAL"] ? (string)reader["PRINCIPAL"] : default(string);
                         loginSession.EXAMCENT = DBNull.Value != reader["EXAMCENT"] ? (string)reader["EXAMCENT"] : default(string);
                         loginSession.PRACCENT = DBNull.Value != reader["PRACCENT"] ? (string)reader["PRACCENT"] : default(string);
-                        loginSession.USERTYPE = DBNull.Value != reader["SCHLNME"] ? (string)reader["USERTYPE"] : default(string);
+                        loginSession.USERTYPE = DBNull.Value != reader["USERTYPE"] ? (string)reader["USERTYPE"] : default(string);
+                        loginSession.GovFlag = DBNull.Value != reader["GovFlag"] ? (string)reader["GovFlag"] : default(string);
                         loginSession.CLUSTERDETAILS = DBNull.Value != reader["CLUSTERDETAILS"] ? (string)reader["CLUSTERDETAILS"] : default(string);
                         //
                         loginSession.IsMeritoriousSchool = DBNull.Value != reader["IsMeritoriousSchool"] ? (int)reader["IsMeritoriousSchool"] : default(int);

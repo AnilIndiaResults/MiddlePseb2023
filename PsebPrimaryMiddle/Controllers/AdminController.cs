@@ -21,7 +21,6 @@ namespace PsebPrimaryMiddle.Controllers
     [AdminMenuFilter]
     public class AdminController : Controller
     {
-
         private readonly ISchoolRepository _schoolRepository;
         private readonly IAdminRepository _adminRepository;
         private readonly ICenterHeadRepository _centerheadrepository;
@@ -95,7 +94,7 @@ namespace PsebPrimaryMiddle.Controllers
         }
 
 
-       
+
         public ActionResult Logout()
         {
             HttpContext.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(-1));
@@ -104,7 +103,7 @@ namespace PsebPrimaryMiddle.Controllers
             FormsAuthentication.SignOut();
             Session.Clear();
             Session.Abandon();
-            Session.RemoveAll();         
+            Session.RemoveAll();
             return RedirectToAction("Index", "Admin");
 
         }
@@ -113,14 +112,14 @@ namespace PsebPrimaryMiddle.Controllers
 
         [AdminLoginCheckFilter]
         public ActionResult PageNotAuthorized()
-        {           
+        {
             return View();
         }
 
 
         [AdminLoginCheckFilter]
         public ActionResult Welcome()
-        {            
+        {
             return View();
         }
 
@@ -130,7 +129,7 @@ namespace PsebPrimaryMiddle.Controllers
         [AdminLoginCheckFilter]
         public ActionResult Change_Password()
         {
-            AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"]; 
+            AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
             ViewBag.User = adminLoginSession.USERNAME.ToString();
             return View();
         }
@@ -141,10 +140,8 @@ namespace PsebPrimaryMiddle.Controllers
         {
             AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
             ViewBag.User = adminLoginSession.USERNAME.ToString();
-
             string CurrentPassword = string.Empty;
             string NewPassword = string.Empty;
-
             if (frm["ConfirmPassword"] != "" && frm["NewPassword"] != "")
             {
                 if (frm["ConfirmPassword"].ToString() == frm["NewPassword"].ToString())
@@ -203,7 +200,6 @@ namespace PsebPrimaryMiddle.Controllers
         public ActionResult MenuMaster(int id = 0)
         {
             AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
-
             List<SelectListItem> menuList = new List<SelectListItem>();
             ViewBag.Id = id;
             ViewBag.SelMenu = menuList;
@@ -211,11 +207,9 @@ namespace PsebPrimaryMiddle.Controllers
             SiteMenu oModel = new SiteMenu();
             var itemParent = new SelectList(new[] { new { ID = "1", Name = "Menu" }, new { ID = "2", Name = "SubMenu" }, new { ID = "3", Name = "Action" }, }, "ID", "Name", 1);
             ViewBag.Parent = itemParent.ToList();
-
             if (adminLoginSession.AdminType.ToString().ToUpper() == "ADMIN")
-            {   
-                ViewBag.MySession = MenuSessionList("");  
-
+            {
+                ViewBag.MySession = MenuSessionList("");
                 if (id == 0)
                 {
                     DataSet result = _adminRepository.GetAllMenu(0);
@@ -252,7 +246,7 @@ namespace PsebPrimaryMiddle.Controllers
                         else
                         {
                             DataSet ds = _adminRepository.GetAllMenu(Convert.ToInt32(oModel.StoreAllData.Tables[0].Rows[0]["SelRole"].ToString()));
-                            ViewBag.SelMenu = ds.Tables[0];                          
+                            ViewBag.SelMenu = ds.Tables[0];
                             foreach (System.Data.DataRow dr in ds.Tables[0].Rows)
                             {
                                 if (dr["MenuId"].ToString() == oModel.StoreAllData.Tables[0].Rows[0]["ParentMenuId"].ToString())
@@ -264,7 +258,7 @@ namespace PsebPrimaryMiddle.Controllers
                                     menuList.Add(new SelectListItem { Text = @dr["MenuName"].ToString(), Value = @dr["MenuId"].ToString() });
                                 }
                             }
-                            ViewBag.SelMenu = menuList;                          
+                            ViewBag.SelMenu = menuList;
                         }
                     }
                 }
@@ -282,31 +276,26 @@ namespace PsebPrimaryMiddle.Controllers
         public ActionResult MenuMaster(SiteMenu oModel, FormCollection frm, int id = 0)
         {
             AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
-
             ViewBag.MySession = MenuSessionList("");
             //Parent
             var itemParent = new SelectList(new[] { new { ID = "1", Name = "Menu" }, new { ID = "2", Name = "SubMenu" }, new { ID = "3", Name = "Action" }, }, "ID", "Name", 1);
             ViewBag.Parent = itemParent.ToList();
-
-            string SelectedSession = "";        
+            string SelectedSession = "";
             ViewBag.Id = id;
             List<SelectListItem> menuList = new List<SelectListItem>();
             ViewBag.SelMenu = menuList;
             ViewBag.SelectedSelMenu = 0;
-            
             if (adminLoginSession.AdminType.ToString().ToUpper() == "ADMIN")
             {
-
                 if (frm["SelectedSession"] == "" || frm["SelectedSession"] == null)
                 {
                     ViewData["Result"] = 20;
                     return View(oModel);
                 }
                 else
-                { SelectedSession = frm["SelectedSession"].ToString(); } 
+                { SelectedSession = frm["SelectedSession"].ToString(); }
                 if (id == 0)
                 {
-
                     int IsParent = 0, ParentMenuId = 0, IsMenu = 1;
                     if (frm["Parent"] != "")
                     {
@@ -367,29 +356,27 @@ namespace PsebPrimaryMiddle.Controllers
                     oModel.StoreAllData = ds;
                     ViewBag.TotalCount = oModel.StoreAllData.Tables[0].Rows.Count;
                 }
-
                 return View(oModel);
             }
             else
             {
                 return RedirectToAction("Index", "Admin");
             }
-
         }
 
 
         public JsonResult GetMenu(int Parent) // Calling on http post (on Submit)
         {
-            DataSet ds = _adminRepository.GetAllMenu(Parent);           
+            DataSet ds = _adminRepository.GetAllMenu(Parent);
             List<SelectListItem> menuList = new List<SelectListItem>();
             menuList.Add(new SelectListItem { Text = "---Select---", Value = "0" });
             var eList = ds.Tables[0].AsEnumerable().Select(dataRow => new SelectListItem
             {
                 Text = dataRow.Field<string>("MenuName"),
                 Value = dataRow.Field<int>("MenuID").ToString()
-                
+
             }).ToList();
-            menuList = eList.ToList();           
+            menuList = eList.ToList();
             return Json(menuList);
         }
 
@@ -399,7 +386,7 @@ namespace PsebPrimaryMiddle.Controllers
             try
             {
                 if (adminLoginSession.AdminType.ToString().ToUpper() == "ADMIN")
-                {                   
+                {
                     int outstatus = 0;
                     DataSet result = _adminRepository.ListingMenuJunior(0, id, out outstatus);
                     return RedirectToAction("MenuMaster", "Admin");
@@ -414,10 +401,6 @@ namespace PsebPrimaryMiddle.Controllers
                 return RedirectToAction("MenuMaster", "Admin");
             }
         }
-
-
-
-
 
         #endregion Menu Master    
 
@@ -439,16 +422,14 @@ namespace PsebPrimaryMiddle.Controllers
             }
         }
 
-
         [AdminLoginCheckFilter]
         public ActionResult CreateUser(AdminUserModel aum)
-        {           
-             AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
+        {
+            AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
             if (adminLoginSession.AdminType.ToUpper() == "ADMIN")
-            {               
+            {
                 //GetAllPSEBCLASS
                 ViewBag.GetAllPSEBCLASS = GetAllPSEBCLASSList("");
-
                 //GetAll District                
                 DataSet ds = DBClass.GetAllDistrict();
                 var _DistList = ds.Tables[0].AsEnumerable().Select(dataRow => new SelectListItem
@@ -456,8 +437,7 @@ namespace PsebPrimaryMiddle.Controllers
                     Text = dataRow.Field<string>("DISTNM").ToString(),
                     Value = dataRow.Field<string>("DIST").ToString(),
                 }).ToList();
-                aum.DistList = _DistList.ToList();               
-
+                aum.DistList = _DistList.ToList();
                 // End
                 //Branch
                 var _branchList = ds.Tables[2].AsEnumerable().Select(dataRow => new SelectListItem
@@ -465,10 +445,7 @@ namespace PsebPrimaryMiddle.Controllers
                     Text = dataRow.Field<string>("BranchName").ToString(),
                     Value = dataRow.Field<string>("BranchName").ToString(),
                 }).ToList();
-                aum.BranchList = _branchList.ToList();              
-
-
-
+                aum.BranchList = _branchList.ToList();
                 // All Pages List    
                 var menuList = ds.Tables[1].AsEnumerable().Select(dataRow => new SiteMenu
                 {
@@ -477,10 +454,8 @@ namespace PsebPrimaryMiddle.Controllers
                     MenuUrl = dataRow.Field<string>("MenuUrl"),
                     ParentMenuID = dataRow.Field<int>("ParentMenuID"),
                     IsMenu = dataRow.Field<int>("IsMenu"),
-                }).ToList();               
+                }).ToList();
                 aum.SiteMenuModel = menuList;
-
-
                 //GetAll Set
                 var _SetList = ds.Tables[4].AsEnumerable().Select(dataRow => new SelectListItem
                 {
@@ -488,15 +463,12 @@ namespace PsebPrimaryMiddle.Controllers
                     Value = dataRow.Field<string>("AdminSet").ToString(),
                 }).ToList();
                 aum.SetList = _SetList;
-               
                 return View(aum);
             }
             else
             {
                 return RedirectToAction("Index", "Admin");
             }
-
-
         }
 
         [AdminLoginCheckFilter]
@@ -523,7 +495,6 @@ namespace PsebPrimaryMiddle.Controllers
                 {
                     oModel.Set_Allow = setid;
                 }
-
                 oModel.pass = Guid.NewGuid().ToString().Substring(0, 6); // Autogenerated password
                 if (oModel.listOfActionRight.Count > 0)
                 {
@@ -545,7 +516,6 @@ namespace PsebPrimaryMiddle.Controllers
                         bool result = DBClass.mail("PSEB - Admin User Details", body, oModel.EmailID);
                     }
                 }
-
                 var results = new
                 {
                     status = OutStatus,
@@ -557,7 +527,7 @@ namespace PsebPrimaryMiddle.Controllers
         [AdminLoginCheckFilter]
         public ActionResult ViewUser(AdminUserModel aum)
         {
-            AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];           
+            AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
             string Search = string.Empty;
             Search = " id like '%%' ";
             DataSet result = _adminRepository.GetAllAdminUser(0, Search);
@@ -570,19 +540,16 @@ namespace PsebPrimaryMiddle.Controllers
                 aum.StoreAllData = result;
                 ViewBag.TotalCount = aum.StoreAllData.Tables[0].Rows.Count;
             }
-
             if (result.Tables[1].Rows.Count > 0)
-            {               
+            {
                 var _branchList = result.Tables[1].AsEnumerable().Select(dataRow => new SelectListItem
                 {
                     Text = dataRow.Field<string>("BranchName").ToString(),
                     Value = dataRow.Field<string>("BranchName").ToString(),
-                }).ToList();                
+                }).ToList();
                 aum.BranchList = _branchList.ToList();
             }
-
             //ViewBag.Branch = new SelectList(result.Tables[1].Rows, "BranchName", "BranchName", 0);
-
             ViewBag.SelectedBranch = "";
             ViewBag.SearchUserId = "";
             ViewBag.SearchMobile = "";
@@ -591,10 +558,8 @@ namespace PsebPrimaryMiddle.Controllers
             { ViewBag.IsModiFy = 1; ViewBag.IsDelete = 1; ViewBag.IsView = 1; ViewBag.IsModiFyOpen = 1; }
             else
             {
-
                 string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
                 string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
-                
                 string AdminType = adminLoginSession.AdminType.ToString();
                 //GetActionOfSubMenu(string cont, string act)
                 DataSet aAct = DBClass.GetActionOfSubMenu(adminLoginSession.AdminId, controllerName, actionName);
@@ -605,8 +570,6 @@ namespace PsebPrimaryMiddle.Controllers
                     ViewBag.IsDelete = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuName").Equals("DELETE")).Count();
                     ViewBag.IsView = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuName").Equals("VIEW")).Count();
                     ViewBag.IsModiFyOpen = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuName").Equals("MODIFYOPEN")).Count();
-
-
                 }
             }
             #endregion Action Assign Method          
@@ -616,18 +579,16 @@ namespace PsebPrimaryMiddle.Controllers
 
         [AdminLoginCheckFilter]
         [HttpPost]
-        public ActionResult ViewUser(AdminUserModel aum,FormCollection frm)
+        public ActionResult ViewUser(AdminUserModel aum, FormCollection frm)
         {
             AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
             ViewBag.SelectedBranch = "";
             ViewBag.SearchUserId = "";
             ViewBag.SearchMobile = "";
-
             if (adminLoginSession.AdminType.ToString().ToUpper() == "ADMIN")
             {
                 string Search = string.Empty;
                 Search = " id like '%%' ";
-              
                 if (frm["Branch"] != "")
                 {
                     ViewBag.SelectedBranch = frm["Branch"];
@@ -643,8 +604,6 @@ namespace PsebPrimaryMiddle.Controllers
                     ViewBag.SearchMobile = frm["SearchMobile"];
                     Search += " and Mobno='" + frm["SearchMobile"].ToString().Trim() + "'";
                 }
-
-
                 DataSet result = _adminRepository.GetAllAdminUser(0, Search);
                 if (result == null)
                 {
@@ -655,7 +614,6 @@ namespace PsebPrimaryMiddle.Controllers
                     aum.StoreAllData = result;
                     ViewBag.TotalCount = aum.StoreAllData.Tables[0].Rows.Count;
                 }
-               
                 if (result.Tables[1].Rows.Count > 0)
                 {
                     var _branchList = result.Tables[1].AsEnumerable().Select(dataRow => new SelectListItem
@@ -664,7 +622,6 @@ namespace PsebPrimaryMiddle.Controllers
                         Value = dataRow.Field<string>("BranchName").ToString(),
                     }).ToList();
                     aum.BranchList = _branchList.ToList();
-                   
                 }
 
                 #region Action Assign Method
@@ -672,10 +629,9 @@ namespace PsebPrimaryMiddle.Controllers
                 { ViewBag.IsModiFy = 1; ViewBag.IsDelete = 1; ViewBag.IsView = 1; ViewBag.IsModiFyOpen = 1; }
                 else
                 {
-
                     string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
-                    string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();                    
-                  
+                    string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+
                     DataSet aAct = DBClass.GetActionOfSubMenu(adminLoginSession.AdminId, controllerName, actionName);
                     if (aAct.Tables[0].Rows.Count > 0)
                     {
@@ -684,8 +640,6 @@ namespace PsebPrimaryMiddle.Controllers
                         ViewBag.IsDelete = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuName").Equals("DELETE")).Count();
                         ViewBag.IsView = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuName").Equals("VIEW")).Count();
                         ViewBag.IsModiFyOpen = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuName").Equals("MODIFYOPEN")).Count();
-
-
                     }
                 }
                 #endregion Action Assign Method          
@@ -701,7 +655,6 @@ namespace PsebPrimaryMiddle.Controllers
         public JsonResult JqSendPassword(string storeid)
         {
             AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
-
             string dee = "1";
             storeid = storeid.Remove(storeid.Length - 1);
             string[] split1 = storeid.Split(',');
@@ -732,7 +685,6 @@ namespace PsebPrimaryMiddle.Controllers
                     }
                 }
             }
-
             return Json(new { dee = dee }, JsonRequestBehavior.AllowGet);
         }
 
@@ -740,7 +692,6 @@ namespace PsebPrimaryMiddle.Controllers
         public JsonResult JqComposeSms(string storeid, string SMS)
         {
             AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
-
             string dee = "1";
             storeid = storeid.Remove(storeid.Length - 1);
             string[] split1 = storeid.Split(',');
@@ -780,7 +731,7 @@ namespace PsebPrimaryMiddle.Controllers
             {
                 AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
                 if (adminLoginSession.AdminType.ToString().ToUpper() == "ADMIN")
-                {                 
+                {
                     int outstatus = 0;
                     string result = _adminRepository.ListingUser(1, id, out outstatus);
                     return RedirectToAction("ViewUser", "Admin");
@@ -802,9 +753,8 @@ namespace PsebPrimaryMiddle.Controllers
             AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
             if (id == 0 || id.ToString() == null)
             { return RedirectToAction("Index", "Admin"); }
-
-            ViewBag.userid = id.ToString();           
-            DataSet result = _adminRepository.GetAllAdminUser(id, "");          
+            ViewBag.userid = id.ToString();
+            DataSet result = _adminRepository.GetAllAdminUser(id, "");
             if (result.Tables[0].Rows.Count > 0)
             {
                 aum.user = result.Tables[0].Rows[0]["user"].ToString();
@@ -822,7 +772,6 @@ namespace PsebPrimaryMiddle.Controllers
                 ViewBag.MenuUser = result.Tables[0].Rows[0]["PAccessRight"].ToString();
                 //Set
                 ViewBag.Set_Allow = result.Tables[0].Rows[0]["Set_Allow"].ToString();
-
                 if (result.Tables[0].Rows[0]["ActionRight"].ToString() == "")
                 { ViewBag.GetAllPSEBCLASS = GetAllPSEBCLASSList(""); }
                 else
@@ -846,9 +795,6 @@ namespace PsebPrimaryMiddle.Controllers
                 { DistList.Add(new SelectListItem { Text = @dr["DISTNM"].ToString(), Value = @dr["DIST"].ToString() }); }
             }
             aum.DistList = DistList;
-
-
-           
             //Branch
             var _branchList = ds.Tables[2].AsEnumerable().Select(dataRow => new SelectListItem
             {
@@ -856,7 +802,6 @@ namespace PsebPrimaryMiddle.Controllers
                 Value = dataRow.Field<string>("BranchName").ToString(),
             }).ToList();
             aum.BranchList = _branchList.ToList();
-
             // All Pages List               
             List<SiteMenu> all = new List<SiteMenu>();
             foreach (System.Data.DataRow dr in ds.Tables[1].Rows)
@@ -872,10 +817,8 @@ namespace PsebPrimaryMiddle.Controllers
                     all.Add(new SiteMenu { MenuID = Convert.ToInt32(@dr["MenuID"]), MenuName = @dr["MenuName"].ToString(), MenuUrl = @dr["MenuUrl"].ToString(), ParentMenuID = Convert.ToInt32(@dr["ParentMenuID"]), IsMenu = Convert.ToInt32(@dr["IsMenu"]) });
 
                 }
-
             }
             aum.SiteMenuModel = all;
-
             //GetAll Set
             List<SelectListItem> SetList = new List<SelectListItem>();
             foreach (System.Data.DataRow dr in ds.Tables[4].Rows)
@@ -888,9 +831,7 @@ namespace PsebPrimaryMiddle.Controllers
                 { SetList.Add(new SelectListItem { Text = @dr["AdminSet"].ToString(), Value = @dr["AdminSet"].ToString() }); }
             }
             aum.SetList = SetList;
-
             return View(aum);
-
         }
 
         [AdminLoginCheckFilter]
@@ -945,7 +886,7 @@ namespace PsebPrimaryMiddle.Controllers
             {
                 AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
                 if (adminLoginSession.AdminType.ToString().ToUpper() == "ADMIN")
-                {                   
+                {
                     int outstatus = 0;
                     string result = _adminRepository.ListingUser(0, Convert.ToInt32(id), out outstatus);
                     return RedirectToAction("ViewUser", "Admin");
@@ -966,7 +907,7 @@ namespace PsebPrimaryMiddle.Controllers
         {
             AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
             if (adminLoginSession.AdminType.ToString().ToUpper() == "ADMIN")
-            {                
+            {
                 //GetAll District
                 List<SelectListItem> AdminList = new List<SelectListItem>();
                 DataSet ds = DBClass.GetAllDistrict();
@@ -983,7 +924,7 @@ namespace PsebPrimaryMiddle.Controllers
                 {
                     Text = dataRow.Field<string>("SubMenuText").ToString(),
                     Value = dataRow.Field<int>("MenuID").ToString(),
-                }).Where(s => s.Text!="").ToList();
+                }).Where(s => s.Text != "").ToList();
                 aum.MenuList = itemMenu.ToList();
 
                 return View(aum);
@@ -1040,7 +981,7 @@ namespace PsebPrimaryMiddle.Controllers
             {
                 List<SelectListItem> _UserList = new List<SelectListItem>();
                 var _List = result.Tables[0].AsEnumerable().Select(dataRow => new SelectListItem
-                {                   
+                {
                     Text = dataRow.Field<string>("User").ToString(),
                     Value = dataRow.Field<int>("Id").ToString(),
                 }).ToList();
@@ -1080,7 +1021,7 @@ namespace PsebPrimaryMiddle.Controllers
         [AdminLoginCheckFilter]
         public ActionResult FinalSubmittedRecordsAllAdmin(RegistrationAllStudentAdminModelList registrationAllStudentAdminModelList)
         {
-            AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];            
+            AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
             return View(registrationAllStudentAdminModelList);
         }
 
@@ -1088,7 +1029,7 @@ namespace PsebPrimaryMiddle.Controllers
         [HttpPost]
         public async Task<ActionResult> FinalSubmittedRecordsAllAdmin(RegistrationAllStudentAdminModelList registrationAllStudentAdminModelList, string schl)
         {
-            AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];        
+            AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
             if (string.IsNullOrEmpty(schl))
             {
                 return View(registrationAllStudentAdminModelList);
@@ -1098,10 +1039,10 @@ namespace PsebPrimaryMiddle.Controllers
             return View(registrationAllStudentAdminModelList);
         }
 
-      
+
         public ActionResult CommonFormView(string id, string formname)
         {
-            RegistrationModels rm = new RegistrationModels();           
+            RegistrationModels rm = new RegistrationModels();
             if (string.IsNullOrEmpty(id))
             {
                 return RedirectToAction("FinalSubmittedRecordsAllAdmin", "Admin");
@@ -1187,7 +1128,7 @@ namespace PsebPrimaryMiddle.Controllers
             AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
 
             try
-            {                
+            {
                 int AdminId = Convert.ToInt32(adminLoginSession.AdminId.ToString());
                 ViewBag.Id = ID == null ? 0 : ID;
                 string Search = string.Empty;
@@ -1282,7 +1223,7 @@ namespace PsebPrimaryMiddle.Controllers
         {
             AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
 
-           
+
             int AdminId = Convert.ToInt32(adminLoginSession.AdminId.ToString());
             ViewBag.Id = fm.ID == null ? 0 : fm.ID;
             //Check server side validation using data annotation
@@ -1326,7 +1267,7 @@ namespace PsebPrimaryMiddle.Controllers
                 if (result > 0)
                 {
                     if (fm.ID == 0) { ViewData["result"] = 1; fm.ID = result; }
-                    else { ViewData["result"] = 2;}
+                    else { ViewData["result"] = 2; }
 
                     if (fm.file != null)
                     {
@@ -1391,7 +1332,7 @@ namespace PsebPrimaryMiddle.Controllers
 
             try
             {
-               
+
                 int AdminId = Convert.ToInt32(adminLoginSession.AdminId.ToString());
 
                 DataSet ds1 = _adminRepository.CircularTypeMaster();
@@ -1462,7 +1403,7 @@ namespace PsebPrimaryMiddle.Controllers
 
             try
             {
-                
+
                 int AdminId = Convert.ToInt32(adminLoginSession.AdminId.ToString());
                 int pageIndex = 1;
                 pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
@@ -1600,7 +1541,7 @@ namespace PsebPrimaryMiddle.Controllers
                     {
                         RPLot = "P";
                         if (splitFile.ToLower().Contains("data"))
-                        { type = 2; fileName1 += "_DATA_"; }                       
+                        { type = 2; fileName1 += "_DATA_"; }
                         Search = "std_id like '%%'  and DOWNLOT=" + splitLot + "";
                     }
                     else
@@ -1608,7 +1549,7 @@ namespace PsebPrimaryMiddle.Controllers
                         if (splitFile.ToLower().Contains("data"))
                         { type = 2; fileName1 += "_DATA_"; }
                         else if (splitFile.ToLower().Contains("subject"))
-                        { type = 3; fileName1 += "_SUB_"; }             
+                        { type = 3; fileName1 += "_SUB_"; }
                         Search = "std_id like '%%'  and DataDownloadLot=" + splitLot + "";
                     }
                     fileName1 += firmuser + '_' + DateTime.Now.ToString("ddMMyyyyHHmmss");  //MIS_201_110720161210
@@ -1660,7 +1601,7 @@ namespace PsebPrimaryMiddle.Controllers
                         }
                     }
                     #endregion Data
-                                     
+
 
                     #region Pending
                     else if (type == 5)
@@ -1680,7 +1621,7 @@ namespace PsebPrimaryMiddle.Controllers
                     }
                     #endregion Pending
 
-                  
+
 
                 }
 
@@ -1693,7 +1634,7 @@ namespace PsebPrimaryMiddle.Controllers
         public ActionResult FirmExamDataDownload(string id, AdminModels am, FormCollection frm, string submit)
         {
             AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
-            string firmuser = adminLoginSession.USERNAME.ToString();           
+            string firmuser = adminLoginSession.USERNAME.ToString();
             try
             {
 
@@ -1701,12 +1642,12 @@ namespace PsebPrimaryMiddle.Controllers
                 ViewBag.MySchData = itemsch1.ToList();
 
                 //var itemsch = new SelectList(new[]{new {ID="1",Name="Regular"},new {ID="2",Name="Open"},new {ID="3",Name="Pvt"},}, "ID", "Name", 1);
-                var itemsch = new SelectList(new[] { new { ID = "1", Name = "Regular" },}, "ID", "Name", 1);
+                var itemsch = new SelectList(new[] { new { ID = "1", Name = "Regular" }, }, "ID", "Name", 1);
                 ViewBag.MySch = itemsch.ToList();
                 ViewBag.SelectedItem = "0";
                 string ErrStatus = string.Empty;
                 string Search = string.Empty;
-                DataSet ds1 = new DataSet();            
+                DataSet ds1 = new DataSet();
                 am.StoreAllData = _adminRepository.FirmExamDataDownload(Convert.ToInt32(1), "", firmuser, "", out ErrStatus);
                 if (am.StoreAllData == null || am.StoreAllData.Tables[0].Rows.Count == 0)
                 {
@@ -1856,28 +1797,28 @@ namespace PsebPrimaryMiddle.Controllers
                                         {
                                             ViewBag.Message = "Exam Data Downloaded Successfully";
                                             ViewData["Result"] = "1";
-                                            ViewBag.TotalCount12 = ds1.Tables[0].Rows.Count;                                          
-                                            
-                                                //DataTable dt = ds1.Tables[0];
-                                                using (XLWorkbook wb = new XLWorkbook())
+                                            ViewBag.TotalCount12 = ds1.Tables[0].Rows.Count;
+
+                                            //DataTable dt = ds1.Tables[0];
+                                            using (XLWorkbook wb = new XLWorkbook())
+                                            {
+                                                wb.Worksheets.Add(ds1.Tables[0]);
+                                                wb.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                                                wb.Style.Font.Bold = true;
+                                                Response.Clear();
+                                                Response.Buffer = true;
+                                                Response.Charset = "";
+                                                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                                                Response.AddHeader("content-disposition", "attachment;filename=" + fileName1 + ".xls");
+                                                using (MemoryStream MyMemoryStream = new MemoryStream())
                                                 {
-                                                    wb.Worksheets.Add(ds1.Tables[0]);
-                                                    wb.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                                                    wb.Style.Font.Bold = true;
-                                                    Response.Clear();
-                                                    Response.Buffer = true;
-                                                    Response.Charset = "";
-                                                    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                                                    Response.AddHeader("content-disposition", "attachment;filename=" + fileName1 + ".xls");
-                                                    using (MemoryStream MyMemoryStream = new MemoryStream())
-                                                    {
-                                                        wb.SaveAs(MyMemoryStream);
-                                                        MyMemoryStream.WriteTo(Response.OutputStream);
-                                                        Response.Flush();
-                                                        Response.End();
-                                                    }
+                                                    wb.SaveAs(MyMemoryStream);
+                                                    MyMemoryStream.WriteTo(Response.OutputStream);
+                                                    Response.Flush();
+                                                    Response.End();
                                                 }
-                                           
+                                            }
+
                                         }
 
                                     }
@@ -1986,7 +1927,7 @@ namespace PsebPrimaryMiddle.Controllers
                             else if (submit.ToLower().Contains("subjects"))
                             {
                                 ds1 = _adminRepository.FirmExamDataDownload(Convert.ToInt32(13), RP, firmuser, Search, out ErrStatus); // FirmExamDataDownloadSPNew
-                            }                          
+                            }
                         }
                         else
                         {
@@ -1997,7 +1938,7 @@ namespace PsebPrimaryMiddle.Controllers
                             else if (submit.ToLower().Contains("subjects"))
                             {
                                 ds1 = _adminRepository.FirmExamDataDownload(Convert.ToInt32(3), RP, firmuser, Search, out ErrStatus); // FirmExamDataDownloadSPNew
-                            }                           
+                            }
                         }
                         // DataSet ds1 = objDB.DownloadRegNoAgainstID(commaString, "O", out OutStatus); // For all Regno alloted 
                         string fileName1 = submit + "_" + firmuser + '_' + DateTime.Now.ToString("ddMMyyyyHHmmss");  //MIS_201_110720161210
@@ -2023,7 +1964,7 @@ namespace PsebPrimaryMiddle.Controllers
                                 if (ds1 == null)
                                 {
                                     return RedirectToAction("FirmExamDataDownload", "Admin", new { id = "" });
-                                }                              
+                                }
                             }
                             else
                             {
@@ -2069,7 +2010,7 @@ namespace PsebPrimaryMiddle.Controllers
 
         #region Begin AllotRegNo
 
-        [AdminLoginCheckFilter]       
+        [AdminLoginCheckFilter]
         public ActionResult AdminAllotRegNo()
         {
             AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
@@ -2099,10 +2040,10 @@ namespace PsebPrimaryMiddle.Controllers
                 //AbstractLayer._adminRepository.objDB = new AbstractLayer._adminRepository.);
                 //AdminModels MS = new AdminModels();                //
                 List<SelectListItem> items = new List<SelectListItem>();
-                
+
 
                 // Dist Allowed
-                string DistAllow = adminLoginSession.Dist_Allow; 
+                string DistAllow = adminLoginSession.Dist_Allow;
                 //
                 ViewBag.MyDist = _adminRepository.getAdminDistAllowList("admin", adminLoginSession.AdminId.ToString());
 
@@ -2125,7 +2066,7 @@ namespace PsebPrimaryMiddle.Controllers
             AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
             try
             {
-                
+
                 #region Action Assign Method
                 if (adminLoginSession.AdminType.ToString().ToUpper() == "ADMIN")
                 { ViewBag.IsREG = 1; }
@@ -2142,7 +2083,7 @@ namespace PsebPrimaryMiddle.Controllers
                     //}
                 }
                 #endregion Action Assign Method                
-               
+
                 //List<SelectListItem> items = new List<SelectListItem>();               
                 // Dist Allowed
                 string DistAllow = adminLoginSession.Dist_Allow;
@@ -2177,18 +2118,18 @@ namespace PsebPrimaryMiddle.Controllers
                             { Search += " and IDNO='" + frm["SearchString"].ToString() + "'"; }
                         }
                     }
-                    
-                    MS.StoreAllData = _schoolRepository.SchoolMasterViewSP(4,"", Search);
+
+                    MS.StoreAllData = _schoolRepository.SchoolMasterViewSP(4, "", Search);
                     if (MS.StoreAllData == null || MS.StoreAllData.Tables[0].Rows.Count == 0)
                     {
-                        ViewBag.Message = "Record Not Found";                       
-                        ViewBag.TotalCount = 0;                     
+                        ViewBag.Message = "Record Not Found";
+                        ViewBag.TotalCount = 0;
                     }
                     else
                     {
-                        ViewBag.TotalCount = MS.StoreAllData.Tables[0].Rows.Count;                      
+                        ViewBag.TotalCount = MS.StoreAllData.Tables[0].Rows.Count;
                     }
-                }               
+                }
             }
             catch (Exception ex)
             {
@@ -2201,7 +2142,7 @@ namespace PsebPrimaryMiddle.Controllers
         [AdminLoginCheckFilter]
         public ActionResult AllotRegNo(FormCollection frm, string id, int? page)
         {
-            AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];            
+            AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
             AdminModels MS = new AdminModels();
             string SCHL = string.Empty;
             try
@@ -2213,7 +2154,7 @@ namespace PsebPrimaryMiddle.Controllers
                 ViewBag.AllErrorList = result1.Tables[2];
                 /******* By Rohit Error List */
                 List<SelectListItem> ErrorList5 = new List<SelectListItem>();
-                List<SelectListItem> ErrorList8 = new List<SelectListItem>();               
+                List<SelectListItem> ErrorList8 = new List<SelectListItem>();
                 foreach (System.Data.DataRow dr in result1.Tables[2].Rows)
                 {
                     if (dr["FORM"].ToString() == "F2")
@@ -2223,16 +2164,16 @@ namespace PsebPrimaryMiddle.Controllers
                     if (dr["FORM"].ToString() == "A2")
                     {
                         ErrorList8.Add(new SelectListItem { Text = @dr["Error_Code"].ToString(), Value = @dr["Error_desc"].ToString() });
-                    }                 
+                    }
                     if (dr["FORM"].ToString() == "AL")
                     {
                         ErrorList5.Add(new SelectListItem { Text = @dr["Error_Code"].ToString(), Value = @dr["Error_desc"].ToString() });
                         ErrorList8.Add(new SelectListItem { Text = @dr["Error_Code"].ToString(), Value = @dr["Error_desc"].ToString() });
-                      
+
                     }
                 }
                 ViewBag.ErrorList5 = ErrorList5;
-                ViewBag.ErrorList8 = ErrorList8;              
+                ViewBag.ErrorList8 = ErrorList8;
                 /*******/
 
                 List<SelectListItem> FormList = new List<SelectListItem>();
@@ -2241,7 +2182,7 @@ namespace PsebPrimaryMiddle.Controllers
                     FormList.Add(new SelectListItem { Text = @dr["form_name"].ToString(), Value = @dr["form_name"].ToString() });
                 }
                 ViewBag.MyForm = FormList;
-                
+
                 //////
                 //DataSet result2 = _adminRepository.GetAllLot(id);
                 ViewBag.MyLot = result1.Tables[5];
@@ -2293,7 +2234,7 @@ namespace PsebPrimaryMiddle.Controllers
                         ViewBag.SelectedLot = 0;
 
                     }
-                   
+
                     MS.StoreAllData = _adminRepository.GetStudentRegNoNotAlloted(Search, SCHL, pageIndex);
 
                     ViewBag.schlCode = MS.StoreAllData.Tables[2].Rows[0]["schlCode"].ToString();
@@ -2325,7 +2266,7 @@ namespace PsebPrimaryMiddle.Controllers
                 }
             }
             catch (Exception ex)
-            {               
+            {
                 return RedirectToAction("Index", "Admin");
             }
             return View();
@@ -2335,7 +2276,7 @@ namespace PsebPrimaryMiddle.Controllers
         [AdminLoginCheckFilter]
         [HttpPost]
         //[OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public ActionResult AllotRegNo(FormCollection frm, int? page, string SchlCode,string SearchString, string SelAction, string SelForm, string SelLot,string SelFilter)
+        public ActionResult AllotRegNo(FormCollection frm, int? page, string SchlCode, string SearchString, string SelAction, string SelForm, string SelLot, string SelFilter)
         {
             AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
             AdminModels MS = new AdminModels();
@@ -2345,13 +2286,13 @@ namespace PsebPrimaryMiddle.Controllers
             //string schlid = string.Empty;
             //string SCHL = string.Empty;
             try
-            {            
-              
+            {
+
                 DataSet result1 = _adminRepository.GetAllFormNameBySchl(id);
                 ViewBag.MyForm = result1.Tables[1];
                 /******* By Rohit Error List */
                 List<SelectListItem> ErrorList5 = new List<SelectListItem>();
-                List<SelectListItem> ErrorList8 = new List<SelectListItem>();               
+                List<SelectListItem> ErrorList8 = new List<SelectListItem>();
                 foreach (System.Data.DataRow dr in result1.Tables[2].Rows)
                 {
                     if (dr["FORM"].ToString() == "F2")
@@ -2361,16 +2302,16 @@ namespace PsebPrimaryMiddle.Controllers
                     if (dr["FORM"].ToString() == "A2")
                     {
                         ErrorList8.Add(new SelectListItem { Text = @dr["Error_Code"].ToString(), Value = @dr["Error_desc"].ToString() });
-                    }                  
+                    }
                     if (dr["FORM"].ToString() == "AL")
                     {
                         ErrorList5.Add(new SelectListItem { Text = @dr["Error_Code"].ToString(), Value = @dr["Error_desc"].ToString() });
-                        ErrorList8.Add(new SelectListItem { Text = @dr["Error_Code"].ToString(), Value = @dr["Error_desc"].ToString() });   
+                        ErrorList8.Add(new SelectListItem { Text = @dr["Error_Code"].ToString(), Value = @dr["Error_desc"].ToString() });
                     }
                 }
                 ViewBag.ErrorList5 = ErrorList5;
                 ViewBag.ErrorList8 = ErrorList8;
-                          // MS.ErrorList = ErrorList5;
+                // MS.ErrorList = ErrorList5;
                 /*******/
 
                 List<SelectListItem> FormList = new List<SelectListItem>();
@@ -2414,7 +2355,7 @@ namespace PsebPrimaryMiddle.Controllers
             TempData["SelAction"] = ViewBag.SelectedAction = "0";
             TempData["SelForm"] = ViewBag.SelectedForm = "0";
             TempData["SelLot"] = ViewBag.SelectedLot = "0";
-         
+
             if (id != null && id != "")
             {
                 int pageIndex = 1;
@@ -2424,7 +2365,7 @@ namespace PsebPrimaryMiddle.Controllers
                 Search = "SCHL='" + id + "'";
                 if (frm["SelAction"] != "")
                 {
-                    TempData["SelAction"] = ViewBag.SelectedAction = SelAction;            
+                    TempData["SelAction"] = ViewBag.SelectedAction = SelAction;
                     int SelValueSch = Convert.ToInt32(SelAction.ToString());
                     if (frm["SelAction"] != "")
                     {
@@ -2442,12 +2383,12 @@ namespace PsebPrimaryMiddle.Controllers
 
                 if (frm["SelForm"] != "")
                 {
-                    TempData["SelForm"] = ViewBag.SelectedForm = SelForm;                 
+                    TempData["SelForm"] = ViewBag.SelectedForm = SelForm;
                     Search += " and form_name='" + SelForm.ToString() + "' ";
                 }
                 if (frm["SelLot"] != "")
                 {
-                    TempData["SelLot"] = ViewBag.SelectedLot = SelLot;                 
+                    TempData["SelLot"] = ViewBag.SelectedLot = SelLot;
                     Search += " and LOT='" + SelLot.ToString() + "' ";
                 }
                 else
@@ -2844,7 +2785,7 @@ namespace PsebPrimaryMiddle.Controllers
         public JsonResult JqRemoveRegNo(string storeid, string Action)
         {
             AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
-            string dee = "";            
+            string dee = "";
             int userid = Convert.ToInt32(adminLoginSession.AdminId.ToString());
             storeid = storeid.Remove(storeid.Length - 1);
             // string[] split1 = storeid.Split('^');
@@ -2867,7 +2808,7 @@ namespace PsebPrimaryMiddle.Controllers
 
         [AdminLoginCheckFilter]
         public ActionResult SendReg(string Schl, string Act)
-        {                   
+        {
             try
             {
                 DataSet ds = new DataSet();
@@ -2882,7 +2823,7 @@ namespace PsebPrimaryMiddle.Controllers
                         if (Act == "E")
                         {
                             string body = "<table width=" + 600 + " cellpadding=" + 4 + " cellspacing=" + 4 + " border=" + 0 + "><tr><td><b>Dear " + SchoolNameWithCode + "</b>,</td></tr><tr><td height=" + 30 + ">Registration No for Form's (A2/F2) of Schl Code " + Schl + " is Updated on " + DateTime.Now.ToString("dd/MM/yyyy") + "</b>.</td></tr><tr><td height=" + 10 + "></td></tr><tr><td><b>Note:</b> For Detail Kindly Check your School Login Under->Registration Portal->View Registration of A2/F2</td></tr><tr><td></td></tr><tr><td><b><i>Thanks & Regards</b><i>,<br /> Registration Branch, <br />Punjab School Education Board Mohali<br /></td></tr>";
-                           
+
 
 
                             string subject = "PSEB-View Registration of A2/F2";
@@ -2949,7 +2890,7 @@ namespace PsebPrimaryMiddle.Controllers
             try
             {
                 DataSet ds = new DataSet();
-                ds = _schoolRepository.SchoolMasterViewSP(1, Schl,"");
+                ds = _schoolRepository.SchoolMasterViewSP(1, Schl, "");
                 if (ds.Tables.Count > 0)
                 {
                     if (ds.Tables[0].Rows.Count > 0)
@@ -3046,7 +2987,7 @@ namespace PsebPrimaryMiddle.Controllers
         {
             AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
             try
-            {              
+            {
                 List<SelectListItem> itemType = new List<SelectListItem>();
                 List<SelectListItem> itemBank = new List<SelectListItem>();
                 DataSet dsType = _adminRepository.GetFeeCodeMaster(1, 0);//for all feecode
@@ -3350,7 +3291,7 @@ namespace PsebPrimaryMiddle.Controllers
 
         #region Begin ExamErrorListMIS
 
-       
+
         public ActionResult DownloadErrorData()
         {
             try
@@ -3414,21 +3355,21 @@ namespace PsebPrimaryMiddle.Controllers
         [AdminLoginCheckFilter]
         public ActionResult ErrorListMIS()
         {
-            AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];              
-                int type = 1; //for private compt
-                string OutResult1 = "0";
-                DataSet dtError = _adminRepository.GetErrorListMISByFirmId(type, adminLoginSession.AdminId, out OutResult1);// OutStatus mobile
-                if (OutResult1 == "1")
+            AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
+            int type = 1; //for private compt
+            string OutResult1 = "0";
+            DataSet dtError = _adminRepository.GetErrorListMISByFirmId(type, adminLoginSession.AdminId, out OutResult1);// OutStatus mobile
+            if (OutResult1 == "1")
+            {
+                if (dtError.Tables.Count > 0)
                 {
-                    if (dtError.Tables.Count > 0)
-                    {                        
-                        ViewBag.ErrRegTotal = dtError.Tables[0].Rows.Count;//reg
-                        TempData["dtResultError"] = dtError;
-                    }
+                    ViewBag.ErrRegTotal = dtError.Tables[0].Rows.Count;//reg
+                    TempData["dtResultError"] = dtError;
                 }
-                else { ViewBag.Errorcount = 0; }
-                return View();
-           
+            }
+            else { ViewBag.Errorcount = 0; }
+            return View();
+
         }
 
         [AdminLoginCheckFilter]
@@ -3437,15 +3378,15 @@ namespace PsebPrimaryMiddle.Controllers
         {
             AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
             try
-            {               
-                
+            {
+
                 int type = 1; //for private compt
                 string OutResult1 = "0";
                 DataSet dtError = _adminRepository.GetErrorListMISByFirmId(type, adminLoginSession.AdminId, out OutResult1);// OutStatus mobile
                 if (OutResult1 == "1")
                 {
                     if (dtError.Tables.Count > 0)
-                    {                      
+                    {
                         ViewBag.ErrRegTotal = dtError.Tables[0].Rows.Count;//reg
                         TempData["dtResultError"] = dtError;
                     }
@@ -3557,7 +3498,7 @@ namespace PsebPrimaryMiddle.Controllers
                             {
                                 dt1.Columns.Remove("ErrStatus");
                             }
-                            dt1.AcceptChanges();                            
+                            dt1.AcceptChanges();
                             int OutStatus = 0;
                             string OutResult = "0";
                             /// DataTable dtResult = objDB.ExamErrorListMIS(dt1, AdminId, out OutStatus);// OutStatus mobile
@@ -3632,7 +3573,7 @@ namespace PsebPrimaryMiddle.Controllers
                     }
                 }
 
-               
+
                 string id = frm["Filevalue"].ToString();
                 Category = id;
                 if (adminLoginSession.USERNAME != null)
@@ -3665,7 +3606,7 @@ namespace PsebPrimaryMiddle.Controllers
                         else if (id.ToString().ToUpper() == "RANGE")
                         {
                             fileName1 = "StdRollNoRange_" + adminLoginSession.AdminType + adminLoginSession.AdminId.ToString() + '_' + DateTime.Now.ToString("ddMMyyyyHHmmss");  //MIS_201_110720161210
-                        }                       
+                        }
                         else
                         {
                             return RedirectToAction("StudentRollNoMIS", "Admin");
@@ -3752,7 +3693,7 @@ namespace PsebPrimaryMiddle.Controllers
                             else if (id.ToString().ToUpper() == "RANGE" && ColName.ToUpper() == "SROLL")
                             {
                                 CheckMis = _adminRepository.CheckStdRollNoRangeMis(ds, out dtexport);
-                            }                           
+                            }
                             else if (id.ToString().ToUpper() == "ROLLONLY" && ColName.ToUpper() == "CANDID")
                             {
                                 string[] arrayChln = ds.Tables[0].Rows.OfType<DataRow>().Select(k => k[1].ToString()).ToArray();
@@ -3779,7 +3720,7 @@ namespace PsebPrimaryMiddle.Controllers
                                 {
                                     dt1.Columns.Remove("STATUS");
                                 }
-                                dt1.AcceptChanges();                                
+                                dt1.AcceptChanges();
                                 int OutStatus = 0;
                                 string OutResult = "0";
                                 DataSet dtResult = new DataSet();
@@ -3795,7 +3736,7 @@ namespace PsebPrimaryMiddle.Controllers
                                 {
                                     dtResult = _adminRepository.StudentRollNoRangeMIS(dt1, adminLoginSession.AdminId, out OutStatus);// OutStatus mobile
                                 }
-                               else
+                                else
                                 {
                                     ViewBag.Message = "Please Check File Structure";
                                     ViewData["Result"] = "5";
@@ -3815,7 +3756,7 @@ namespace PsebPrimaryMiddle.Controllers
                                         ViewBag.Message = "File Not Uploaded Successfully- Duplicate Records";
                                     }
                                     else
-                                    { ViewBag.Message = "File Not Uploaded Successfully"; }                                   
+                                    { ViewBag.Message = "File Not Uploaded Successfully"; }
                                     ViewData["Result"] = "0";
                                 }
                                 return View();
@@ -3947,8 +3888,8 @@ namespace PsebPrimaryMiddle.Controllers
 
                     if (frc["SelType"] != null)
                     {
-                        
-                        ViewBag.SelType= SelType = frc["SelType"].ToString();
+
+                        ViewBag.SelType = SelType = frc["SelType"].ToString();
                         Search += " and ExamType= '" + SelType + "'";
                     }
 
@@ -4069,15 +4010,15 @@ namespace PsebPrimaryMiddle.Controllers
             AdminModels am = new AdminModels();
             try
             {
-               
+
                 var itemsch = new SelectList(new[] { new { ID = "1", Name = "Ref No." }, new { ID = "2", Name = "Roll Num" }, new { ID = "3", Name = "Error Code" }, }, "ID", "Name", 1);
                 ViewBag.CorrectionType = itemsch.ToList();
-                
-              
+
+
                 if (ModelState.IsValid)
                 {
-                  
-                    am.StoreAllData = _adminRepository.RemoveCandidateExamError(adminLoginSession.USER,id, errcode);
+
+                    am.StoreAllData = _adminRepository.RemoveCandidateExamError(adminLoginSession.USER, id, errcode);
                     if (am.StoreAllData == null || am.StoreAllData.Tables[0].Rows.Count == 0)
                     {
                         ViewBag.Message = "Record Not Found";
@@ -4117,7 +4058,7 @@ namespace PsebPrimaryMiddle.Controllers
             ViewBag.SelectedSearch = "0";
 
             try
-            {                
+            {
                 int AdminId = Convert.ToInt32(adminLoginSession.AdminId.ToString());
                 ViewBag.Id = ID == null ? 0 : ID;
                 string Search = string.Empty;
@@ -4126,7 +4067,7 @@ namespace PsebPrimaryMiddle.Controllers
 
                 if (ID > 0)
                 {
-                    Search += " and Id=" + ID;                  
+                    Search += " and Id=" + ID;
                     DataSet ds = _adminRepository.ListingSchoolAllowForMarksEntry(2, 0, Search, out Outstatus);
                     fm.StoreAllData = ds;
                     if (fm.StoreAllData == null || fm.StoreAllData.Tables[0].Rows.Count == 0)
@@ -4187,10 +4128,10 @@ namespace PsebPrimaryMiddle.Controllers
             ViewBag.MySearch = itemsch1.ToList();
             ViewBag.SelectedSearch = "0";
 
-          
+
             int AdminId = Convert.ToInt32(adminLoginSession.AdminId.ToString());
             ViewBag.Id = fm.Id == null ? 0 : fm.Id;
-           
+
             if (!cmd.ToLower().Contains("search"))
             {
                 int type = 0;
@@ -4280,7 +4221,7 @@ namespace PsebPrimaryMiddle.Controllers
 
         [AdminLoginCheckFilter]
         public ActionResult ListingCCE(int? Id, SchoolAllowForMarksEntry fm)
-        {           
+        {
             if (Id > 0)
             {
                 string Search = string.Empty;
@@ -4316,14 +4257,14 @@ namespace PsebPrimaryMiddle.Controllers
         {
             AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
             try
-            { 
-              
+            {
+
                 string id = frm["Filevalue"].ToString();
                 Category = id;
                 if (adminLoginSession.USER != null)
-                {                    
+                {
 
-                  
+
                     string AdminType = adminLoginSession.AdminType.ToString();
                     int AdminId = Convert.ToInt32(adminLoginSession.AdminId.ToString());
                     string fileLocation = "";
@@ -4346,7 +4287,7 @@ namespace PsebPrimaryMiddle.Controllers
                         if (id.ToString().ToUpper() == "PRAC")
                         {
                             fileName1 = "PracticalSubmissionUnlocked_" + "_" + AdminType + AdminId.ToString() + '_' + DateTime.Now.ToString("ddMMyyyyHHmmss");  //MIS_201_110720161210
-                        }                       
+                        }
                         else
                         {
                             return RedirectToAction("PracticalSubmissionUnlocked", "Admin");
@@ -4410,7 +4351,7 @@ namespace PsebPrimaryMiddle.Controllers
                             }
 
                             string CheckMis = "";
-                            DataTable dtexport = new DataTable();                           
+                            DataTable dtexport = new DataTable();
                             int flg = 0;
                             if (id.ToString().ToUpper() == "PRAC")
                             {
@@ -4421,7 +4362,7 @@ namespace PsebPrimaryMiddle.Controllers
                             if (CheckMis == "" && flg == 1)
                             {
                                 DataSet ds1 = new DataSet();
-                                DataTable dt1 = ds.Tables[0];                                
+                                DataTable dt1 = ds.Tables[0];
                                 dt1.AcceptChanges();
                                 //string Result1 = "";
                                 //int OutStatus = 0;
@@ -4459,7 +4400,7 @@ namespace PsebPrimaryMiddle.Controllers
                                     return View();
                                 }
 
-                              
+
                             }
                             else
                             {
@@ -4484,10 +4425,10 @@ namespace PsebPrimaryMiddle.Controllers
                         }
                     }
                 }
-                
+
             }
             catch (Exception ex)
-            {               
+            {
                 ViewData["Result"] = "-3";
                 ViewBag.Message = ex.Message;
                 return View();
@@ -4521,7 +4462,7 @@ namespace PsebPrimaryMiddle.Controllers
             AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
             try
             {
-                
+
                 var itemsch = new SelectList(new[] { new { ID = "1", Name = "Regular" } }, "ID", "Name", 1);
                 ViewBag.MySch = itemsch.ToList();
                 ViewBag.SelectedItem = "0";
@@ -4530,7 +4471,7 @@ namespace PsebPrimaryMiddle.Controllers
                 ViewBag.Mycls = itemcls.ToList();
                 ViewBag.Selectedcls = "0";
 
-                               
+
                 string id = frm["Filevalue"].ToString();
                 Category = id;
                 if (adminLoginSession.USER != null)
@@ -4550,7 +4491,7 @@ namespace PsebPrimaryMiddle.Controllers
                         SelClass = frm["SelClass"].ToString();
                     }
 
-                   
+
                     string AdminType = adminLoginSession.AdminType.ToString();
                     int AdminId = Convert.ToInt32(adminLoginSession.AdminId.ToString());
                     string fileLocation = "";
@@ -4684,7 +4625,7 @@ namespace PsebPrimaryMiddle.Controllers
                                 {
                                     dt1.Columns.Remove("STATUS");
                                 }
-                                dt1.AcceptChanges();    
+                                dt1.AcceptChanges();
                                 string OutError = "0";
                                 if (id.ToString().ToUpper() == "STD")
                                 {
@@ -4713,14 +4654,14 @@ namespace PsebPrimaryMiddle.Controllers
                                         ViewBag.Message = "File Not Uploaded Successfully- Duplicate Records";
                                     }
                                     else
-                                    { ViewBag.Message = "File Not Uploaded Successfully"; }                                   
+                                    { ViewBag.Message = "File Not Uploaded Successfully"; }
                                     ViewData["Result"] = "0";
                                 }
                                 return View();
                             }
                             else
                             {
-                                
+
                                 if (dtexport != null)
                                 {
                                     ExportDataFromDataTable(dtexport, adminLoginSession.USER);
@@ -4741,7 +4682,7 @@ namespace PsebPrimaryMiddle.Controllers
                         }
                     }
                 }
-               
+
             }
             catch (Exception ex)
             {
@@ -4759,7 +4700,7 @@ namespace PsebPrimaryMiddle.Controllers
 
         public JsonResult BindGenerateTicketList(int ticketId)
         {
-           // AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
+            // AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
             List<GenerateTicketModel> _model = new List<GenerateTicketModel>();
             if (ticketId == 0)
             {
@@ -4781,7 +4722,7 @@ namespace PsebPrimaryMiddle.Controllers
             return View(gtm);
         }
 
-     
+
         [HttpPost]
         public ActionResult ViewTicketList(FormCollection frm)
         {
@@ -4800,14 +4741,14 @@ namespace PsebPrimaryMiddle.Controllers
                     oModel.AdminId = adminLoginSession.AdminId;
                     oModel.TicketStatusBy = adminLoginSession.USER;
                     oModel.TicketStatus = 1;
-                }               
+                }
 
                 //
                 int result = _centerheadrepository.InsertGenerateTicket(oModel, out outTicketNo);//InsertFeeMaster2016SP
                 ViewBag.outTicketNo = outTicketNo;
                 if (result > 0)
                 {
-                    statusOut = "1";                   
+                    statusOut = "1";
                 }
                 else { statusOut = result.ToString(); }
                 var results = new
@@ -4888,7 +4829,7 @@ namespace PsebPrimaryMiddle.Controllers
             AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
             try
             {
-                
+
                 string id = frm["Filevalue"].ToString();
 
                 string fileLocation = "";
@@ -4979,7 +4920,7 @@ namespace PsebPrimaryMiddle.Controllers
 
                         DataTable dtexport = new DataTable();
                         var duplicates = ds.Tables[0].AsEnumerable()
-                             .GroupBy(i => new { Name = i.Field<string>("SCHL")})
+                             .GroupBy(i => new { Name = i.Field<string>("SCHL") })
                              .Where(g => g.Count() > 1)
                              .Select(g => new { g.Key.Name }).ToList();
                         if (duplicates.Count() > 0)
@@ -5000,7 +4941,7 @@ namespace PsebPrimaryMiddle.Controllers
                             dt1.AcceptChanges();
                             int OutStatus = 0;
                             string OutResult = "0";
-                           
+
                             DataSet dtResult = _adminRepository.UnlockClusterTheoryMarks(dt1, adminLoginSession.AdminId, out OutResult);// OutStatus mobile
                             if (OutStatus > 0 || OutResult == "1")
                             {
@@ -5089,7 +5030,7 @@ namespace PsebPrimaryMiddle.Controllers
                     return RedirectToAction("Index", "Admin");
                 }
                 else
-                {                   
+                {
                     string fileLocation = "";
                     string filename = "";
                     if (AM.file != null)
@@ -5187,7 +5128,7 @@ namespace PsebPrimaryMiddle.Controllers
                                 if (dt1.Columns.Contains("Status"))
                                 {
                                     dt1.Columns.Remove("Status");
-                                }                                
+                                }
                                 string OutError = "";
                                 DataSet dtResult = _adminRepository.AdminResultUpdateMIS(dt1, adminLoginSession.AdminId, out OutError);// OutStatus mobile
                                 if (OutError == "1")
