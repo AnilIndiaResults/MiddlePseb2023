@@ -37,15 +37,15 @@ namespace PsebPrimaryMiddle.Controllers
             _adminRepository = adminRepository;
         }
 
-        
 
-         [SessionCheckFilter]
+
+        [SessionCheckFilter]
         public ActionResult Index(int? page)
         {
             Printlist obj = new Printlist();
             try
-            {                
-                LoginSession loginSession =(LoginSession)Session["LoginSession"];
+            {
+                LoginSession loginSession = (LoginSession)Session["LoginSession"];
                 ViewBag.Session = loginSession.CurrentSession;
                 ViewBag.Middle = loginSession.middle;
                 ViewBag.Primary = loginSession.fifth;
@@ -142,9 +142,9 @@ namespace PsebPrimaryMiddle.Controllers
             }
             catch (Exception ex)
             {
-                ErrorLog.WriteErrorLog(ex.ToString(), Path.GetFileName(Request.Path));                
+                ErrorLog.WriteErrorLog(ex.ToString(), Path.GetFileName(Request.Path));
                 ViewData["result"] = "ERR";
-                ViewData["resultMsg"] = ex.Message;              
+                ViewData["resultMsg"] = ex.Message;
             }
             return View(obj);
         }
@@ -154,7 +154,7 @@ namespace PsebPrimaryMiddle.Controllers
         [HttpPost]
         public ActionResult undertaking(Printlist obj)
         {
-            LoginSession loginSession = (LoginSession)Session["LoginSession"];  
+            LoginSession loginSession = (LoginSession)Session["LoginSession"];
             string outstatus = string.Empty;
             _schoolRepository.InsertUndertaking(loginSession.SCHL, obj.numofprimary, obj.numofmiddle, out outstatus);
             TempData["undertakingResult"] = outstatus;
@@ -162,15 +162,15 @@ namespace PsebPrimaryMiddle.Controllers
         }
 
 
-        
+
         public ActionResult PrintUndertaking(Printlist obj)
         {
             LoginSession loginSession = (LoginSession)Session["LoginSession"];
             string outstatus = string.Empty;
-            obj.StoreAllData =  _schoolRepository.SchoolMasterViewSP(5,loginSession.SCHL, "");
+            obj.StoreAllData = _schoolRepository.SchoolMasterViewSP(5, loginSession.SCHL, "");
             if (obj.StoreAllData.Tables.Count > 0)
-            {                
-                TempData["PrintUndertaking"] = "1";               
+            {
+                TempData["PrintUndertaking"] = "1";
             }
             return View(obj);
         }
@@ -194,7 +194,7 @@ namespace PsebPrimaryMiddle.Controllers
                 {
                     string UserType = "User";
                     string FileExport = Request.QueryString["File"].ToString();
-                        DataSet ds = null;
+                    DataSet ds = null;
 
                     if (loginSession.SCHL == "")
                     {
@@ -233,7 +233,7 @@ namespace PsebPrimaryMiddle.Controllers
                                     switch (FileExport)
                                     {
                                         case "Excel":
-                                              using (XLWorkbook wb = new XLWorkbook())
+                                            using (XLWorkbook wb = new XLWorkbook())
                                             {
                                                 wb.Worksheets.Add(ds);
                                                 wb.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
@@ -281,16 +281,16 @@ namespace PsebPrimaryMiddle.Controllers
                                 }
                             }
                         }
-                        }
                     }
-                    return RedirectToAction("CalculateFee", "Home");
+                }
+                return RedirectToAction("CalculateFee", "Home");
             }
             catch (Exception ex)
             {
                 // ErrorLog.WriteErrorLog(ex.ToString(), Path.GetFileName(Request.Path));
                 return RedirectToAction("CalculateFee", "Home");
             }
-            
+
         }
 
 
@@ -309,7 +309,7 @@ namespace PsebPrimaryMiddle.Controllers
                 TempData["PaymentForm"] = null;
                 TempData["FeeStudentList"] = null;
                 ViewBag.selectedClass = "";
-                if (loginSession.USERTYPE != "GOV" && loginSession.USERTYPE != "R&A")
+                if (loginSession.GovFlag != "GO")
                 {
                     return View(fhvm);
                 }
@@ -317,7 +317,7 @@ namespace PsebPrimaryMiddle.Controllers
                 {
                     return RedirectToAction("Index", "Home");
                 }
-                   
+
             }
             catch (Exception ex)
             {
@@ -330,21 +330,21 @@ namespace PsebPrimaryMiddle.Controllers
 
         [SessionCheckFilter]
         [HttpPost]
-        public ActionResult CalculateFee(string id, string Status, FormCollection frc, string aa, string ChkId,string selectedClass)
+        public ActionResult CalculateFee(string id, string Status, FormCollection frc, string aa, string ChkId, string selectedClass)
         {
             try
             {
                 FeeHomeViewModel fhvm = new FeeHomeViewModel();
                 LoginSession loginSession = (LoginSession)Session["LoginSession"];
-               // ViewBag.Eighth = loginSession.middle == "Y" ? "1" : "0";
-               /// ViewBag.Fifth = loginSession.fifth == "Y" ? "1" : "0";
+                // ViewBag.Eighth = loginSession.middle == "Y" ? "1" : "0";
+                /// ViewBag.Fifth = loginSession.fifth == "Y" ? "1" : "0";
 
                 if (Status == "Successfully" || Status == "Failure")
                 {
                     //ViewData["Status"] = Status;
                     ViewData["FeeStatus"] = Status;
                     return View();
-                }               
+                }
                 else
                 {
                     ViewBag.selectedClass = selectedClass;
@@ -355,19 +355,19 @@ namespace PsebPrimaryMiddle.Controllers
                         return View();
                     }
 
-                  
+
 
                     ViewData["Status"] = "";
-                    string UserType = "User";                  
-                 
-                   
+                    string UserType = "User";
+
+
                     string Search = string.Empty;
-                    Search = "SCHL='" + loginSession.SCHL +"'";
+                    Search = "SCHL='" + loginSession.SCHL + "'";
                     FormNM = "'" + FormNM.Replace(",", "','") + "'";
                     Search += "  and type='" + UserType + "' and form_name in(" + FormNM + ")";
-                  
+
                     string SearchString = DateTime.Now.ToString("dd/MM/yyyy");
-                   DateTime date = DateTime.ParseExact(SearchString, "dd/MM/yyyy", null);
+                    DateTime date = DateTime.ParseExact(SearchString, "dd/MM/yyyy", null);
 
 
                     //string SearchString = DateTime.Now.AddDays(-10).ToString("dd/MM/yyyy");
@@ -428,7 +428,7 @@ namespace PsebPrimaryMiddle.Controllers
                                 //Not Allowed Some Form are not in Fee
                                 ViewData["FeeStatus"] = "2";
                                 // ViewBag.Message = "Not Allowed,Some FORM are not in Fee Structure..please contact Punjab School Education Board";
-                               // ViewBag.Message = "Calculate fee is allowed only for M1 and T1 Form only";
+                                // ViewBag.Message = "Calculate fee is allowed only for M1 and T1 Form only";
                                 DataSet ds = dsCheckFee;
                                 fhvm.StoreAllData = dsCheckFee;
                                 ViewBag.TotalCount = dsCheckFee.Tables[0].Rows.Count;
@@ -466,7 +466,7 @@ namespace PsebPrimaryMiddle.Controllers
                             else if (dsCheckFee.Tables[0].Rows[0]["Outstatus"].ToString() == "1" && !string.IsNullOrEmpty(selectedClass))
                             {
                                 string cls = selectedClass;
-                                DataSet ds = _challanRepository.GetCalculateFeeBySchool(cls,Search, loginSession.SCHL, date);
+                                DataSet ds = _challanRepository.GetCalculateFeeBySchool(cls, Search, loginSession.SCHL, date);
                                 fhvm.StoreAllData = ds;
                                 if (fhvm.StoreAllData == null || fhvm.StoreAllData.Tables[0].Rows.Count == 0)
                                 {
@@ -513,7 +513,7 @@ namespace PsebPrimaryMiddle.Controllers
             {
                 LoginSession loginSession = (LoginSession)Session["LoginSession"];
                 PaymentformViewModel pfvm = new PaymentformViewModel();
-              
+
                 if (TempData["CalculateFee"] == null || TempData["CalculateFee"].ToString() == "")
                 {
                     return RedirectToAction("CalculateFee", "Home");
@@ -601,7 +601,7 @@ namespace PsebPrimaryMiddle.Controllers
                     if (pfvm.TotalFinalFees == 0)
                     {
                         ChallanMasterModel CM = new ChallanMasterModel();
-                        string AllowBanks = "203";                      
+                        string AllowBanks = "203";
                         pfvm.BankCode = AllowBanks;
                         if (AllowBanks == "203")
                         {
@@ -737,7 +737,7 @@ namespace PsebPrimaryMiddle.Controllers
                     return RedirectToAction("PaymentForm", "Home");
                 }
 
-                
+
 
                 string bankName = "";
 
@@ -782,7 +782,7 @@ namespace PsebPrimaryMiddle.Controllers
                 {
                     string SCHL = loginSession.SCHL;
                     string FeeStudentList = TempData["FeeStudentList"].ToString();
-                    CM.FeeStudentList = FeeStudentList.Remove(FeeStudentList.LastIndexOf(","), 1);                   
+                    CM.FeeStudentList = FeeStudentList.Remove(FeeStudentList.LastIndexOf(","), 1);
                     // new add AllowBanks by rohit
                     //pfvm.AllowBanks = dscalFee.Tables[0].Rows[0]["AllowBanks"].ToString();
                     string[] bls = PFVMSession.AllowBanks.Split(',');
@@ -799,7 +799,7 @@ namespace PsebPrimaryMiddle.Controllers
                         PFVMSession.bankList.Add(new BankListModel { BCode = BM.BCODE, BankName = BM.BANKNAME, Img = "" });
                     }
                     ///////////////
-                 
+
                     CM.FEE = Convert.ToInt32(PFVMSession.TotalFinalFees);
                     CM.TOTFEE = Convert.ToInt32(PFVMSession.TotalFinalFees);
                     CM.addfee = Convert.ToInt32(PFVMSession.totaddfee);// exam fee
@@ -808,7 +808,7 @@ namespace PsebPrimaryMiddle.Controllers
                     CM.addsubfee = Convert.ToInt32(PFVMSession.totaddsubfee);// cert fee
                     CM.FEECAT = PFVMSession.FeeCategory;
                     CM.FEECODE = PFVMSession.FeeCode;
-                  //  CM.FEEMODE = "ONLINE";
+                    //  CM.FEEMODE = "ONLINE";
                     CM.BANK = pfvm.BankName;
                     CM.BCODE = pfvm.BankCode;
                     CM.BANKCHRG = PFVMSession.BankCharges;
@@ -1186,7 +1186,7 @@ namespace PsebPrimaryMiddle.Controllers
 
                     TempData["CalculateFee"] = null;
                     TempData["PaymentForm"] = null;
-                    TempData["FeeStudentList"] = null;                  
+                    TempData["FeeStudentList"] = null;
 
                     return View(CM);
                 }
@@ -1205,8 +1205,8 @@ namespace PsebPrimaryMiddle.Controllers
             {
                 LoginSession loginSession = (LoginSession)Session["LoginSession"];
 
-                ChallanMasterModel CM = new ChallanMasterModel();              
-               
+                ChallanMasterModel CM = new ChallanMasterModel();
+
 
                 DataSet ds = _challanRepository.GetFinalPrintChallan(loginSession.SCHL);//GetFinalPrintChallanSP
                 CM.ChallanMasterData = ds;
@@ -1238,9 +1238,9 @@ namespace PsebPrimaryMiddle.Controllers
             var itemsch = new SelectList(new[]{new {ID="1",Name="ALL"},new{ID="2",Name="Unique ID"},new{ID="3",Name="Candidate Name"},
             new{ID="4",Name="Father's Name"},new{ID="5",Name="Mother's Name"},new{ID="7",Name="Regno"},}, "ID", "Name", 1);
             ViewBag.MySch = itemsch.ToList();
-            
+
             FeeHomeViewModel FM = new FeeHomeViewModel();
-            FM.StoreAllData = RegistrationDB.GetStudentFinalPrint5th8thSP(schl, lot);            
+            FM.StoreAllData = RegistrationDB.GetStudentFinalPrint5th8thSP(schl, lot);
             TempData["FinalPrintFormName"] = loginSession.SCHL + "-" + lot;
             if (FM.StoreAllData == null || FM.StoreAllData.Tables[0].Rows.Count == 0)
             {
@@ -1249,7 +1249,7 @@ namespace PsebPrimaryMiddle.Controllers
                 return View();
             }
             else
-            {   
+            {
 
 
                 ViewBag.TotalCount = FM.StoreAllData.Tables[0].Rows.Count;
@@ -1313,8 +1313,8 @@ namespace PsebPrimaryMiddle.Controllers
                 schl = FormName.Split('-')[0].ToString();
                 lot = FormName.Split('-')[1].ToString();
             }
-            
-            
+
+
 
             if (!string.IsNullOrEmpty(cmd) && loginSession.SCHL.ToString() == schl.ToString())
             {
@@ -1323,17 +1323,17 @@ namespace PsebPrimaryMiddle.Controllers
                 if (!Directory.Exists(FilepathExist))
                 {
                     Directory.CreateDirectory(FilepathExist);
-                }                
+                }
 
                 if (cmd.ToLower().Contains("download") && !string.IsNullOrEmpty(PrintHtml))
                 {
-                    string fileNM = "FinalPrint_" + FormName +'_'+ DateTime.Now.ToString("ddMMyyyyHHmm") + ".pdf";
+                    string fileNM = "FinalPrint_" + FormName + '_' + DateTime.Now.ToString("ddMMyyyyHHmm") + ".pdf";
                     string htmlToConvert = PrintHtml.ToString();
                     var htmlToPdf = new NReco.PdfGenerator.HtmlToPdfConverter();
-                    htmlToPdf.Orientation = NReco.PdfGenerator.PageOrientation.Landscape;                    
+                    htmlToPdf.Orientation = NReco.PdfGenerator.PageOrientation.Landscape;
                     var pdfBytes = htmlToPdf.GeneratePdf(htmlToConvert);
                     //
-                    string filePath = "Upload/FinalPrints/" + fileNM;                
+                    string filePath = "Upload/FinalPrints/" + fileNM;
                     string fileLocation = Server.MapPath("~/Upload/FinalPrints/" + fileNM);
 
                     if (System.IO.File.Exists(fileLocation))
@@ -1349,7 +1349,7 @@ namespace PsebPrimaryMiddle.Controllers
                     }
                     //file save
                     System.IO.File.WriteAllBytes(fileLocation, pdfBytes);
-                    
+
 
                     #region sent mail with attachment
                     string subject = "Download Primary-Middle Final Print";
@@ -1378,7 +1378,7 @@ namespace PsebPrimaryMiddle.Controllers
                     #endregion
                     System.Diagnostics.Process.Start(fileLocation);
 
-                }               
+                }
             }
             return RedirectToAction("FinalPrint", "Home");
 
@@ -1500,9 +1500,9 @@ namespace PsebPrimaryMiddle.Controllers
             {
                 string dee = "";
                 string outstatus = "";
-               
+
                 DataSet ds = _challanRepository.CancelOfflineChallanBySchl(cancelremarks, challanid, out outstatus, loginSession.SCHL, Type);//ChallanDetailsCancelSP               
-               dee = outstatus;
+                dee = outstatus;
                 return Json(new { sn = dee, chid = challanid }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -1559,8 +1559,8 @@ namespace PsebPrimaryMiddle.Controllers
             else
             {
                 string StudentList = dst1.Tables[0].Rows[0]["StudentList"].ToString().Trim();
-                TempData["StudentList"] = StudentList; 
-               
+                TempData["StudentList"] = StudentList;
+
                 if (string.IsNullOrEmpty(StudentList))
                 {
                     return RedirectToAction("Logout", "Login");
@@ -1599,14 +1599,14 @@ namespace PsebPrimaryMiddle.Controllers
         [HttpPost]
         public ActionResult ChallanDepositDetails(string id, ChallanDepositDetailsModel cdm, FormCollection frm, string submit)
         {
-           
+
             if (TempData["StudentList"] == null || TempData["StudentList"].ToString() == "")
             {
                 return RedirectToAction("FinalPrint", "Home");
             }
-          
+
             id = TempData["StudentList"].ToString();
-            
+
 
             try
             {
@@ -1643,12 +1643,12 @@ namespace PsebPrimaryMiddle.Controllers
                 {
                     if (submit != null)
                     {
-                        
+
                         if (submit.ToUpper() == "CANCEL")
                         {
                             AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
                             if (frm["CHALLANID"] != "" && adminLoginSession.AdminType.ToString().ToUpper() == "ADMIN")
-                            {                              
+                            {
                                 string outstatus = "";
                                 int AdminId = Convert.ToInt32(adminLoginSession.AdminId);
                                 string challanid = cdm.CHALLANID;
@@ -1719,7 +1719,7 @@ namespace PsebPrimaryMiddle.Controllers
             try
             {
                 ChallanDepositDetailsModel cdm = new ChallanDepositDetailsModel();
-                int OutStatus = 0;   
+                int OutStatus = 0;
                 DataSet ds1 = _bankRepository.GetChallanDetailsByIdSPBank(challanid);
                 if (ds1 == null || ds1.Tables[0].Rows.Count == 0)
                 {
@@ -1727,7 +1727,7 @@ namespace PsebPrimaryMiddle.Controllers
                 }
                 else
                 {
-                    OutStatus = 1;                   
+                    OutStatus = 1;
                     cdm.CHALLANID = ds1.Tables[0].Rows[0]["CHALLANID"].ToString();
                     cdm.SCHLREGID = ds1.Tables[0].Rows[0]["SCHLREGID"].ToString();
                     cdm.LOT = Convert.ToInt32(ds1.Tables[0].Rows[0]["LOT"].ToString());
@@ -1806,7 +1806,7 @@ namespace PsebPrimaryMiddle.Controllers
 
         [SessionCheckFilter]
         [HttpPost]
-        public ActionResult CalculateFeeWithoutLateFee(string id, string Status, FormCollection frc, string aa, string ChkId,string selectedClass)
+        public ActionResult CalculateFeeWithoutLateFee(string id, string Status, FormCollection frc, string aa, string ChkId, string selectedClass)
         {
             try
             {
@@ -1849,7 +1849,7 @@ namespace PsebPrimaryMiddle.Controllers
                     //DateTime date = DateTime.ParseExact(SearchString, "dd/MM/yyyy", null);
 
 
-                 
+
 
                     /// for Live
 
@@ -1918,7 +1918,7 @@ namespace PsebPrimaryMiddle.Controllers
                             else if (dsCheckFee.Tables[0].Rows[0]["Outstatus"].ToString() == "1")
                             {
                                 string cls = selectedClass;
-                                DataSet ds = _challanRepository.GetCalculateFeeBySchoolWithoutLateFee(cls,Search, loginSession.SCHL, date);
+                                DataSet ds = _challanRepository.GetCalculateFeeBySchoolWithoutLateFee(cls, Search, loginSession.SCHL, date);
                                 fhvm.StoreAllData = ds;
                                 if (fhvm.StoreAllData == null || fhvm.StoreAllData.Tables[0].Rows.Count == 0)
                                 {
@@ -2021,7 +2021,7 @@ namespace PsebPrimaryMiddle.Controllers
                         pfvm.bankList.Add(new BankListModel { BCode = BM.BCODE, BankName = BM.BANKNAME, Img = "" });
                     }
                     ///////////////
-                 
+
                     return View(pfvm);
                 }
             }

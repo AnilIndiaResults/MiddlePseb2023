@@ -63,6 +63,7 @@ namespace PsebJunior.Models
         public string PrincipalMobile2 { get; set; }
 
         public int Finalsubmittedforchoice { get; set; }
+        public string GovFlag { get;  set; }
     }
 
 

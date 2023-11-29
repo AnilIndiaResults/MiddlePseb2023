@@ -119,7 +119,7 @@
                                         </a>
                                         <ul class="dropdown-menu">
 
-                                            @if (loginSession.USERTYPE != "GOV" && loginSession.USERTYPE != "R&A")
+                                            @if (loginSession.GovFlag != "GO")
                                             {
                                                 <li>@Html.ActionLink("Registration Portal", "Portal", "RegistrationPortal")</li>
                                             }
