@@ -955,6 +955,23 @@
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 
 <script type="text/javascript">
+
+
+    $('#IsHardCopyCertificate').change(function () {
+
+        var hardcopy = document.getElementById('IsHardCopyCertificate').value;
+        if (hardcopy == "NO") {
+            alert("ਜੇਕਰ ਹਾਰਡ ਕਾਪੀ ਸਰਟੀਫਿਕੇਟ ਦੀ ਆਪਸ਼ਨ No ਸਲੈਕਟ ਕੀਤੀ ਜਾਵੇਗੀ ਤਾਂ ਭਵਿੱਖ ਵਿਚ ਹਾਰਡ ਕਾਪੀ ਸਰਟੀਫਿਕੇਟ (ਪਹਿਲੀ ਕਾਪੀ) ਨਹੀਂ ਮਿਲੇਗੀ ਅਤੇ ਕੇਵਲ Second Copy of Certificate ਹੀ ਅਪਲਾਈ ਕੀਤਾ ਜਾ ਸਕੇਗਾ। ਪ੍ਰੀਖਿਆਰਥੀ ਅਤੇ ਮਾਪਿਆਂ ਨੂੰ ਇਸ ਸਬੰਧੀ ਜਾਣੂ ਕਰਵਾ ਦਿੱਤਾ ਗਿਆ ਹੈ ਅਤੇ ਇਸ ਸਬੰਧੀ ਓਹਨਾਂ ਤੋਂ ਲਿਖਤੀ Undertaking ਲੈ ਲਈ ਗਈ ਹੈ।")
+
+        }
+        else {
+
+        }
+
+    });  
+
+
+
     $(document).ready(function () {
 
         console.log("adhar:", '@Model.Aadhar_num')
