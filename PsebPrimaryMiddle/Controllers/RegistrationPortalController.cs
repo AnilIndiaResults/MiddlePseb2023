@@ -256,7 +256,7 @@ namespace PsebPrimaryMiddle.Controllers
             {
                 LoginSession loginSession = (LoginSession)Session["LoginSession"];
 
-                if (loginSession.GovFlag != "GO")
+                if (loginSession.GovFlag != "GO" || loginSession.GovFlag == "GO")
                 {
                     ViewBag.Eighth = loginSession.middle == "Y" ? "1" : "0";
                     ViewBag.Fifth = loginSession.fifth == "Y" ? "1" : "0";
