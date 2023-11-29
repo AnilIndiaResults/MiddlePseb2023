@@ -1057,18 +1057,18 @@
     $(document).ready(function () {
 
         console.log("adhar:", '@Model.Aadhar_num')
-        console.log("enroll:",'@Model.AadharEnroll')
+        console.log("enroll:", '@Model.AadharEnroll')
 
         if ('@Model.Aadhar_num' == "" && '@Model.AadharEnroll' == "Aadhar") {
             document.getElementById('aadharnumna').checked = true;
-             document.getElementById('txt_aadharno').style.display = 'none';
+            document.getElementById('txt_aadharno').style.display = 'none';
         }
         else {
-             document.getElementById('txt_aadharno').style.display = 'block';
+            document.getElementById('txt_aadharno').style.display = 'block';
         }
 
         var dee = '@ViewBag.admdate';
-        var startdee='@ViewBag.StartAdmDate';
+        var startdee = '@ViewBag.StartAdmDate';
         $("#txtadmisndate").datepicker({
             dateFormat: "dd/mm/yy",
             changeMonth: true,
@@ -1084,55 +1084,58 @@
             changeMonth: true,
             changeYear: true,
             // maxDate: '-9Y',
-            yearRange: '1969:' + (new Date().getFullYear()),
-            maxDate: new Date('2013/12/31'),
+            yearRange: '1969:' + (new Date().getFullYear())
+
+
+            //$("#DOB").datepicker({
+            //    dateFormat: "dd/mm/yy",
+            //    changeMonth: true,
+            //    changeYear: true,
+            //   // maxDate: '-9Y',
+            //    yearRange: '1969:' + (new Date().getFullYear()),
+            //    maxDate: new Date('2012/03/31'),
+            //});
+
         });
-        //$("#DOB").datepicker({
-        //    dateFormat: "dd/mm/yy",
-        //    changeMonth: true,
-        //    changeYear: true,
-        //   // maxDate: '-9Y',
-        //    yearRange: '1969:' + (new Date().getFullYear()),
-        //    maxDate: new Date('2012/03/31'),
-        //});
-      
-    });
 
 
-    function ValidateAlpha(evt) {
-        var keyCode = (evt.which) ? evt.which : evt.keyCode
-        if ((keyCode < 65 || keyCode > 90) && (keyCode < 97 || keyCode > 123) && keyCode != 32 && keyCode != 8 && keyCode != 46 && keyCode != 9) {
-            alert("Only Characters Allowed!!");
-            return false;
+        function ValidateAlpha(evt) {
+            var keyCode = (evt.which) ? evt.which : evt.keyCode
+            if ((keyCode < 65 || keyCode > 90) && (keyCode < 97 || keyCode > 123) && keyCode != 32 && keyCode != 8 && keyCode != 46 && keyCode != 9) {
+                alert("Only Characters Allowed!!");
+                return false;
+            }
+            else {
+                return true;
+            }
+
         }
-        else {
-            return true;
-        }
-
-    }
-    function isNumberKey(evt) {
-        var charCode = (evt.which) ? evt.which : event.keyCode
-        if ((charCode >= 48 && charCode <= 57) || (charCode == 9) || (charCode == 8) || (charCode == 46)) {
-            return true;
-        }
-        else {
-            alert("Invalid character...Enter Only Number!!");
-            return false;
-        }
-    }
-
-
-    function validate_fileupload(fileName) {
-        var allowed_extensions = new Array("jpg");
-        var file_extension = fileName.split('.').pop(); // split function will split the filename by dot(.), and pop function will pop the last element from the array which will give you the extension as well. If there will be no extension then it will return the filename.
-
-        for (var i = 0; i <= allowed_extensions.length; i++) {
-            if (allowed_extensions[i] == file_extension) {
-                return true; // valid file extension
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if ((charCode >= 48 && charCode <= 57) || (charCode == 9) || (charCode == 8) || (charCode == 46)) {
+                return true;
+            }
+            else {
+                alert("Invalid character...Enter Only Number!!");
+                return false;
             }
         }
 
-    }
+
+        function validate_fileupload(fileName) {
+            var allowed_extensions = new Array("jpg");
+            var file_extension = fileName.split('.').pop(); // split function will split the filename by dot(.), and pop function will pop the last element from the array which will give you the extension as well. If there will be no extension then it will return the filename.
+
+            for (var i = 0; i <= allowed_extensions.length; i++) {
+                if (allowed_extensions[i] == file_extension) {
+                    return true; // valid file extension
+                }
+            }
+        }
+
+        });
+
+    
 
 </script>
 

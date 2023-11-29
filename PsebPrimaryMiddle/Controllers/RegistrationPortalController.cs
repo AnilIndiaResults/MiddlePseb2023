@@ -243,7 +243,10 @@ namespace PsebPrimaryMiddle.Controllers
         #region portal & agree
         public ActionResult Index()
         {
+
             return View();
+
+
         }
 
         [SessionCheckFilter]
@@ -252,8 +255,17 @@ namespace PsebPrimaryMiddle.Controllers
             try
             {
                 LoginSession loginSession = (LoginSession)Session["LoginSession"];
-                ViewBag.Eighth = loginSession.middle == "Y" ? "1" : "0";
-                ViewBag.Fifth = loginSession.fifth == "Y" ? "1" : "0";
+
+                if (loginSession.GovFlag != "GO")
+                {
+                    ViewBag.Eighth = loginSession.middle == "Y" ? "1" : "0";
+                    ViewBag.Fifth = loginSession.fifth == "Y" ? "1" : "0";
+
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
             catch (Exception ex)
             {

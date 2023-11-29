@@ -192,6 +192,9 @@ namespace PsebJunior.AbstractLayer
                 {
                     if (reader.Read())
                     {
+                        loginSession.PrincipalName2 = DBNull.Value != reader["PrincipalName2"] ? (string)reader["PrincipalName2"] : default(string);
+                        loginSession.PrincipalMobile2 = DBNull.Value != reader["PrincipalMobile2"] ? (string)reader["PrincipalMobile2"] : default(string);
+                        loginSession.Finalsubmittedforchoice = DBNull.Value != reader["Finalsubmittedforchoice"] ? (int)reader["Finalsubmittedforchoice"] : default(int);
                         loginSession.STATUS = DBNull.Value != reader["STATUS"] ? (string)reader["STATUS"] : default(string);
                         loginSession.DIST = DBNull.Value != reader["DIST"] ? (string)reader["DIST"] : default(string);
                         loginSession.SCHL = DBNull.Value != reader["SCHL"] ? (string)reader["SCHL"] : default(string);
@@ -208,7 +211,8 @@ namespace PsebJunior.AbstractLayer
                         loginSession.PRINCIPAL = DBNull.Value != reader["PRINCIPAL"] ? (string)reader["PRINCIPAL"] : default(string);
                         loginSession.EXAMCENT = DBNull.Value != reader["EXAMCENT"] ? (string)reader["EXAMCENT"] : default(string);
                         loginSession.PRACCENT = DBNull.Value != reader["PRACCENT"] ? (string)reader["PRACCENT"] : default(string);
-                        loginSession.USERTYPE = DBNull.Value != reader["SCHLNME"] ? (string)reader["USERTYPE"] : default(string);
+                        loginSession.USERTYPE = DBNull.Value != reader["USERTYPE"] ? (string)reader["USERTYPE"] : default(string);
+                        loginSession.GovFlag = DBNull.Value != reader["GovFlag"] ? (string)reader["GovFlag"] : default(string);
                         loginSession.CLUSTERDETAILS = DBNull.Value != reader["CLUSTERDETAILS"] ? (string)reader["CLUSTERDETAILS"] : default(string);
                         //
                         loginSession.IsMeritoriousSchool = DBNull.Value != reader["IsMeritoriousSchool"] ? (int)reader["IsMeritoriousSchool"] : default(int);
@@ -2256,7 +2260,9 @@ namespace PsebJunior.AbstractLayer
             InfrasturePerformas obj = new InfrasturePerformas();
             if (LM != null)
             {
-                obj = context.InfrasturePerformas.SingleOrDefault(x => x.SCHL.Trim() == LM.SCHL.Trim());
+                //obj = context.InfrasturePerformas.SingleOrDefault(x => x.SCHL.Trim() == LM.SCHL.Trim());
+                obj = context.InfrasturePerformas.FirstOrDefault(x => x.SCHL.Trim() == LM.SCHL.Trim());
+                
                 if (obj == null)
                 {
                     var ipsNew = new InfrasturePerformas()
@@ -2265,7 +2271,12 @@ namespace PsebJunior.AbstractLayer
                     };
                     context.InfrasturePerformas.Add(ipsNew);
                     context.SaveChanges();
-                    obj = context.InfrasturePerformas.SingleOrDefault(x => x.SCHL.Trim() == LM.SCHL.Trim());
+                    //obj = context.InfrasturePerformas.SingleOrDefault(x => x.SCHL.Trim() == LM.SCHL.Trim());
+                    obj = context.InfrasturePerformas.FirstOrDefault(x => x.SCHL.Trim() == LM.SCHL.Trim());
+
+
+
+
                 }
 
             }
@@ -2543,6 +2554,75 @@ namespace PsebJunior.AbstractLayer
 
         }
         #endregion
+
+        public DataSet SchoolCenterNameNearestWithSchool(string Dist)
+        {
+            DataSet result = new DataSet();
+            SqlDataAdapter ad = new SqlDataAdapter();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings[CommonCon].ToString()))
+                {
+                    SqlCommand cmd = new SqlCommand("sp_SchoolCenterNameNearestWithSchool", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Dist", Dist);
+                    ad.SelectCommand = cmd;
+                    ad.Fill(result);
+                    con.Open();
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                return result = null;
+            }
+        }
+
+        public static int sp_Update_school_center_choice(FormCollection frm, int Finalsubmittedforchoice)
+        {
+            SqlConnection con = null;
+            string PricipleName = frm["PricipleName"].ToString();
+            string stdCode = frm["stdCode"].ToString();
+            string phone = frm["phone"].ToString();
+            string Mobile = frm["Mobile"].ToString();
+            string Priciple2Name = frm["Priciple2Name"].ToString();
+            string Priciple2Mobile = frm["Priciple2Mobile"].ToString();
+            string schl = HttpContext.Current.Session["SCHL"].ToString();
+            int Finalsubmittedforchoiceval = Finalsubmittedforchoice;
+            int OutStatus = 0;
+            string result = "";
+            try
+            {
+                con = new SqlConnection(ConfigurationManager.ConnectionStrings["myDBConnection"].ToString());
+                SqlCommand cmd = new SqlCommand("sp_Update_school_center_choice", con);  //AllotCCESenior
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@SCHL", schl);
+                cmd.Parameters.AddWithValue("@PRINCIPAL", PricipleName);
+                cmd.Parameters.AddWithValue("@STDCODE", stdCode);
+                cmd.Parameters.AddWithValue("@PHONE", phone);
+                cmd.Parameters.AddWithValue("@Mobile", Mobile);
+                cmd.Parameters.AddWithValue("@PrincipalName2", Priciple2Name);
+                cmd.Parameters.AddWithValue("@PrincipalMobile2", Priciple2Mobile);
+                cmd.Parameters.AddWithValue("@Finalsubmittedforchoice", Finalsubmittedforchoiceval);
+                cmd.Parameters.Add("@OutStatus", SqlDbType.Int).Direction = ParameterDirection.Output;
+                con.Open();
+                result = cmd.ExecuteNonQuery().ToString();
+                OutStatus = (int)cmd.Parameters["@OutStatus"].Value;
+                return OutStatus;
+            }
+            catch (Exception ex)
+            {
+                OutStatus = -1;
+                //mbox(ex);
+                return OutStatus;
+            }
+            finally
+            {
+                con.Close();
+            }
+
+
+        }
 
 
 

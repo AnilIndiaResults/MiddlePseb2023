@@ -288,7 +288,7 @@ Your browser does not support the video tag.
                                             <br /><br />
                                             if (!string.IsNullOrEmpty(UrlLink))
                                             {
-                                                <a href='https://registration2020.pseb.ac.in/@UrlLink' class="listitm" target="_blank" title="click here to open link">
+                                                <a href='@UrlLink' class="listitm" target="_blank" title="click here to open link">
                                                     <samp>&#10093;</samp> <span style="color:#ff0000">@UploadDate</span> @Title
                                                     @if (NewFlag == "1")
                                                     {<img src="/images/new.gif" alt="new" />}
@@ -296,7 +296,7 @@ Your browser does not support the video tag.
                                             }
                                             else if (!string.IsNullOrEmpty(Attachment))
                                             {
-                                                <a href="https://registration2020.pseb.ac.in/@Attachment" target="_blank" class="listitm">
+                                                <a href="@Attachment" target="_blank" class="listitm">
                                                     <samp>&#10093;</samp> <span style="color:#ff0000">@UploadDate</span>
                                                     @Title
                                                     @if (NewFlag == "1")
