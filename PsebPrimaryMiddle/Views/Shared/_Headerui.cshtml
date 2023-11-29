@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    string youtubetext = "https://www.youtube.com/@pseb_official";
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -6,6 +9,7 @@
     <title>@ViewBag.Title Punjab School Education Board</title>
     <link rel="shortcut icon" href="/Images/favicon.ico" />
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,600' rel='stylesheet' type='text/css' />
+    <link href="~/Content/bootstrap-chosen.css" rel="stylesheet" />
     <noscript>
         <style type="text/css">
             #HPL {
@@ -29,46 +33,54 @@
                 PsebJunior.Models.LoginSession loginSession = (PsebJunior.Models.LoginSession)Session["LoginSession"];
                 <div class="header">
                     <div class="container">
-                        <div class="row">
-                            <div class="col-xs-3 col-md-4">
-                                <img src="~/Images/pseb_logo.png" alt="Punjab School Education Board" class="img-responsive" />
-                            </div>
-                            <div class="col-xs-9 col-md-4">
-                                <center>
-                                    <img src="~/Images/PSEB_Text.png" alt="Punjab School Education Board" class="img-responsive" />
-                                    <span class="kdcs-wt-color kdcs-font-16"><span>Session</span> @loginSession.CurrentSession</span>
-                                </center>
-                            </div>
-                            <div class="col-xs-12 col-md-4 text-right">
-                                <span class="kdcs-wt-color">
-                                    Email Id: <a target="_blank" href="mailto:psebhelpdesk@gmail.com" class="kdcs-wt-color">psebhelpdesk@gmail.com </a><br />
-                                    Toll Free Help Line No. : <span class="blink_text">8058911911</span>
-                                </span>
-                                <span class="kdcs-wt-color kdcs-font-12">
-                                    <br />
-                                    Reg Branch : <span class="kdcs-or-color">0172-5227432</span>
-                                </span>
-                            </div>
+                                <div class="row">
+                                    <div class="col-xs-3 col-md-4">
+                                        <img src="~/Images/pseb_logo.png" alt="Punjab School Education Board" class="img-responsive" />
+                                    </div>
+                                    <div class="col-xs-9 col-md-4">
+                                        <center>
+                                            <img src="~/Images/PSEB_Text.png" alt="Punjab School Education Board" class="img-responsive" />
+                                            <span class="kdcs-wt-color kdcs-font-16"><span>Session</span> @loginSession.CurrentSession</span>
+                                        </center>
+                                    </div>
+                                    <div class="col-xs-12 col-md-4 text-right">
+                                        <span class="kdcs-wt-color">
+                                            Email Id: <a target="_blank" href="mailto:psebhelpdesk@gmail.com" class="kdcs-wt-color">psebhelpdesk@gmail.com </a><br />
+                                            Toll Free Help Line No. : <span class="blink_text">8058911911</span>
+                                        </span>
+                                        <span class="kdcs-wt-color kdcs-font-12">
+                                            <br />
+                                            Reg Branch : <span class="kdcs-or-color">0172-5227438,0172-5227439,<br />0172-5227440</span>
+                                        </span>
+                                        <div class="row" style="margin-right:0px;">
+                                            <a href="https://www.facebook.com/profile.php?id=61551366697416" target="_blank"><img src="https://pseb.ac.in/public/socialmedia/icons8-facebook-144.png" width="30px;"></a>
+                                            <a href="https://www.instagram.com/pseb.official/" target="_blank"><img src="https://pseb.ac.in/public/socialmedia/icons8-instagram-144.png" width="30px;"></a>
+                                            <a href="https://twitter.com/PSEB_Official" target="_blank"><img src="https://pseb.ac.in/public/socialmedia/icons8-twitterx-144.png" width="30px;"></a>
+                                            <a href="@youtubetext" target="_blank"><img src="https://pseb.ac.in/public/socialmedia/icons8-youtube-144.png" width="30px;"></a>
+                                        </div>
+                                    </div>
+                                   
 
 
+                                    <div class="clearfix"></div>
+                                    <div class="col-md-12 text-center kdcs-wt-color">
+                                        <span>@loginSession.SCHLNME</span>
+                                        <span class="kdsfont"> @loginSession.SCHLNMP</span>
+                                        <span>[@loginSession.SCHL]</span>
 
-                            <div class="clearfix"></div>
-                            <div class="col-md-12 text-center kdcs-wt-color">
-                                <span>@loginSession.SCHLNME</span>
-                                <span class="kdsfont"> @loginSession.SCHLNMP</span>
-                                <span>[@loginSession.SCHL]</span>
+
+                                    </div>
+                                    @if (!string.IsNullOrEmpty(loginSession.CLUSTERDETAILS))
+                                    {
+                                        <div class="clearfix"></div>
+                                        <div class="col-md-12 text-center kdcs-wt-color">
+                                            <span>Cluster Details :</span>
+                                            <span>@loginSession.CLUSTERDETAILS</span>
+                                        </div>
+                                    }
 
 
-                            </div>
-                            @if (!string.IsNullOrEmpty(loginSession.CLUSTERDETAILS))
-                            {
-                                <div class="clearfix"></div>
-                                <div class="col-md-12 text-center kdcs-wt-color">
-                                    <span>Cluster Details :</span>
-                                    <span>@loginSession.CLUSTERDETAILS</span>
                                 </div>
-                            }
-                        </div>
                     </div>
                 </div>
                 <div class="navbar navbar-inverse">
@@ -93,7 +105,9 @@
                                             @if (loginSession.Matric == "0" && loginSession.Senior == "0")
                                             {
                                                 <li>@Html.ActionLink("Infrastructure Performa", "InfrasturePerforma", "School")</li>
+                                                <li>@Html.ActionLink("Exam Centre Details", "ExamCentreDetails", "School")</li>
                                             }
+
                                             <li>@Html.ActionLink("Update School Information", "Update_School_Information", "SchoolProfile")</li>
                                             <li>@Html.ActionLink("Change Password", "Change_Password", "SchoolProfile")</li>
                                         </ul>
@@ -104,12 +118,29 @@
                                             <span class="caret"></span>
                                         </a>
                                         <ul class="dropdown-menu">
-                                            <li>@Html.ActionLink("Registration Portal", "Portal", "RegistrationPortal")</li>
+
+                                            @if (loginSession.GovFlag != "GO")
+                                            {
+                                                <li>@Html.ActionLink("Registration Portal", "Portal", "RegistrationPortal")</li>
+                                            }
+
                                             @*<li>@Html.ActionLink("Late Admission Request", "LateAdmissionSchl", "RegistrationPortal")</li>*@
                                             <li>@Html.ActionLink("Inter Board Migration", "InterBoardMigrationSchl", "RegistrationPortal")</li>
                                         </ul>
                                     </li>
+                                    @if (loginSession.Matric == "0" && loginSession.Senior == "0")
+                                    {
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                                Exam Centre
+                                                <span class="caret"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li>@Html.ActionLink("Exam Centre Details", "ExamCentreDetails", "School")</li>
 
+                                            </ul>
+                                        </li>
+                                    }
                                     @*<li><a href="/School/SchoolResultCertificate">Download Certificate</a></li>*@
 
                                     @*<li class="dropdown">
@@ -179,17 +210,17 @@
                                                           </ul>
                                                       </li>*@
 
-                                    @*<li class="dropdown">
-                                            <a class="dropdown-toggle" data-toggle="dropdown">
-                                                School Migration
-                                                <span class="caret"></span>
-                                            </a>
-                                            <ul class="dropdown-menu">
-                                                <li>@Html.ActionLink("Apply For Migration", "ApplyStudentSchoolMigration", "School")</li>
-                                                <li>@Html.ActionLink("Applied List", "StudentSchoolMigrationApplied", "School")</li>
-                                                <li>@Html.ActionLink("Received List", "StudentSchoolMigrationReceived", "School")</li>
-                                            </ul>
-                                        </li>*@
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown">
+                                            School Migration
+                                            <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>@Html.ActionLink("Apply For Migration", "ApplyStudentSchoolMigration", "School")</li>
+                                            <li>@Html.ActionLink("Applied List", "StudentSchoolMigrationApplied", "School")</li>
+                                            <li>@Html.ActionLink("Received List", "StudentSchoolMigrationReceived", "School")</li>
+                                        </ul>
+                                    </li>
 
 
                                     @*<li><a href="/school/ExamCentre">Practical Exam Centre</a></li>*@
@@ -248,5 +279,6 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script src="~/Scripts/chosen.jquery.js"></script>
 </body>
 </html>

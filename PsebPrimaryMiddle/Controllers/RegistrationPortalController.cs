@@ -143,7 +143,7 @@ namespace PsebPrimaryMiddle.Controllers
                     //yearlist = DBClass.GetSessionYear().Take(2).ToList();
                     yearlist = DBClass.GetSessionYear().Where(s => Convert.ToInt32(s.Value) >= 1969 && Convert.ToInt32(s.Value) <= 2020).ToList();
                 }
-                
+
                 else
                 {
                     yearlist = DBClass.GetSessionYear().ToList();
@@ -243,7 +243,10 @@ namespace PsebPrimaryMiddle.Controllers
         #region portal & agree
         public ActionResult Index()
         {
+
             return View();
+
+
         }
 
         [SessionCheckFilter]
@@ -252,8 +255,17 @@ namespace PsebPrimaryMiddle.Controllers
             try
             {
                 LoginSession loginSession = (LoginSession)Session["LoginSession"];
-                ViewBag.Eighth = loginSession.middle == "Y" ? "1" : "0";
-                ViewBag.Fifth = loginSession.fifth == "Y" ? "1" : "0";
+
+                if (loginSession.GovFlag != "GO")
+                {
+                    ViewBag.Eighth = loginSession.middle == "Y" ? "1" : "0";
+                    ViewBag.Fifth = loginSession.fifth == "Y" ? "1" : "0";
+
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
             catch (Exception ex)
             {
@@ -1015,7 +1027,7 @@ namespace PsebPrimaryMiddle.Controllers
                     // Documents
 
                     if (rm.DocProofCertificate != null)
-                    {                        
+                    {
                         string fileExt = Path.GetExtension(rm.DocProofCertificate.FileName);
                         string Orgfile = studentID + "C" + fileExt;
 
@@ -1035,14 +1047,14 @@ namespace PsebPrimaryMiddle.Controllers
                                 fileTransferUtility.Upload(uploadRequest);
                             }
                         }
-                        rm.ProofCertificate = "allfiles/Upload2023/"+ formName + "/" + schlDist + "/ProofCertificate" + "/" + studentID + "C" + fileExt;
+                        rm.ProofCertificate = "allfiles/Upload2023/" + formName + "/" + schlDist + "/ProofCertificate" + "/" + studentID + "C" + fileExt;
                         string type = "C";
                         string UpdatePicC = RegistrationDB.Updated_Pic_Data(studentID, rm.ProofCertificate, type);
 
                     }
 
                     if (rm.DocProofNRICandidates != null)
-                    {                        
+                    {
                         string fileExt = Path.GetExtension(rm.DocProofNRICandidates.FileName);
                         string Orgfile = studentID + "NRI" + fileExt;
 
@@ -1844,7 +1856,7 @@ namespace PsebPrimaryMiddle.Controllers
                     // Documents
 
                     if (rm.DocProofCertificate != null)
-                    {                   
+                    {
                         string fileExt = Path.GetExtension(rm.DocProofCertificate.FileName);
                         string Orgfile = studentID + "C" + fileExt;
 
@@ -3923,14 +3935,31 @@ namespace PsebPrimaryMiddle.Controllers
                 if (rm.file != null)
                 {
                     fileNM = refno + Path.GetExtension(rm.file.FileName);
-                    //var path = Path.Combine(Server.MapPath("~/Upload/"+ formName + "/" + dist + "/Photo"), stdPic);
-                    var path = Path.Combine(Server.MapPath("~/Upload/upload2022/LateAdmission/" + fileNM));
-                    string FilepathExist = Path.Combine(Server.MapPath("~/Upload/upload2022/LateAdmission/"));
-                    if (!Directory.Exists(FilepathExist))
+                    ////var path = Path.Combine(Server.MapPath("~/Upload/"+ formName + "/" + dist + "/Photo"), stdPic);
+                    //var path = Path.Combine(Server.MapPath("~/Upload/upload2022/LateAdmission/" + fileNM));
+                    //string FilepathExist = Path.Combine(Server.MapPath("~/Upload/upload2022/LateAdmission/"));
+                    //if (!Directory.Exists(FilepathExist))
+                    //{
+                    //    Directory.CreateDirectory(FilepathExist);
+                    //}
+                    //rm.file.SaveAs(path);
+
+                    using (var client = new AmazonS3Client(ConfigurationManager.AppSettings["AWSKey"], ConfigurationManager.AppSettings["AWSValue"], RegionEndpoint.APSouth1))
                     {
-                        Directory.CreateDirectory(FilepathExist);
+                        using (var newMemoryStream = new MemoryStream())
+                        {
+                            var uploadRequest = new TransferUtilityUploadRequest
+                            {
+                                InputStream = rm.file.InputStream,
+                                Key = string.Format("allfiles/Upload2024/LateAdmission/{0}", fileNM),
+                                BucketName = BUCKET_NAME,
+                                CannedACL = S3CannedACL.PublicRead
+                            };
+
+                            var fileTransferUtility = new TransferUtility(client);
+                            fileTransferUtility.Upload(uploadRequest);
+                        }
                     }
-                    rm.file.SaveAs(path);
                 }
 
                 if (!string.IsNullOrEmpty(refno) && refno.Length > 5)
@@ -4004,14 +4033,31 @@ namespace PsebPrimaryMiddle.Controllers
                     if (rm.fileM != null)
                     {
                         fileNM = refno + Path.GetExtension(rm.fileM.FileName);
-                        //var path = Path.Combine(Server.MapPath("~/Upload/"+ formName + "/" + dist + "/Photo"), stdPic);
-                        var path = Path.Combine(Server.MapPath("~/Upload/upload2022/LateAdmission/" + fileNM));
-                        string FilepathExist = Path.Combine(Server.MapPath("~/Upload/upload2022/LateAdmission/"));
-                        if (!Directory.Exists(FilepathExist))
+                        ////var path = Path.Combine(Server.MapPath("~/Upload/"+ formName + "/" + dist + "/Photo"), stdPic);
+                        //var path = Path.Combine(Server.MapPath("~/Upload/upload2022/LateAdmission/" + fileNM));
+                        //string FilepathExist = Path.Combine(Server.MapPath("~/Upload/upload2022/LateAdmission/"));
+                        //if (!Directory.Exists(FilepathExist))
+                        //{
+                        //    Directory.CreateDirectory(FilepathExist);
+                        //}
+                        //rm.fileM.SaveAs(path);
+
+                        using (var client = new AmazonS3Client(ConfigurationManager.AppSettings["AWSKey"], ConfigurationManager.AppSettings["AWSValue"], RegionEndpoint.APSouth1))
                         {
-                            Directory.CreateDirectory(FilepathExist);
+                            using (var newMemoryStream = new MemoryStream())
+                            {
+                                var uploadRequest = new TransferUtilityUploadRequest
+                                {
+                                    InputStream = rm.fileM.InputStream,
+                                    Key = string.Format("allfiles/Upload2024/LateAdmission/{0}", fileNM),
+                                    BucketName = BUCKET_NAME,
+                                    CannedACL = S3CannedACL.PublicRead
+                                };
+
+                                var fileTransferUtility = new TransferUtility(client);
+                                fileTransferUtility.Upload(uploadRequest);
+                            }
                         }
-                        rm.fileM.SaveAs(path);
                     }
                     TempData["resultUpdate"] = "12";
                 }

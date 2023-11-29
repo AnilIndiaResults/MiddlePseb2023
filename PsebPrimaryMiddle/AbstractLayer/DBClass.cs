@@ -690,8 +690,8 @@ namespace PsebJunior.AbstractLayer
             try
             {
                 System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
-                string mail_from = ("noreply@PsebJunior.in");
-                mail.From = new MailAddress(mail_from, "PsebJunior.in");
+                string mail_from = ("noreply@pseb.ac.in");
+                mail.From = new MailAddress(mail_from, "pseb.ac.in");
                 if (to == "")
                 {
 
@@ -711,9 +711,12 @@ namespace PsebJunior.AbstractLayer
                 mail.Body = body;
                 mail.IsBodyHtml = true;
                 SmtpClient smtp = new SmtpClient();
-                smtp.Host = "mail.smtp2go.com";
-                smtp.Port = 2525;
-                smtp.Credentials = new System.Net.NetworkCredential("noreply@PsebJunior.in", "YWZtam9qZWtrNHRr");
+                //smtp.Host = "mail.smtp2go.com";
+                //smtp.Port = 2525;
+                smtp.Host = "smtp.sendgrid.net";
+                smtp.Port = 587;
+                //smtp.Credentials = new System.Net.NetworkCredential("indiaresultspep", "LxnTMoQgKN2023");
+                smtp.Credentials = new System.Net.NetworkCredential("apikey", "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");
 
                 try
                 {

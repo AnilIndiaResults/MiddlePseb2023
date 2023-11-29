@@ -563,7 +563,7 @@ namespace PsebJunior.AbstractLayer
                 cmd.CommandText = "insert_F1_F2_Subject_Forms_Sp";
                 cmd.Parameters.AddWithValue("@MotherTongue", RM.MotherTongue);
                 //cmd.Parameters.AddWithValue("@IsHardCopyCertificate", RM.IsHardCopyCertificate);
-                cmd.Parameters.AddWithValue("@IsHardCopyCertificate", "YES");
+                cmd.Parameters.AddWithValue("@IsHardCopyCertificate", RM.IsHardCopyCertificate);
                 cmd.Parameters.AddWithValue("@EligibilityCriteria", RM.EligibilityCriteria);
                 cmd.Parameters.AddWithValue("@IsNRICandidate", RM.IsNRICandidate);
                 cmd.Parameters.AddWithValue("@form_Name", FormType);
@@ -740,7 +740,7 @@ namespace PsebJunior.AbstractLayer
                 cmd.CommandText = "Update_F1_F2_SubjectsForms_Sp";
 
                 cmd.Parameters.AddWithValue("@MotherTongue", RM.MotherTongue);
-                cmd.Parameters.AddWithValue("@IsHardCopyCertificate", "YES");
+                cmd.Parameters.AddWithValue("@IsHardCopyCertificate", RM.IsHardCopyCertificate);
                 cmd.Parameters.AddWithValue("@EligibilityCriteria", RM.EligibilityCriteria);
                 cmd.Parameters.AddWithValue("@IsNRICandidate", RM.IsNRICandidate);
                 cmd.Parameters.AddWithValue("@Std_id", stdid);
@@ -925,7 +925,7 @@ namespace PsebJunior.AbstractLayer
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "insert_A1_A2_Subject_Forms_Sp";
                 cmd.Parameters.AddWithValue("@MotherTongue", RM.MotherTongue);
-                cmd.Parameters.AddWithValue("@IsHardCopyCertificate", "YES");
+                cmd.Parameters.AddWithValue("@IsHardCopyCertificate", RM.IsHardCopyCertificate);
                 cmd.Parameters.AddWithValue("@EligibilityCriteria", RM.EligibilityCriteria);
                 cmd.Parameters.AddWithValue("@IsNRICandidate", RM.IsNRICandidate);
                 cmd.Parameters.AddWithValue("@form_Name", FormType);
@@ -1101,7 +1101,7 @@ namespace PsebJunior.AbstractLayer
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "Update_A1_A2_SubjectsForms_Sp";
                 cmd.Parameters.AddWithValue("@MotherTongue", RM.MotherTongue);
-                cmd.Parameters.AddWithValue("@IsHardCopyCertificate", "YES");
+                cmd.Parameters.AddWithValue("@IsHardCopyCertificate", RM.IsHardCopyCertificate);
                 cmd.Parameters.AddWithValue("@EligibilityCriteria", RM.EligibilityCriteria);
                 cmd.Parameters.AddWithValue("@IsNRICandidate", RM.IsNRICandidate);
                 cmd.Parameters.AddWithValue("@Std_id", stdid);
@@ -1669,6 +1669,185 @@ namespace PsebJunior.AbstractLayer
             {
                 return result = null;
             }
+        }
+
+        public static DataSet Ins_School_Center_ChoiceOld(string CenterChoice, string CenterDistance, string choiceschoolcode)
+        {
+            DataSet ds = new DataSet();
+            ds = null;
+            
+            string schl = HttpContext.Current.Session["SCHL"].ToString();
+            try
+            {
+                Database db = DatabaseFactory.CreateDatabase("myDBConnection");
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "Ins_School_Center_Choice";
+                cmd.Parameters.AddWithValue("@schl", schl);
+                cmd.Parameters.AddWithValue("@choiceschlcode", CenterChoice);
+                cmd.Parameters.AddWithValue("@choiceschoolcode", choiceschoolcode);
+                cmd.Parameters.AddWithValue("@distance", CenterDistance);
+                cmd.Parameters.AddWithValue("@type", "OLD");
+                ds = db.ExecuteDataSet(cmd);
+                if (ds != null)
+                {
+                    return ds;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return ds;
+
+        }
+
+        public static DataSet Ins_School_Center_ChoiceNew(string CenterChoice, string CenterDistance, string choiceschoolcode)
+        {
+            DataSet ds = new DataSet();
+            ds = null;
+            string schl = HttpContext.Current.Session["SCHL"].ToString();
+            try
+            {
+                Database db = DatabaseFactory.CreateDatabase("myDBConnection");
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "Ins_School_Center_Choice_New";
+                cmd.Parameters.AddWithValue("@schl", schl);
+                cmd.Parameters.AddWithValue("@choiceschlcode", CenterChoice);
+                cmd.Parameters.AddWithValue("@choiceschoolcode", choiceschoolcode);
+                cmd.Parameters.AddWithValue("@distance", CenterDistance);
+                cmd.Parameters.AddWithValue("@type", "NEW");
+                ds = db.ExecuteDataSet(cmd);
+                if (ds != null)
+                {
+                    return ds;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return ds;
+
+        }
+
+
+        public static DataSet Delete_School_Center_Choice(int id)
+        {
+            DataSet ds = new DataSet();
+            ds = null;
+            string schl = HttpContext.Current.Session["SCHL"].ToString();
+
+
+
+            try
+            {
+                Database db = DatabaseFactory.CreateDatabase("myDBConnection");
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "Delete_School_Center_Choice";
+                cmd.Parameters.AddWithValue("@schl", schl);
+                cmd.Parameters.AddWithValue("@Id", id);
+                ds = db.ExecuteDataSet(cmd);
+                if (ds != null)
+                {
+                    return ds;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return ds;
+
+        }
+
+        public static DataSet Get_School_Center_Choice()
+        {
+            DataSet ds = new DataSet();
+            ds = null;
+            string schl = HttpContext.Current.Session["SCHL"].ToString();
+
+
+
+            try
+            {
+                Database db = DatabaseFactory.CreateDatabase("myDBConnection");
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "Get_School_Center_Choice";
+                cmd.Parameters.AddWithValue("@schl", schl);
+                ds = db.ExecuteDataSet(cmd);
+                if (ds != null)
+                {
+                    return ds;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return ds;
+
+        }
+
+        public static DataSet Get_School_Center_Choice_All()
+        {
+            DataSet ds = new DataSet();
+            ds = null;
+            string schl = HttpContext.Current.Session["SCHL"].ToString();
+
+
+
+            try
+            {
+                Database db = DatabaseFactory.CreateDatabase("myDBConnection");
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "Get_School_Center_Choice_All";
+                cmd.Parameters.AddWithValue("@schl", schl);
+                ds = db.ExecuteDataSet(cmd);
+                if (ds != null)
+                {
+                    return ds;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return ds;
+
+        }
+
+        public static DataSet Get_School_Center_Choice_New()
+        {
+            DataSet ds = new DataSet();
+            ds = null;
+            string schl = HttpContext.Current.Session["SCHL"].ToString();
+
+
+
+            try
+            {
+                Database db = DatabaseFactory.CreateDatabase("myDBConnection");
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "Get_School_Center_Choice_New";
+                cmd.Parameters.AddWithValue("@schl", schl);
+                ds = db.ExecuteDataSet(cmd);
+                if (ds != null)
+                {
+                    return ds;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return ds;
+
         }
 
 

@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    string youtubetext = "https://www.youtube.com/@pseb_official";
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -30,6 +33,12 @@
                     <div class="col-xs-9 col-md-6"><center><img src="~/Images/PSEB_Text.png" alt="Punjab School Education Board" class="img-responsive" /></center></div>
                     <div class="col-xs-12 col-md-3 text-right">&nbsp;</div>
                 </div>
+                <div class="row" style="margin-top:7px;">
+                    <a href="https://www.facebook.com/profile.php?id=61551366697416" target="_blank"><img src="https://pseb.ac.in/public/socialmedia/icons8-facebook-144.png" width="30px;"></a>
+                    <a href="https://www.instagram.com/pseb.official/" target="_blank"><img src="https://pseb.ac.in/public/socialmedia/icons8-instagram-144.png" width="30px;"></a>
+                    <a href="https://twitter.com/PSEB_Official" target="_blank"><img src="https://pseb.ac.in/public/socialmedia/icons8-twitterx-144.png" width="30px;"></a>
+                    <a href="@youtubetext" target="_blank"><img src="https://pseb.ac.in/public/socialmedia/icons8-youtube-144.png" width="30px;"></a>
+                </div>
             </div>
         </div>
         <div class="container">
@@ -43,6 +52,6 @@
     </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)    
+    @RenderSection("scripts", required: false)
 </body>
 </html>

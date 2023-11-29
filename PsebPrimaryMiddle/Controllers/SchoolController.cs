@@ -21,6 +21,9 @@ using System.Drawing.Imaging;
 using System.Drawing.Text;
 using encrypt;
 using System.Data.Entity;
+using Amazon.S3.Transfer;
+using Amazon.S3;
+using Amazon;
 
 
 namespace PsebPrimaryMiddle.Controllers
@@ -29,7 +32,7 @@ namespace PsebPrimaryMiddle.Controllers
     public class SchoolController : Controller
     {
 
-
+        private const string BUCKET_NAME = "psebdata";
         string sp = System.Configuration.ConfigurationManager.AppSettings["upload"];
         //AbstractLayer.DBClass objCommon = new AbstractLayer.DBClass();
         string sp1 = System.Configuration.ConfigurationManager.AppSettings["ImagePathCor"];
@@ -4599,14 +4602,27 @@ namespace PsebPrimaryMiddle.Controllers
 
                         string ext = Path.GetExtension(file.FileName);
                         filename = studentSchoolMigration.StdId + "_" + studentSchoolMigration.NewSCHL + "_SchoolMigration" + ext;
-                        path = Path.Combine(Server.MapPath("~/Upload/upload2023/SchoolMigration/StudentMigrationLetter"), filename);
-                        FilepathExist = Path.Combine(Server.MapPath("~/Upload/upload2023/SchoolMigration/StudentMigrationLetter"));
-                        studentSchoolMigration.StudentMigrationLetter = "upload2023/SchoolMigration/StudentMigrationLetter/" + filename;
-                        if (!Directory.Exists(FilepathExist))
+                        studentSchoolMigration.StudentMigrationLetter = "allfiles/Upload2024/SchoolMigration/StudentMigrationLetter/" + filename;
+
+
+                        using (var client = new AmazonS3Client(ConfigurationManager.AppSettings["AWSKey"], ConfigurationManager.AppSettings["AWSValue"], RegionEndpoint.APSouth1))
                         {
-                            Directory.CreateDirectory(FilepathExist);
+                            using (var newMemoryStream = new MemoryStream())
+                            {
+                                ///file.CopyTo(newMemoryStream);
+
+                                var uploadRequest = new TransferUtilityUploadRequest
+                                {
+                                    InputStream = file.InputStream,
+                                    Key = string.Format("allfiles/Upload2024/SchoolMigration/StudentMigrationLetter/{0}", filename),
+                                    BucketName = BUCKET_NAME,
+                                    CannedACL = S3CannedACL.PublicRead
+                                };
+
+                                var fileTransferUtility = new TransferUtility(client);
+                                fileTransferUtility.Upload(uploadRequest);
+                            }
                         }
-                        file.SaveAs(path);
 
                     }
 
@@ -8545,7 +8561,7 @@ namespace PsebPrimaryMiddle.Controllers
                 //}
 
 
-             
+
 
 
 
@@ -8654,7 +8670,7 @@ namespace PsebPrimaryMiddle.Controllers
                             CENT = dataRow.Field<string>("CENT").ToString(),
                             CLASS = dataRow.Field<string>("CLASS").ToString(),
                             schlnme = dataRow.Field<string>("schlnme").ToString()
-                        }).ToList();
+                        }).ToList();    
                         ViewBag.SchoolCenterName = schoolCenterNames;
                     }
 
@@ -8673,6 +8689,233 @@ namespace PsebPrimaryMiddle.Controllers
             }
             return View(ipm);
         }
+
+
+        #region ExamCentreDetails
+
+        public ActionResult ExamCentreDetails()
+        {
+            LoginSession loginSession = (LoginSession)Session["LoginSession"];
+
+            if (loginSession.SCHL == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+            DataSet result = RegistrationDB.Get_School_Center_Choice_All();
+            List<ExamCenterDetail> objGroupList = new List<ExamCenterDetail>();
+
+            if (result.Tables.Count > 0)
+            {
+                foreach (DataRow dr in result.Tables[0].Rows) // For addition Section
+                {
+                    ExamCenterDetail objGroupLists = new ExamCenterDetail();
+
+                    objGroupLists.ID = Convert.ToInt32(dr["ID"].ToString());
+                    objGroupLists.schl = dr["schl"].ToString();
+                    objGroupLists.choiceschlcode = dr["choiceschlcode"].ToString();
+                    objGroupLists.distance = dr["distance"].ToString();
+                    objGroupLists.insertdate = dr["insertdate"].ToString();
+                    objGroupLists.choiceschoolcode = dr["choiceschoolcode"].ToString();
+
+                    objGroupList.Add(objGroupLists);
+                }
+            }
+
+
+
+            DataSet dsss = new DataSet();
+            dsss = new SchoolDB().SchoolCenterNameNearestWithSchool(loginSession.DIST.ToString());
+            if (dsss.Tables[0].Rows.Count > 0)
+            {
+                string type = "";
+                List<SelectListItem> itemsTehnew = new List<SelectListItem>();
+                List<SelectListItem> itemsTehold = new List<SelectListItem>();
+                foreach (System.Data.DataRow dr in dsss.Tables[0].Rows)
+                {
+                    string schl = @dr["schl"].ToString();
+                    if (loginSession.SCHL != schl)
+                    {
+                        type = @dr["type"].ToString();
+                        if (objGroupList.Count() > 0)
+                        {
+                            string schoolcode = @dr["SCHL"].ToString();
+                            var counts = objGroupList.Any(x => x.choiceschoolcode == schoolcode);
+                            if (counts)
+                            {
+
+                            }
+                            else
+                            {
+                                if (type == "OLD")
+                                {
+                                    itemsTehold.Add(new SelectListItem { Text = @dr["schoole"].ToString(), Value = @dr["schoole"].ToString() });
+                                }
+                                else
+                                {
+                                    itemsTehnew.Add(new SelectListItem { Text = @dr["schoole"].ToString(), Value = @dr["schoole"].ToString() });
+                                }
+                            }
+
+                        }
+                        else
+                        {
+                            if (type == "OLD")
+                            {
+                                itemsTehold.Add(new SelectListItem { Text = @dr["schoole"].ToString(), Value = @dr["schoole"].ToString() });
+                            }
+                            else
+                            {
+                                itemsTehnew.Add(new SelectListItem { Text = @dr["schoole"].ToString(), Value = @dr["schoole"].ToString() });
+                            }
+                        }
+                    }
+
+                }
+                ViewBag.SchoolCenterNameNearestNew = new SelectList(itemsTehnew, "Value", "Text");
+                ViewBag.SchoolCenterNameNearestOld = new SelectList(itemsTehold, "Value", "Text");
+            }
+
+
+            return View(loginSession);
+        }
+
+        [HttpPost]
+        public ActionResult ExamCentreDetails(FormCollection frm, string id, string cmd)
+        {
+            LoginSession loginSession = (LoginSession)Session["LoginSession"];
+
+            int result = 0;
+            string PricipleName = frm["PricipleName"].ToString();
+            string stdCode = frm["stdCode"].ToString();
+            string phone = frm["phone"].ToString();
+            string Mobile = frm["Mobile"].ToString();
+            string Priciple2Name = frm["Priciple2Name"].ToString();
+            string Priciple2Mobile = frm["Priciple2Mobile"].ToString();
+
+            if (cmd.ToLower() == "final submit")
+            {
+                result = SchoolDB.sp_Update_school_center_choice(frm, 1);
+                if (result == 1)
+                {
+                    loginSession.Finalsubmittedforchoice = 1;
+                    ViewData["Status"] = 1;
+                }
+                else
+                {
+                    ViewData["Status"] = 0;
+                }
+            }
+            else
+            {
+                result = SchoolDB.sp_Update_school_center_choice(frm, 0);
+                if (result == 1)
+                {
+                    loginSession.PRINCIPAL = PricipleName;
+                    loginSession.STDCODE = stdCode;
+                    loginSession.PHONE = phone;
+                    loginSession.MOBILE = Mobile;
+                    loginSession.PrincipalName2 = Priciple2Name;
+                    loginSession.PrincipalMobile2 = Priciple2Mobile;
+                    ViewData["Status"] = 1;
+                }
+                else
+                {
+                    ViewData["Status"] = 0;
+                }
+            }
+
+            List<ExamCenterDetail> objGroupList = new List<ExamCenterDetail>();
+            DataSet dsss = new DataSet();
+            dsss = new SchoolDB().SchoolCenterNameNearestWithSchool(loginSession.DIST.ToString());
+            if (dsss.Tables[0].Rows.Count > 0)
+            {
+                string type = "";
+                List<SelectListItem> itemsTehnew = new List<SelectListItem>();
+                List<SelectListItem> itemsTehold = new List<SelectListItem>();
+                foreach (System.Data.DataRow dr in dsss.Tables[0].Rows)
+                {
+                    if (objGroupList.Count() > 0)
+                    {
+                        string schoolcode = @dr["SCHL"].ToString();
+                        type = @dr["type"].ToString();
+                        var counts = objGroupList.Any(x => x.choiceschoolcode == schoolcode);
+                        if (counts)
+                        {
+
+                        }
+                        else
+                        {
+                            if (type == "OLD")
+                            {
+                                itemsTehold.Add(new SelectListItem { Text = @dr["schoole"].ToString(), Value = @dr["schoole"].ToString() });
+                            }
+                            else
+                            {
+                                itemsTehnew.Add(new SelectListItem { Text = @dr["schoole"].ToString(), Value = @dr["schoole"].ToString() });
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        if (type == "OLD")
+                        {
+                            itemsTehold.Add(new SelectListItem { Text = @dr["schoole"].ToString(), Value = @dr["schoole"].ToString() });
+                        }
+                        else
+                        {
+                            itemsTehnew.Add(new SelectListItem { Text = @dr["schoole"].ToString(), Value = @dr["schoole"].ToString() });
+                        }
+                    }
+
+                }
+                ViewBag.SchoolCenterNameNearestNew = new SelectList(itemsTehnew, "Value", "Text");
+                ViewBag.SchoolCenterNameNearestOld = new SelectList(itemsTehold, "Value", "Text");
+            }
+
+
+
+            return View(loginSession);
+
+        }
+
+        [SessionCheckFilter]
+        public async Task<ActionResult> ExamCentreDetailsPerforma()
+        {
+            LoginSession loginSession = (LoginSession)Session["LoginSession"];
+            if (loginSession.SCHL == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+            List<ExamCenterDetail> objGroupList = new List<ExamCenterDetail>();
+            DataSet result = RegistrationDB.Get_School_Center_Choice_All();
+            if (result.Tables.Count > 0)
+            {
+                foreach (DataRow dr in result.Tables[0].Rows) // For addition Section
+                {
+                    ExamCenterDetail objGroupLists = new ExamCenterDetail();
+
+                    objGroupLists.ID = Convert.ToInt32(dr["ID"].ToString());
+                    objGroupLists.schl = dr["schl"].ToString();
+                    objGroupLists.choiceschlcode = dr["choiceschlcode"].ToString();
+                    objGroupLists.distance = dr["distance"].ToString();
+                    objGroupLists.insertdate = dr["insertdate"].ToString();
+                    objGroupLists.choiceschoolcode = dr["choiceschoolcode"].ToString();
+
+                    objGroupList.Add(objGroupLists);
+                }
+            }            
+            DataSet ds = new DataSet();
+            SchoolModels sm = _schoolRepository.GetSchoolDataBySchl(loginSession.SCHL, out ds);
+            ViewBag.SchoolModel = sm;
+            ViewBag.objGroupList = objGroupList;
+            return View(loginSession);
+        }
+
+        #endregion
+
 
 
     }

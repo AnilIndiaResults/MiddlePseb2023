@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    string youtubetext = "https://www.youtube.com/@pseb_official";
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -14,7 +17,7 @@
         <charset style="background-color:#cc0000;color:#ffd800;font-size:24px;text-align:center;padding:10px 0">Your browser does not support JavaScript!</charset>
     </noscript>
     @Styles.Render("~/Content/css")
-    @*@Scripts.Render("~/bundles/modernizr")*@    
+    @*@Scripts.Render("~/bundles/modernizr")*@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-153563779-1"></script>
     <script>
         window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'UA-153563779-1');
@@ -29,7 +32,14 @@
                     <div class="col-xs-9 col-md-6"><center> <img src="~/Images/PSEB_Text.png" alt="Punjab School Education Board" class="img-responsive" /></center></div>
                     <div class="col-xs-12 col-md-3 text-right"><a href="https://www.pseb.ac.in/" class="btnh" target="_blank"><img src="/Images/Home.png" alt="www.pseb.ac.in" /></a></div>
                 </div>
+                <div class="row" style="margin-top:7px;">
+                    <a href="https://www.facebook.com/profile.php?id=61551366697416" target="_blank"><img src="https://pseb.ac.in/public/socialmedia/icons8-facebook-144.png" width="30px;"></a>
+                    <a href="https://www.instagram.com/pseb.official/" target="_blank"><img src="https://pseb.ac.in/public/socialmedia/icons8-instagram-144.png" width="30px;"></a>
+                    <a href="https://twitter.com/PSEB_Official" target="_blank"><img src="https://pseb.ac.in/public/socialmedia/icons8-twitterx-144.png" width="30px;"></a>
+                    <a href="@youtubetext" target="_blank"><img src="https://pseb.ac.in/public/socialmedia/icons8-youtube-144.png" width="30px;"></a>
+                </div>
             </div>
+            
         </div>
         <div class="container">
             @RenderBody()

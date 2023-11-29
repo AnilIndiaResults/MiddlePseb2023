@@ -269,7 +269,7 @@ namespace PsebPrimaryMiddle.Controllers
                         }
                         else if (Type == "2")
                         {
-                            string body = "<table width=" + 600 + " cellpadding=" + 4 + " cellspacing=" + 4 + " border=" + 0 + "><tr><td><b>Respected " + PRINCIPAL + "</b>,</td></tr><tr><td><b>Your School Login Details are given Below for Punjab School Education Board Web Portal :-</b><br /><b>School Code :</b> " + Schl + "<br /><b>School Name :</b> " + Password + "<br /></td></tr><tr><td><b>Path :</b><a href=https://www.registration.pseb.ac.in target = _blank>www.registration.pseb.ac.in</a><br /><b>UserId :</b> " + Schl + "<br /><b>Password :</b> " + Password + "<br /></td></tr><tr><td><b>Note:</b>Make sure change password after first login for Security reason.</td></tr><tr><td>This is a system generated e-mail and please do not reply. Add <a target=_blank href=mailto:noreply@PsebJunior.in>noreply@PsebJunior.in</a> to your white list / safe sender list. Else, your mailbox filter or ISP (Internet Service Provider) may stop you from receiving e-mails.</td></tr><tr><td><b><i>Regards</b><i>,<br /> Tech Team, <br />Punjab School Education Board<br /><tr><td><b>Contact Us</b><br><b>Email Id:</b> <a href=mailto:Contact1@PsebJunior.in target=_blank>contact1@PsebJunior.in</a><br><b>Toll Free Help Line No. :</b> 18002700280<br>DISTRICTS:- BARNALA, FATEHGARH SAHIB, GURDASPUR, HOSHIARPUR, JALANDHAR, KAPURTHALA, SHRI MUKTSAR SAHIB, S.B.S. NAGAR, PATHANKOT, PATIALA, SANGRUR, CHANDIGARH &amp; OTHER STATES<br><br><b>Email Id:</b> <a href=mailto:Contact2@PsebJunior.in target=_blank>contact2@PsebJunior.in</a><br><b>Toll Free Help Line No. :</b> 18004190690<br>DISTRICTS:- AMRITSAR, BATHINDA, FARIDKOT, FAZILKA, FEROZEPUR, LUDHIANA, MANSA, MOGA, ROOP NAGAR, S.A.S NAGAR,TARN TARAN<br></td></tr>";
+                            string body = "<table width=" + 600 + " cellpadding=" + 4 + " cellspacing=" + 4 + " border=" + 0 + "><tr><td><b>Respected " + PRINCIPAL + "</b>,</td></tr><tr><td><b>Your School Login Details are given Below for Punjab School Education Board Web Portal :-</b><br /><b>School Code :</b> " + Schl + "<br /><b>School Name :</b> " + Password + "<br /></td></tr><tr><td><b>Path :</b><a href=https://www.registration.pseb.ac.in target = _blank>www.registration.pseb.ac.in</a><br /><b>UserId :</b> " + Schl + "<br /><b>Password :</b> " + Password + "<br /></td></tr><tr><td><b>Note:</b>Make sure change password after first login for Security reason.</td></tr><tr><td>This is a system generated e-mail and please do not reply. Add <a target=_blank href=mailto:psebhelpdesk@gmail.com>psebhelpdesk@gmail.com</a> to your white list / safe sender list. Else, your mailbox filter or ISP (Internet Service Provider) may stop you from receiving e-mails.</td></tr><tr><td><b><i>Regards</b><i>,<br /> Tech Team, <br />Punjab School Education Board<br /><tr><td><b>Contact Us</b><br><b>Email Id:</b> <a href=mailto:Contact1@PsebJunior.in target=_blank>contact1@PsebJunior.in</a><br><b>Toll Free Help Line No. :</b> 18002700280<br>DISTRICTS:- BARNALA, FATEHGARH SAHIB, GURDASPUR, HOSHIARPUR, JALANDHAR, KAPURTHALA, SHRI MUKTSAR SAHIB, S.B.S. NAGAR, PATHANKOT, PATIALA, SANGRUR, CHANDIGARH &amp; OTHER STATES<br><br><b>Email Id:</b> <a href=mailto:Contact2@PsebJunior.in target=_blank>contact2@PsebJunior.in</a><br><b>Toll Free Help Line No. :</b> 18004190690<br>DISTRICTS:- AMRITSAR, BATHINDA, FARIDKOT, FAZILKA, FEROZEPUR, LUDHIANA, MANSA, MOGA, ROOP NAGAR, S.A.S NAGAR,TARN TARAN<br></td></tr>";
                             string subject = "School Login Details for PSEB Portal.";
                             bool result = DBClass.mail(subject, body, emailid);
                             if (result == true)
@@ -789,5 +789,237 @@ namespace PsebPrimaryMiddle.Controllers
         {
             return View();
         }
+
+        public JsonResult Ins_School_Center_Choice(string CenterChoice, string CenterDisTance)
+        {
+            //List<SelectListItem> objGroupList = new List<SelectListItem>();
+
+            List<ExamCenterDetail> objGroupList = new List<ExamCenterDetail>();
+
+            DataTable dt = null;
+
+            try
+            {
+                string code = CenterChoice.Split('-')[0].Replace(" ", "");
+                DataSet result = RegistrationDB.Ins_School_Center_ChoiceOld(CenterChoice, CenterDisTance, code);
+
+
+                if (result.Tables.Count > 0)
+                {
+                    foreach (DataRow dr in result.Tables[0].Rows) // For addition Section
+                    {
+                        ExamCenterDetail objGroupLists = new ExamCenterDetail();
+
+                        objGroupLists.ID = Convert.ToInt32(dr["ID"].ToString());
+                        objGroupLists.schl = dr["schl"].ToString();
+                        objGroupLists.choiceschlcode = dr["choiceschlcode"].ToString();
+                        objGroupLists.distance = dr["distance"].ToString();
+                        objGroupLists.insertdate = dr["insertdate"].ToString();
+                        objGroupLists.choiceschoolcode = dr["choiceschoolcode"].ToString();
+                        objGroupList.Add(objGroupLists);
+                    }
+                }
+
+
+                return Json(objGroupList);
+            }
+            catch (Exception ex)
+            {
+                return Json(objGroupList);
+
+            }
+
+            //return Json(result);
+
+
+
+        }
+
+        public JsonResult Ins_School_Center_Choice_New(string CenterChoice, string CenterDisTance)
+        {
+            //List<SelectListItem> objGroupList = new List<SelectListItem>();
+
+            List<ExamCenterDetail> objGroupList = new List<ExamCenterDetail>();
+
+            DataTable dt = null;
+
+            try
+            {
+                string code = CenterChoice.Split('-')[0].Replace(" ", "");
+                DataSet result = RegistrationDB.Ins_School_Center_ChoiceNew(CenterChoice, CenterDisTance, code);
+
+
+                if (result.Tables.Count > 0)
+                {
+                    foreach (DataRow dr in result.Tables[0].Rows) // For addition Section
+                    {
+                        ExamCenterDetail objGroupLists = new ExamCenterDetail();
+
+                        objGroupLists.ID = Convert.ToInt32(dr["ID"].ToString());
+                        objGroupLists.schl = dr["schl"].ToString();
+                        objGroupLists.choiceschlcode = dr["choiceschlcode"].ToString();
+                        objGroupLists.distance = dr["distance"].ToString();
+                        objGroupLists.insertdate = dr["insertdate"].ToString();
+                        objGroupLists.choiceschoolcode = dr["choiceschoolcode"].ToString();
+                        objGroupList.Add(objGroupLists);
+                    }
+                }
+
+
+                return Json(objGroupList);
+            }
+            catch (Exception ex)
+            {
+                return Json(objGroupList);
+
+            }
+
+            //return Json(result);
+
+
+
+        }
+
+        public JsonResult Delete_School_Center_Choice(int Id)
+        {
+            List<ExamCenterDetail> objGroupList = new List<ExamCenterDetail>();
+            LoginSession loginSession = (LoginSession)Session["LoginSession"];
+            if (loginSession.Finalsubmittedforchoice == 0)
+            {
+                DataTable dt = null;
+                DataSet result = RegistrationDB.Delete_School_Center_Choice(Id);
+                if (result.Tables.Count > 0)
+                {
+                    foreach (DataRow dr in result.Tables[0].Rows) // For addition Section
+                    {
+                        ExamCenterDetail objGroupLists = new ExamCenterDetail();
+
+                        objGroupLists.ID = Convert.ToInt32(dr["ID"].ToString());
+                        objGroupLists.schl = dr["schl"].ToString();
+                        objGroupLists.choiceschlcode = dr["choiceschlcode"].ToString();
+                        objGroupLists.distance = dr["distance"].ToString();
+                        objGroupLists.insertdate = dr["insertdate"].ToString();
+                        objGroupLists.choiceschoolcode = dr["choiceschoolcode"].ToString();
+                        objGroupList.Add(objGroupLists);
+                    }
+                }
+            }
+            else
+            {
+                DataSet result = RegistrationDB.Get_School_Center_Choice();
+                if (result.Tables.Count > 0)
+                {
+                    foreach (DataRow dr in result.Tables[0].Rows) // For addition Section
+                    {
+                        ExamCenterDetail objGroupLists = new ExamCenterDetail();
+
+                        objGroupLists.ID = Convert.ToInt32(dr["ID"].ToString());
+                        objGroupLists.schl = dr["schl"].ToString();
+                        objGroupLists.choiceschlcode = dr["choiceschlcode"].ToString();
+                        objGroupLists.distance = dr["distance"].ToString();
+                        objGroupLists.insertdate = dr["insertdate"].ToString();
+                        objGroupLists.choiceschoolcode = dr["choiceschoolcode"].ToString();
+
+                        objGroupList.Add(objGroupLists);
+                    }
+                }
+            }
+
+            return Json(objGroupList);
+
+
+
+        }
+
+        public JsonResult Get_School_Center_Choice()
+        {
+            //List<SelectListItem> objGroupList = new List<SelectListItem>();
+
+            List<ExamCenterDetail> objGroupList = new List<ExamCenterDetail>();
+
+            DataTable dt = null;
+
+            try
+            {
+                DataSet result = RegistrationDB.Get_School_Center_Choice();
+
+
+                if (result.Tables.Count > 0)
+                {
+                    foreach (DataRow dr in result.Tables[0].Rows) // For addition Section
+                    {
+                        ExamCenterDetail objGroupLists = new ExamCenterDetail();
+
+                        objGroupLists.ID = Convert.ToInt32(dr["ID"].ToString());
+                        objGroupLists.schl = dr["schl"].ToString();
+                        objGroupLists.choiceschlcode = dr["choiceschlcode"].ToString();
+                        objGroupLists.distance = dr["distance"].ToString();
+                        objGroupLists.insertdate = dr["insertdate"].ToString();
+                        objGroupLists.choiceschoolcode = dr["choiceschoolcode"].ToString();
+
+                        objGroupList.Add(objGroupLists);
+                    }
+                }
+
+
+                return Json(objGroupList);
+            }
+            catch (Exception ex)
+            {
+                return Json(objGroupList);
+
+            }
+
+            //return Json(result);
+
+
+
+        }
+
+        public JsonResult Get_School_Center_Choice_New()
+        {
+            //List<SelectListItem> objGroupList = new List<SelectListItem>();
+
+            List<ExamCenterDetail> objGroupList = new List<ExamCenterDetail>();
+
+            DataTable dt = null;
+
+            try
+            {
+                DataSet result = RegistrationDB.Get_School_Center_Choice_New();
+
+
+                if (result.Tables.Count > 0)
+                {
+                    foreach (DataRow dr in result.Tables[0].Rows) // For addition Section
+                    {
+                        ExamCenterDetail objGroupLists = new ExamCenterDetail();
+
+                        objGroupLists.ID = Convert.ToInt32(dr["ID"].ToString());
+                        objGroupLists.schl = dr["schl"].ToString();
+                        objGroupLists.choiceschlcode = dr["choiceschlcode"].ToString();
+                        objGroupLists.distance = dr["distance"].ToString();
+                        objGroupLists.insertdate = dr["insertdate"].ToString();
+                        objGroupLists.choiceschoolcode = dr["choiceschoolcode"].ToString();
+
+                        objGroupList.Add(objGroupLists);
+                    }
+                }
+
+
+                return Json(objGroupList);
+            }
+            catch (Exception ex)
+            {
+                return Json(objGroupList);
+
+            }
+
+            //return Json(result);
+
+
+
+        }
+
     }
 }

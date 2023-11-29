@@ -526,9 +526,10 @@ else { Response.Redirect("~/Login"); }
 
                         <tr>
                             <td colspan="6" style="text-align:center">
-                                <input id="btnSubmit" type="submit" name="cmd" value="Save" class="btn" />
+
                                 @if (Model.FinalSubmitStatus == 0)
                                 {
+                                    <input id="btnSubmit" type="submit" name="cmd" value="Save" class="btn" />
                                     <input id="btnFinal" type="submit" name="cmd" value="Final Submit" class="btn" />
                                     <a class="btn" href='@Url.Action("ViewInfrasturePerformas", "School")'>Rough Print</a>
                                 }

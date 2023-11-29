@@ -1,6 +1,7 @@
 ﻿@model PsebJunior.Models.InfrasturePerformasviewModel
 
 @{
+    Layout = null;
     ViewBag.Title = "Infrasture Performa View";
 }
 
@@ -20,9 +21,9 @@
         <style type="text/css">
             #HPL {
                 display: none;
-            }
+            }         
         </style>
-        <charset style="background-color:#cc0000;color:#ffd800;font-size:24px;text-align:center;padding:10px 0">Your browser does not support JavaScript!</charset>
+        @*<charset style="background-color:#cc0000;color:#ffd800;font-size:24px;text-align:center;padding:10px 0">Your browser does not support JavaScript!</charset>*@
     </noscript>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")

@@ -1343,4 +1343,19 @@ namespace PsebJunior.Models
         public InfrasturePerformasList ipf { get; set; }
     }
 
+    public class ExamCenterDetail
+    {
+
+        public int ID { get; set; }
+
+        public string schl { get; set; }
+        public string choiceschlcode { get; set; }
+        public string distance { get; set; }
+        public string insertdate { get; set; }
+
+        public string choiceschoolcode { get; set; }
+
+
+    }
+
 }

@@ -117,19 +117,30 @@
         @*@Html.TextBoxFor(m => m.Registration_num, new { id = "Registrationnum", @maxlength = "50", style = "visibility:hidden", @disabled = "disabled" })*@
     }
 </div>
-        <div class="col-md-6">
-            @if (Model.Category == "4TH PASSED" || Model.Category == null)
-            {
-                @Html.CheckBoxFor(m => m.IsPSEBRegNum, new { id = "IsPSEBRegNum", onclick = "return MyRegcheck(this);" })
-                <p>Yes I Have P.S.E.B Alloted Reg No. For This Candidate</p>
+              <div class="col-md-6">
+                  @if (Model.Category == "4TH PASSED" || Model.Category == null)
+                  {
+                      @Html.CheckBoxFor(m => m.IsPSEBRegNum, new { id = "IsPSEBRegNum", onclick = "return MyRegcheck(this);" })
+                      <p>Yes I Have P.S.E.B Alloted Reg No. For This Candidate</p>
 
-            }
-            else
-            {
-                @Html.CheckBoxFor(m => m.IsPSEBRegNum, new { id = "IsPSEBRegNum", @disabled = "disabled", onclick = "return MyRegcheck(this);" })
-                <p>Yes I Have P.S.E.B Alloted Reg No. For This Candidate</p>
-            }
-        </div>
+                  }
+                  else
+                  {
+
+                      if (Model.Registration_num == null || Model.Registration_num == "")
+                      {
+                          @Html.CheckBoxFor(m => m.IsPSEBRegNum, new { id = "IsPSEBRegNum", onclick = "return MyRegcheck(this);", @disabled = "disabled" })
+                          <p> Yes I Have P.S.E.B Alloted Reg No. For This Candidate</p>
+                      }
+                      else
+                      {
+                          @Html.CheckBoxFor(m => m.IsPSEBRegNum, new { id = "IsPSEBRegNum", onclick = "return MyRegcheck(this);" })
+                          <p> Yes I Have P.S.E.B Alloted Reg No. For This Candidate</p>
+                      }
+
+                     
+                  }
+              </div>
     </div>
     <div class="clearfix"></div>
     <h4>
@@ -198,7 +209,7 @@
         <div class="col-md-4">
             @if (Model.Category == "4TH PASSED" || Model.Category == null)
             {
-                @Html.TextBoxFor(m => m.Candi_Name, new { id = "Candi_Name", @maxlength = "50", onkeypress = "return ValidateAlpha(event);", onfocusout = "checkCandidateName()", @required = "required" })
+                @Html.TextBoxFor(m => m.Candi_Name, new { id = "Candi_Name", @maxlength = "50", onkeypress = "return ValidateAlpha(event);",  @required = "required" })
             }
             else
             {
@@ -210,7 +221,7 @@
         <div class="col-md-2 kdsfont">
             ÚÒÚÂ¤ØÏÁÛ ÂØ ÅØÌ <span class="rqf">*</span>
         </div>
-        <div class="col-md-4 kdsfont">
+        <div class="col-md-4">
             @if (Model.Category == "4TH PASSED" || Model.Category == null)
             {
                 @Html.TextBoxFor(m => m.Candi_Name_P, new
@@ -229,7 +240,7 @@
             }
             else
             {
-                <label>@Html.DisplayFor(a => a.Candi_Name_P)</label>
+                <label class="kdsfont">@Html.DisplayFor(a => a.Candi_Name_P)</label>
                 @Html.HiddenFor(model => model.Candi_Name_P)
                 @*@Html.TextBoxFor(m => m.Candi_Name_P, new
             {
@@ -267,7 +278,7 @@
         <div class="col-md-2 kdsfont">
             ÚÆ¼Ø ÂØ ÅØÌ <span class="rqf">*</span>
         </div>
-        <div class="col-md-4 kdsfont">
+        <div class="col-md-4">
             @if (Model.Category == "4TH PASSED" || Model.Category == null)
             {
                 @Html.TextBoxFor(m => m.Father_Name_P, new
@@ -286,7 +297,7 @@
             }
             else
             {
-                <label>@Html.DisplayFor(a => a.Father_Name_P)</label>
+                <label class="kdsfont">@Html.DisplayFor(a => a.Father_Name_P)</label>
                 @Html.HiddenFor(model => model.Father_Name_P)
                 @*@Html.TextBoxFor(m => m.Father_Name_P, new
             {
@@ -324,7 +335,7 @@
         <div class="col-md-2 kdsfont">
             ÌØ¼Ø ÂØ ÅØÌ <span class="rqf">*</span>
         </div>
-        <div class="col-md-4 kdsfont">
+        <div class="col-md-4">
             @if (Model.Category == "4TH PASSED" || Model.Category == null)
             {
                 @Html.TextBoxFor(m => m.Mother_Name_P, new
@@ -342,7 +353,7 @@
             }
             else
             {
-                <label>@Html.DisplayFor(a => a.Mother_Name_P)</label>
+                <label class="kdsfont">@Html.DisplayFor(a => a.Mother_Name_P)</label>
                 @Html.HiddenFor(model => model.Mother_Name)
                 @*@Html.TextBoxFor(m => m.Mother_Name_P, new
             {
@@ -545,15 +556,15 @@
         <div class="col-md-4">
             @Html.DropDownListFor(m => m.CandiMedium, new SelectList(Model.ClassFifthInitilizeListModel.MyMedium, "Value", "Text"), "---Select---", new { id = "CandiMedium", @required = "required" })
         </div>
-        @*<div class="col-md-2">
+        <div class="col-md-2">
                 Want Hard Copy of Certificate?<sup style="color:red;font-size:15px;">*</sup>
             </div>
             <div class="col-md-4">
                 @Html.DropDownListFor(model => model.IsHardCopyCertificate, new SelectList(Model.ClassFifthInitilizeListModel.YesNoListText, "Value", "Text"), "---Select---", new { @required = "required" })
                 @Html.HiddenFor(model => model.IsHardCopyCertificate)
-            </div>*@
-        @*<div class="clearfix"></div>
-            <div class="col-md-12 rqf">*Candidate Medium Of Study Will Be Print On Marksheet Certificate </div>*@
+            </div>
+        <div class="clearfix"></div>
+            <div class="col-md-12 rqf">*Candidate Medium Of Study Will Be Print On Marksheet Certificate </div>
     </div>
 
     <div class="clearfix"></div>
@@ -1764,10 +1775,12 @@
         document.getElementById("Year").disabled = true;
 
         if (IsPSEBRegNum.checked) {
-            document.getElementById("Registrationnum").style.visibility = 'visible';
+            //document.getElementById("Registrationnum").style.visibility = 'visible';
+            $('#Registrationnum').css("visibility", "visible");
         }
         else {
-            document.getElementById("Registrationnum").style.visibility = 'hidden';
+            /*document.getElementById("Registrationnum").style.visibility = 'hidden';*/
+            $('#Registrationnum').css("visibility", "hidden");
         }
 
         var selectedVal = '@Model.Category';

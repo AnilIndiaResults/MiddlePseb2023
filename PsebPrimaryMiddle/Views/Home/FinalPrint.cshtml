@@ -97,7 +97,7 @@
                                                 <div id="sidebar">
                                                     <ul>
                                                         <li>
-                                                            <a href="" data-toggle="modal" data-target="#myModal1-@ChallanNo">View Candidate List</a>
+                                                            <a href="" data-toggle="modal" data-target="#myModal1">View Candidate List</a>
 
                                                             @if (Verified == "0" && downldflg == "0" && IsCancel == "0")
                                                             {
@@ -199,7 +199,7 @@
             var ChallanID = Model.ChallanMasterData.Tables[0].Rows[i]["ChallanID"].ToString();
             k = i + 1;
             <div class="container">
-                <div class="modal fade" id="myModal1-@ChallanID" role="dialog">
+                <div class="modal fade" id="myModal1" role="dialog" style="opacity: 1; padding-top: 252px;">
                     <div class="modal-dialog" style="width:80%">
                         <!-- Modal content-->
                         <div class="modal-content">
@@ -263,7 +263,7 @@
                 </div>
 
 
-                <div class="modal fade" id="myModal2-@ChallanID" role="dialog">
+                <div class="modal fade" id="myModal2-@ChallanID" role="dialog" style="opacity: 1; padding-top: 200px;">
                     <div class="modal-dialog">
                         <!-- Modal content-->
                         <div class="modal-content">

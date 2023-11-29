@@ -192,7 +192,7 @@
         <div class="col-md-2">
             Candidate's Name <span class="rqf">*</span>
         </div>
-        <div class="col-md-4">@Html.TextBoxFor(m => m.Candi_Name, new { id = "Candi_Name", @maxlength = "50", onfocusout = "checkCandidateName()", onkeypress = "return ValidateAlpha(event);", @required = "required" })</div> @*onblur = "PnbCandidateName(this);"*@
+        <div class="col-md-4">@Html.TextBoxFor(m => m.Candi_Name, new { id = "Candi_Name", @maxlength = "50", onkeypress = "return ValidateAlpha(event);", @required = "required" })</div> @*onblur = "PnbCandidateName(this);"*@
         <div class="col-md-2 kdsfont">
             ÚÒÚÂ¤ØÏÁÛ ÂØ ÅØÌ <span class="rqf">*</span>
         </div>
@@ -388,15 +388,15 @@
         <div class="col-md-4">
             @Html.DropDownListFor(m => m.CandiMedium, new SelectList(Model.ClassMiddleInitilizeListModel.MyMedium, "Value", "Text"), "---Select---", new { id = "CandiMedium", @required = "required" })
         </div>
-        @*<div class="col-md-2">
+        <div class="col-md-2">
             Want Hard Copy of Certificate?<sup style="color:red;font-size:15px;">*</sup>
         </div>
         <div class="col-md-4">
             @Html.DropDownListFor(model => model.IsHardCopyCertificate, new SelectList(Model.ClassMiddleInitilizeListModel.YesNoListText, "Value", "Text"), "---Select---", new { @required = "required" })
             @Html.HiddenFor(model => model.IsHardCopyCertificate)
-        </div>*@
-        @*<div class="clearfix"></div>
-            <div class="col-md-12 rqf">*Candidate Medium Of Study Will Be Print On Marksheet Certificate </div>*@
+        </div>
+        <div class="clearfix"></div>
+            <div class="col-md-12 rqf">*Candidate Medium Of Study Will Be Print On Marksheet Certificate </div>
     </div>
 
     <div class="clearfix"></div>
@@ -1014,6 +1014,23 @@
 </script>
 @*Start For modifydata*@
 <script type="text/javascript">
+
+
+
+    $('#IsHardCopyCertificate').change(function () {
+
+        var hardcopy = document.getElementById('IsHardCopyCertificate').value;
+        if (hardcopy == "NO") {
+            alert("ਜੇਕਰ ਹਾਰਡ ਕਾਪੀ ਸਰਟੀਫਿਕੇਟ ਦੀ ਆਪਸ਼ਨ No ਸਲੈਕਟ ਕੀਤੀ ਜਾਵੇਗੀ ਤਾਂ ਭਵਿੱਖ ਵਿਚ ਹਾਰਡ ਕਾਪੀ ਸਰਟੀਫਿਕੇਟ (ਪਹਿਲੀ ਕਾਪੀ) ਨਹੀਂ ਮਿਲੇਗੀ ਅਤੇ ਕੇਵਲ Second Copy of Certificate ਹੀ ਅਪਲਾਈ ਕੀਤਾ ਜਾ ਸਕੇਗਾ। ਪ੍ਰੀਖਿਆਰਥੀ ਅਤੇ ਮਾਪਿਆਂ ਨੂੰ ਇਸ ਸਬੰਧੀ ਜਾਣੂ ਕਰਵਾ ਦਿੱਤਾ ਗਿਆ ਹੈ ਅਤੇ ਇਸ ਸਬੰਧੀ ਓਹਨਾਂ ਤੋਂ ਲਿਖਤੀ Undertaking ਲੈ ਲਈ ਗਈ ਹੈ।")
+
+        }
+        else {
+
+        }
+
+    });  
+
+
 
     var candidateName = "";
     var Schoolcode = "";
@@ -1661,7 +1678,7 @@
                     changeYear: true,
                     // maxDate: '-8Y',
                     yearRange: '1969:' + (new Date().getFullYear()),
-                    maxDate: new Date('2013/03/31'),
+                    maxDate: new Date('2013/12/31'),
                 });
             }
 

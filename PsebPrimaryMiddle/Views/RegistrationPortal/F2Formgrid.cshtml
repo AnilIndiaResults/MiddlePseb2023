@@ -18,6 +18,7 @@
                 <tr class="active-tr">
                     <th>Unique Id</th>
                     <th>Admission Date</th>
+                    <th>Registration No.</th>
                     <th>Category</th>
                     <th>Candidate Name</th>
                     <th>Father's Name</th>
@@ -171,9 +172,10 @@
                         </div>
                         @* Modal End*@
 
-                 
+
                     </td>
                     <td>@obj.Admission_Date </td>
+                    <th>@obj.REGNO</th>
                     <td>@obj.Category</td>
                     <td>@obj.Candi_Name </td>
                     <td>@obj.Father_Name </td>
@@ -187,7 +189,7 @@
                             Choose Action <span class="caret"></span>
                             <div id="sidebar">
                                 <ul>
-                                    <li> @Html.ActionLink("View", "CommonFormView", new { id = encrypt.QueryStringModule.Encrypt(@obj.Std_id.ToString()), formNM = "F2" })</li>                                    
+                                    <li> @Html.ActionLink("View", "CommonFormView", new { id = encrypt.QueryStringModule.Encrypt(@obj.Std_id.ToString()), formNM = "F2" })</li>
                                     @if (obj.LOT.ToString() == "0")
                                     {
                                         <li>@Html.ActionLink("Modify", "F2Form", new { id = encrypt.QueryStringModule.Encrypt(@obj.Std_id.ToString()) })</li>
