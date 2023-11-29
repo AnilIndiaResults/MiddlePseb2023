@@ -309,16 +309,21 @@ namespace PsebPrimaryMiddle.Controllers
                 TempData["PaymentForm"] = null;
                 TempData["FeeStudentList"] = null;
                 ViewBag.selectedClass = "";
+
                 if (loginSession.GovFlag != "GO")
                 {
-                    return View(fhvm);
-                }
-                else
-                {
-                    return RedirectToAction("Index", "Home");
-                }
+                    ViewData["FeeStatus"] = "2";
+                    ViewBag.OutStatus = "2";
 
-            }
+					//return View(fhvm);
+				}
+                //else
+                //{
+                //    return RedirectToAction("Index", "Home");
+                //}
+				return View(fhvm);
+
+			}
             catch (Exception ex)
             {
                 ErrorLog.WriteErrorLog(ex.ToString(), Path.GetFileName(Request.Path));

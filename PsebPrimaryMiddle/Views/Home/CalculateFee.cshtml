@@ -32,7 +32,11 @@
 @{
     if (Session["LoginSession"] != null)
     {
+
         PsebJunior.Models.LoginSession loginSession = (PsebJunior.Models.LoginSession)Session["LoginSession"];
+       
+
+        
 
         using (Html.BeginForm("CalculateFee", "Home", FormMethod.Post, new { id = "searchform", enctype = "multipart/form-data" }))
         {
@@ -44,6 +48,8 @@
             @*<div class="col-md-12"><p style="text-align:center;font-size:20px;color:#f00;padding:10px 0">Note: You can final submit without photo and signature only for 9th and 11th class and for class 10th and 12th is mandatory </p></div>*@
             <div class="clearfix"></div>
             <br />
+              if (loginSession.GovFlag == "GO")
+            {
             <div class="row">
                 <div class="col-md-12 noprint">
                     <fieldset style="margin-bottom:15px">
@@ -90,7 +96,7 @@
 
                 </table>
             </div>
-
+              }
             <div class="row" id="divall"></div>
             <div class="col-md-12">
                 @{
@@ -410,8 +416,11 @@
                 <a href="javascript:void(0);" onclick="history.go(-1);" class="btn">Back</a> @*<a href="/Home/finalprint" class="btn">Final Print</a>*@
             </div>
 
-        }
-    }
+                                    }
+                
+              
+
+         }
 
 }
 
