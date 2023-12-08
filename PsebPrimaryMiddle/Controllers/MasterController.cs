@@ -420,8 +420,11 @@ namespace PsebPrimaryMiddle.Controllers
 
                     if (!string.IsNullOrEmpty(MOBILE) && MOBILE.Length == 10)
                     {
-                        string Sms = "Your Login details are School Code:: " + SCHL + " and Password: " + schoolDataBySchlModel.PASSWORD + ". Click to Login Here https://middleprimary.pseb.ac.in. Regards PSEB";
-                        string getSms = DBClass.gosms(MOBILE, Sms);
+                        //string Sms = "Your Login details are School Code:: " + SCHL + " and Password: " + schoolDataBySchlModel.PASSWORD + ". Click to Login Here https://middleprimary.pseb.ac.in. Regards PSEB";
+                        string Sms = "Your Login details are " + SCHL + " and Password: " + schoolDataBySchlModel.PASSWORD + ". Click to Login Here https://middleprimary.pseb.ac.in. Regards PSEB";
+                        string tempid = "1007167968636956440";
+                        string getSms = DBClass.gosmsForPseb(MOBILE, Sms, tempid);
+
                         if (getSms.ToLower().Contains("success"))
                         {
                             smsStatus = "success";
