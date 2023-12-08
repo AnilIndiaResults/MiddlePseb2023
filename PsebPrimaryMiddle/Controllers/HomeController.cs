@@ -310,13 +310,13 @@ namespace PsebPrimaryMiddle.Controllers
                 TempData["FeeStudentList"] = null;
                 ViewBag.selectedClass = "";
 
-                if (loginSession.GovFlag != "GO")
-                {
-                    ViewData["FeeStatus"] = "2";
-                    ViewBag.OutStatus = "2";
+    //            if (loginSession.GovFlag != "GO")
+    //            {
+    //                ViewData["FeeStatus"] = "2";
+    //                ViewBag.OutStatus = "2";
 
-					//return View(fhvm);
-				}
+				//	//return View(fhvm);
+				//}
                 //else
                 //{
                 //    return RedirectToAction("Index", "Home");
