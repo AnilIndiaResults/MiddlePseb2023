@@ -732,10 +732,22 @@ namespace PsebJunior.AbstractLayer
                                 url = url.Replace("@MN", mobno);
                                 url = url.Replace("@MText", message);
                                 url = url.Replace("@tid", tempId);
-                                string status = readHtmlPage(url);
-                                Apistatus = status;
-                                #endregion
-                                count = count + 1;
+								//string status = readHtmlPage(url);
+								//Apistatus = status;
+								try
+								{
+									using (WebClient webClient = new WebClient())
+									{
+										Uri StringToUri = new Uri(string.Format(url, message));
+										webClient.DownloadData(StringToUri);
+									}
+								}
+								catch (Exception ex)
+								{
+
+								}
+								#endregion
+								count = count + 1;
                                 int length = message.Length;
                                 int divlength = length / 157;
                                 decimal remilngth = length % 157;
