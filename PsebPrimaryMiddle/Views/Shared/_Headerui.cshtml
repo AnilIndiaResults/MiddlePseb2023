@@ -128,19 +128,23 @@
                                             <li>@Html.ActionLink("Inter Board Migration", "InterBoardMigrationSchl", "RegistrationPortal")</li>
                                         </ul>
                                     </li>
-                                    @if (loginSession.Matric == "0" && loginSession.Senior == "0")
-                                    {
-                                        <li class="dropdown">
-                                            <a class="dropdown-toggle" data-toggle="dropdown">
-                                                Exam Centre
-                                                <span class="caret"></span>
-                                            </a>
-                                            <ul class="dropdown-menu">
+                                    
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown">
+                                            Exam Centre
+                                            <span class="caret"></span>
+                                        </a>
+                                       
+                                        <ul class="dropdown-menu">
+                                            <li>@Html.ActionLink("Exam Centre", "ExamCentre", "School")</li>
+                                            @if (loginSession.Matric == "0" && loginSession.Senior == "0")
+                                            {
                                                 <li>@Html.ActionLink("Exam Centre Details", "ExamCentreDetails", "School")</li>
-
+                                            }
                                             </ul>
+                                      
                                         </li>
-                                    }
+                                 
                                     @*<li><a href="/School/SchoolResultCertificate">Download Certificate</a></li>*@
 
                                     @*<li class="dropdown">
@@ -158,32 +162,32 @@
                                             </ul>
                                         </li>*@
 
-                                    @*<li class="dropdown">
+                                    <li class="dropdown">
                                         <a class="dropdown-toggle" data-toggle="dropdown">
                                             Examination Portal
                                             <span class="caret"></span>
                                         </a>
                                         <ul class="dropdown-menu">
-                                            <li>@Html.ActionLink("Admit Card", "SchoolAdmitCardList", "School")</li>
+                                            @*<li>@Html.ActionLink("Admit Card", "SchoolAdmitCardList", "School")</li>*@
                                             <li>@Html.ActionLink("Cut List", "SchoolCutlist", "School")</li>
-                                            <li>@Html.ActionLink("CCE (Internal Assessment)", "CCE_Portal", "School")</li>*@
+                                            @*<li>@Html.ActionLink("CCE (Internal Assessment)", "CCE_Portal", "School")</li>*@
 
 
-                                    @*<li><a href="/School/SchoolResultDeclare">Result March-22</a></li>
+                                            <li><a href="/School/SchoolResultDeclare">Result March-24</a></li>
 
-                                          <li>@Html.ActionLink("Marks Entry Of Practical", "PracticalChartLink", "School")</li>
-                                          <li><a href="/School/SignatureChart/Middle">Practical Signature Chart Middle</a></li>
-                                          <li>@Html.ActionLink("CCE (Internal Assessment)", "CCE_Portal", "School")</li>
-                                            <li>@Html.ActionLink("Cut List", "SchoolCutlist", "School")</li>
-                                            <li>@Html.ActionLink("Admit Card", "SchoolAdmitCardList", "School")</li>
-                                        <li>@Html.ActionLink("Marks Entry (Diff. Student) - Term-2", "PhyChl_Portal", "School")</li>
-                                        <li>@Html.ActionLink("Re-Exam Absent Candidate", "ReExamStudents", "RegistrationPortal")</li>*@
-                                    @*<li>@Html.ActionLink("On Demand Certificate", "OnDemandCertificate", "RegistrationPortal")</li>
-                                        <li>@Html.ActionLink("Marks Entry Of School Based Exams", "SchoolBasedExamsPortal", "School")</li>
-                                        <li>@Html.ActionLink("Marks Entry (Diff. Student) - March 2023", "PhyChl_Portal", "School")</li>*@
-                                    @*<li>@Html.ActionLink("Elective Subject Theory", "ElectiveTheory_Portal", "School")</li>  *@
-                                    @*</ul>
-                                        </li>*@
+                                            @*<li>@Html.ActionLink("Marks Entry Of Practical", "PracticalChartLink", "School")</li>
+              <li><a href="/School/SignatureChart/Middle">Practical Signature Chart Middle</a></li>
+              <li>@Html.ActionLink("CCE (Internal Assessment)", "CCE_Portal", "School")</li>
+                <li>@Html.ActionLink("Cut List", "SchoolCutlist", "School")</li>
+                <li>@Html.ActionLink("Admit Card", "SchoolAdmitCardList", "School")</li>
+            <li>@Html.ActionLink("Marks Entry (Diff. Student) - Term-2", "PhyChl_Portal", "School")</li>
+            <li>@Html.ActionLink("Re-Exam Absent Candidate", "ReExamStudents", "RegistrationPortal")</li>
+        <li>@Html.ActionLink("On Demand Certificate", "OnDemandCertificate", "RegistrationPortal")</li>
+            <li>@Html.ActionLink("Marks Entry Of School Based Exams", "SchoolBasedExamsPortal", "School")</li>
+            <li>@Html.ActionLink("Marks Entry (Diff. Student) - March 2023", "PhyChl_Portal", "School")</li>
+        <li>@Html.ActionLink("Elective Subject Theory", "ElectiveTheory_Portal", "School")</li>*@
+                                        </ul>
+                                        </li>
 
 
 

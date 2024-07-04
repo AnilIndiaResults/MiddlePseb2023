@@ -83,16 +83,16 @@
                                 {
                                     <span style="font-size:26px;" class="kdsfont">
                                         Æâ²ÒÛ× ÆÏÛÚª¤Ø Å¼Û²Ø ÌØÏ°
-                                        <span>2022</span>
+                                        <span>2024</span>
                                     </span><br />
                                 }
                                 else
                                 {
-                                    <span style="font-size:14px;line-height:24px" class="">
-                                       @* ¤ó·ÒÛ× ÆÏÛÚª¤Ø Å¼Û²Ø ÌØÏ°
-                                        <span>2022</span>*@
-										ਅੱਠਵੀਂ ਪ੍ਰੀਖਿਆ ਟਰਮ-1 ਅੰਕ ਸੈਸ਼ਨ 2021-22
-                                    </span><br />
+                            <span style="font-size:14px;line-height:24px" class="">
+                                @* ¤ó·ÒÛ× ÆÏÛÚª¤Ø Å¼Û²Ø ÌØÏ°
+        <span>2022</span>*@
+                                ਅੱਠਵੀਂ ਪ੍ਰੀਖਿਆ  ਸੈਸ਼ਨ ਮਾਰਚ 2024
+                            </span><br />
                                 }
                                 <div style="font-size:13px;line-height:26px;text-align:left">School Name/Code: @Model.StoreAllData.Tables[0].Rows[0]["SCHLNM"]</div>
                             </td>
@@ -141,11 +141,17 @@
                                             @FULLNM
                                         </td>
                                         <td style="border-bottom:0 !important;border-left:0 !important">
-										 @if (cls == "5"){
-                                          <span>@FinalResult @Total /  @FinalGrade</span>
-										  }
-										  else{
-										  }
+                                            @if (cls == "5")
+                                            {
+                                                <span>@FinalResult @Total /  @FinalGrade</span>
+                                            }
+                                            else if  (cls == "8")
+                                            {
+                                                <span>@FinalResult  /  @FinalGrade</span>
+                                            }
+                                            else
+                                            {
+                                            }
                                         </td>
 
                                     </tr>
@@ -162,19 +168,30 @@
                                                         <span>@Model.StoreAllData.Tables[0].Rows[i]["sub3"].ToString()</span><span> (@Model.StoreAllData.Tables[0].Rows[i]["tot3"].ToString()) </span><span>[@Model.StoreAllData.Tables[0].Rows[i]["grade3"].ToString()] , &nbsp;&nbsp;&nbsp;&nbsp;</span>
                                                         <span>@Model.StoreAllData.Tables[0].Rows[i]["sub4"].ToString()</span><span> (@Model.StoreAllData.Tables[0].Rows[i]["tot4"].ToString()) </span><span>[@Model.StoreAllData.Tables[0].Rows[i]["grade4"].ToString()] , &nbsp;&nbsp;&nbsp;&nbsp;</span>
                                                         <span>@Model.StoreAllData.Tables[0].Rows[i]["sub5"].ToString()</span><span> (@Model.StoreAllData.Tables[0].Rows[i]["tot5"].ToString()) </span><span>[@Model.StoreAllData.Tables[0].Rows[i]["grade5"].ToString()] , &nbsp;&nbsp;&nbsp;&nbsp;</span>
-														<span>@Model.StoreAllData.Tables[0].Rows[i]["sub6"].ToString()</span><span> (@Model.StoreAllData.Tables[0].Rows[i]["tot6"].ToString()) </span><span>[@Model.StoreAllData.Tables[0].Rows[i]["grade6"].ToString()]</span>
+                                                        <span>@Model.StoreAllData.Tables[0].Rows[i]["sub6"].ToString()</span><span> (@Model.StoreAllData.Tables[0].Rows[i]["tot6"].ToString()) </span><span>[@Model.StoreAllData.Tables[0].Rows[i]["grade6"].ToString()]</span>
 
                                                     }
                                                     else if (cls == "8")
                                                     {
-														<span>@Model.StoreAllData.Tables[0].Rows[i]["sub1"].ToString()</span><span> (@Model.StoreAllData.Tables[0].Rows[i]["th1"].ToString()) </span><span> , &nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                                        <span>@Model.StoreAllData.Tables[0].Rows[i]["sub2"].ToString()</span><span> (@Model.StoreAllData.Tables[0].Rows[i]["th2"].ToString()) </span><span> , &nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                                        <span>@Model.StoreAllData.Tables[0].Rows[i]["sub3"].ToString()</span><span> (@Model.StoreAllData.Tables[0].Rows[i]["th3"].ToString()) </span><span> , &nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                                        <span>@Model.StoreAllData.Tables[0].Rows[i]["sub4"].ToString()</span><span> (@Model.StoreAllData.Tables[0].Rows[i]["th4"].ToString()) </span><span> , &nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                                        <span>@Model.StoreAllData.Tables[0].Rows[i]["sub5"].ToString()</span><span> (@Model.StoreAllData.Tables[0].Rows[i]["th5"].ToString()) </span><span> , &nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                                        <span>@Model.StoreAllData.Tables[0].Rows[i]["sub6"].ToString()</span><span> (@Model.StoreAllData.Tables[0].Rows[i]["th6"].ToString()) </span>                                                      
-											                                                  
-												   }
+
+                                                        <span>@Model.StoreAllData.Tables[0].Rows[i]["sub1"].ToString()</span><span> (@Model.StoreAllData.Tables[0].Rows[i]["tot1"].ToString()) </span><span>[@Model.StoreAllData.Tables[0].Rows[i]["grade1"].ToString()] , &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                        <span>@Model.StoreAllData.Tables[0].Rows[i]["sub2"].ToString()</span><span> (@Model.StoreAllData.Tables[0].Rows[i]["tot2"].ToString()) </span><span>[@Model.StoreAllData.Tables[0].Rows[i]["grade2"].ToString()] , &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                        <span>@Model.StoreAllData.Tables[0].Rows[i]["sub3"].ToString()</span><span> (@Model.StoreAllData.Tables[0].Rows[i]["tot3"].ToString()) </span><span>[@Model.StoreAllData.Tables[0].Rows[i]["grade3"].ToString()] , &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                        <span>@Model.StoreAllData.Tables[0].Rows[i]["sub4"].ToString()</span><span> (@Model.StoreAllData.Tables[0].Rows[i]["tot4"].ToString()) </span><span>[@Model.StoreAllData.Tables[0].Rows[i]["grade4"].ToString()] , &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                        <span>@Model.StoreAllData.Tables[0].Rows[i]["sub5"].ToString()</span><span> (@Model.StoreAllData.Tables[0].Rows[i]["tot5"].ToString()) </span><span>[@Model.StoreAllData.Tables[0].Rows[i]["grade5"].ToString()] , &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                        <span>@Model.StoreAllData.Tables[0].Rows[i]["sub6"].ToString()</span><span> (@Model.StoreAllData.Tables[0].Rows[i]["tot6"].ToString()) </span><span>[@Model.StoreAllData.Tables[0].Rows[i]["grade6"].ToString()] , &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                        <span>@Model.StoreAllData.Tables[0].Rows[i]["sub7"].ToString()</span><span> (@Model.StoreAllData.Tables[0].Rows[i]["tot7"].ToString()) </span><span>[@Model.StoreAllData.Tables[0].Rows[i]["grade7"].ToString()] , &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                        <span>@Model.StoreAllData.Tables[0].Rows[i]["sub8"].ToString()</span><span> (@Model.StoreAllData.Tables[0].Rows[i]["tot8"].ToString()) </span><span>[@Model.StoreAllData.Tables[0].Rows[i]["grade8"].ToString()] , &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                        <span>@Model.StoreAllData.Tables[0].Rows[i]["sub9"].ToString()</span><span> (@Model.StoreAllData.Tables[0].Rows[i]["tot9"].ToString()) </span><span>[@Model.StoreAllData.Tables[0].Rows[i]["grade9"].ToString()] </span>
+
+                                                        @*<span>@Model.StoreAllData.Tables[0].Rows[i]["sub1"].ToString()</span><span> (@Model.StoreAllData.Tables[0].Rows[i]["th1"].ToString()) </span><span> , &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span>@Model.StoreAllData.Tables[0].Rows[i]["sub2"].ToString()</span><span> (@Model.StoreAllData.Tables[0].Rows[i]["th2"].ToString()) </span><span> , &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span>@Model.StoreAllData.Tables[0].Rows[i]["sub3"].ToString()</span><span> (@Model.StoreAllData.Tables[0].Rows[i]["th3"].ToString()) </span><span> , &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span>@Model.StoreAllData.Tables[0].Rows[i]["sub4"].ToString()</span><span> (@Model.StoreAllData.Tables[0].Rows[i]["th4"].ToString()) </span><span> , &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span>@Model.StoreAllData.Tables[0].Rows[i]["sub5"].ToString()</span><span> (@Model.StoreAllData.Tables[0].Rows[i]["th5"].ToString()) </span><span> , &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <span>@Model.StoreAllData.Tables[0].Rows[i]["sub6"].ToString()</span><span> (@Model.StoreAllData.Tables[0].Rows[i]["th6"].ToString()) </span>*@
+
+                                                    }
 
                                                 }
 

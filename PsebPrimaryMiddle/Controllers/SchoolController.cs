@@ -305,15 +305,15 @@ namespace PsebPrimaryMiddle.Controllers
                         if (frm["SearchString"] != "")
                         {
                             if (SelValueSch == 1)
-                            { Search += "  std_id='" + frm["SearchByString"].ToString() + "'"; }
+                            { Search += " and  std_id='" + frm["SearchByString"].ToString() + "'"; }
                             else if (SelValueSch == 2)
-                            { Search += "  Candi_Name like '%" + frm["SearchByString"].ToString() + "%'"; }
+                            { Search += " and Candi_Name like '%" + frm["SearchByString"].ToString() + "%'"; }
                             else if (SelValueSch == 3)
-                            { Search += "  Father_Name  like '%" + frm["SearchByString"].ToString() + "%'"; }
+                            { Search += " and  Father_Name  like '%" + frm["SearchByString"].ToString() + "%'"; }
                             else if (SelValueSch == 4)
-                            { Search += "  Mother_Name like '%" + frm["SearchByString"].ToString() + "%'"; }
+                            { Search += " and Mother_Name like '%" + frm["SearchByString"].ToString() + "%'"; }
                             else if (SelValueSch == 5)
-                            { Search += "  registration_Num like '%" + frm["SearchByString"].ToString() + "%'"; }
+                            { Search += " and registration_Num like '%" + frm["SearchByString"].ToString() + "%'"; }
 
                         }
                     }
@@ -1023,10 +1023,11 @@ namespace PsebPrimaryMiddle.Controllers
                 ViewBag.SelectedAction = "0";
 
 
-                var itemClass = new SelectList(new[] { new { ID = "5", Name = "Primary" }, new { ID = "8", Name = "Middle" }, }, "ID", "Name", 1);
-                // var itemClass = new SelectList(new[] {  new { ID = "8", Name = "Middle" }, }, "ID", "Name", 1);
-                // var itemClass = new SelectList(new[] {  new { ID = "5", Name = "Primary" }, }, "ID", "Name", 1);
-                ViewBag.MyClass = itemClass.ToList();
+				//var itemClass = new SelectList(new[] { new { ID = "5", Name = "Primary" }, new { ID = "8", Name = "Middle" }, }, "ID", "Name", 1);
+				var itemClass = new SelectList(new[] {  new { ID = "8", Name = "Middle" }, }, "ID", "Name", 1);
+				// var itemClass = new SelectList(new[] {  new { ID = "8", Name = "Middle" }, }, "ID", "Name", 1);
+				// var itemClass = new SelectList(new[] {  new { ID = "5", Name = "Primary" }, }, "ID", "Name", 1);
+				ViewBag.MyClass = itemClass.ToList();
                 ViewBag.SelectedClass = "5";
 
 
@@ -1124,10 +1125,11 @@ namespace PsebPrimaryMiddle.Controllers
                 ViewBag.SelectedAction = "0";
 
 
-                var itemClass = new SelectList(new[] { new { ID = "5", Name = "Primary" }, new { ID = "8", Name = "Middle" }, }, "ID", "Name", 1);
-                // var itemClass = new SelectList(new[] {  new { ID = "8", Name = "Middle" }, }, "ID", "Name", 1);
-                // var itemClass = new SelectList(new[] { new { ID = "5", Name = "Primary" }, }, "ID", "Name", 1);
-                ViewBag.MyClass = itemClass.ToList();
+				//var itemClass = new SelectList(new[] { new { ID = "5", Name = "Primary" }, new { ID = "8", Name = "Middle" }, }, "ID", "Name", 1);
+				var itemClass = new SelectList(new[] {  new { ID = "8", Name = "Middle" }, }, "ID", "Name", 1);
+				// var itemClass = new SelectList(new[] {  new { ID = "8", Name = "Middle" }, }, "ID", "Name", 1);
+				// var itemClass = new SelectList(new[] { new { ID = "5", Name = "Primary" }, }, "ID", "Name", 1);
+				ViewBag.MyClass = itemClass.ToList();
                 ViewBag.SelectedClass = "5";
 
                 //------------------------
@@ -3156,9 +3158,9 @@ namespace PsebPrimaryMiddle.Controllers
                         if (frm["SelFilter"] != "" && frm["SearchString"].ToString() != "")
                         {
                             if (SelValueSch == 1)
-                            { Search += " and b.Roll='" + frm["SearchString"].ToString() + "'"; }
+                            { Search += "  and b.Roll='" + frm["SearchString"].ToString() + "'"; }
                             if (SelValueSch == 2)
-                            { Search += " and Std_id='" + frm["SearchString"].ToString() + "'"; }
+                            { Search += "  and Std_id='" + frm["SearchString"].ToString() + "'"; }
                             else if (SelValueSch == 3)
                             { Search += " and  Registration_num like '%" + frm["SearchString"].ToString() + "%'"; }
                             else if (SelValueSch == 4)
