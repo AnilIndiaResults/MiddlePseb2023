@@ -16,6 +16,7 @@ using PsebJunior.AbstractLayer;
 using System.Threading.Tasks;
 using PsebPrimaryMiddle.Repository;
 using PsebPrimaryMiddle.Filters;
+using System.Net;
 
 namespace PsebPrimaryMiddle.Controllers
 {
@@ -420,8 +421,11 @@ namespace PsebPrimaryMiddle.Controllers
 
                     if (!string.IsNullOrEmpty(MOBILE) && MOBILE.Length == 10)
                     {
-                        string Sms = "Your Login details are School Code:: " + SCHL + " and Password: " + schoolDataBySchlModel.PASSWORD + ". Click to Login Here https://middleprimary.pseb.ac.in. Regards PSEB";
-                        string getSms = DBClass.gosms(MOBILE, Sms);
+                        //string Sms = "Your Login details are School Code:: " + SCHL + " and Password: " + schoolDataBySchlModel.PASSWORD + ". Click to Login Here https://middleprimary.pseb.ac.in. Regards PSEB";
+                        string Sms = "Your Login details are " + SCHL + " and Password: " + schoolDataBySchlModel.PASSWORD + ". Click to Login Here https://middleprimary.pseb.ac.in. Regards PSEB";
+                        string tempid = "1007167968636956440";
+                        string getSms = DBClass.gosmsForPseb(MOBILE, Sms, tempid);
+
                         if (getSms.ToLower().Contains("success"))
                         {
                             smsStatus = "success";
@@ -440,60 +444,78 @@ namespace PsebPrimaryMiddle.Controllers
                // return Json(new { sn = null, chid = null }, JsonRequestBehavior.AllowGet);
             }
         }
-        #endregion VerifyMobileSchl
+		#endregion VerifyMobileSchl
 
-        #region VerifyMobileCluster
-        public JsonResult VerifyMobileCluster(string UserName, string MOBILE, string VerifyMobile)
-        {
-            try
-            {
-                string result = "";
-                string smsStatus = "";
-                if (string.IsNullOrEmpty(UserName) || string.IsNullOrEmpty(MOBILE) || string.IsNullOrEmpty(VerifyMobile))
-                {
-                    result = "FILL";
-                }
+		#region VerifyMobileCluster
+		public JsonResult VerifyMobileCluster(string UserName, string MOBILE, string VerifyMobile)
+		{
+			try
+			{
+				string result = "";
+				string smsStatus = "";
+				if (string.IsNullOrEmpty(UserName) || string.IsNullOrEmpty(MOBILE) || string.IsNullOrEmpty(VerifyMobile))
+				{
+					result = "FILL";
+				}
 
-                if (MOBILE.Trim() == VerifyMobile.Trim())
-                {
-                    result = "Yes";
-                    //SchoolDataBySchlModel schoolDataBySchlModel = await _ce.GetSchoolDataBySchl(SCHL);
-                    DataSet ds =   _centerheadrepository.CenterHeadMaster(6, Convert.ToInt32(UserName), "");
-                    if (ds.Tables[0].Rows.Count > 0)
-                    {
-                        string PASSWORD = ds.Tables[0].Rows[0]["pwd"].ToString();
-                        if (!string.IsNullOrEmpty(MOBILE) && MOBILE.Length == 10)
-                        {
-                            string Sms = "Cluster Login details are UserName: " + UserName + " and Pwd: " + PASSWORD + ". Click to Login Here https://middleprimary.pseb.ac.in/CenterHead. Regards PSEB";
-                            string getSms = DBClass.gosms(MOBILE, Sms);
-                            if (getSms.ToLower().Contains("success"))
-                            {
-                                smsStatus = "success";
-                            }
-                            else { smsStatus = "failed"; }
-                        }
-                    }
-                    
-                }
-                else
-                { result = "No"; }
+				if (MOBILE.Trim() == VerifyMobile.Trim())
+				{
+					result = "Yes";
+					//SchoolDataBySchlModel schoolDataBySchlModel = await _ce.GetSchoolDataBySchl(SCHL);
+					DataSet ds = _centerheadrepository.CenterHeadMaster(6, Convert.ToInt32(UserName), "");
+					if (ds.Tables[0].Rows.Count > 0)
+					{
+						string PASSWORD = ds.Tables[0].Rows[0]["pwd"].ToString();
+						if (!string.IsNullOrEmpty(MOBILE) && MOBILE.Length == 10)
+						{
+							string url = "http://india.jaipurbulksms.com/api/mt/SendSMS?user=charumindworks&password=zapak123&senderid=PSEBCC&channel=trans&DCS=0&flashsms=0&number={0}&text={1}&route=3&peid=1001154774637029939&TemplateId=1007167968636956440";
+							string Sms = "Your Login details are " + UserName + " and Password: " + PASSWORD + ".Click to Login Here www.middleprimary.pseb.ac.in. Regards PSEB";
+							bool getSms = SendSMS(url, MOBILE, Sms);
+							if (getSms)
+							{
+								smsStatus = "success";
+							}
+							else { smsStatus = "failed"; }
+						}
+					}
 
-                return Json(new { sn = result, vmobile = VerifyMobile, smsstatus = smsStatus }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                return null;
-                // return Json(new { sn = null, chid = null }, JsonRequestBehavior.AllowGet);
-            }
-        }
-        #endregion VerifyMobileCluster
+				}
+				else
+				{ result = "No"; }
+
+				return Json(new { sn = result, vmobile = VerifyMobile, smsstatus = smsStatus }, JsonRequestBehavior.AllowGet);
+			}
+			catch (Exception ex)
+			{
+				return null;
+				// return Json(new { sn = null, chid = null }, JsonRequestBehavior.AllowGet);
+			}
+		}
+
+		public static bool SendSMS(string url, string mobile, string msg)
+		{
+			try
+			{
+				using (WebClient webClient = new WebClient())
+				{
+					Uri StringToUri = new Uri(string.Format(url, mobile, msg));
+					webClient.DownloadData(StringToUri);
+					return true;
+				}
+			}
+			catch (Exception ex)
+			{
+				return false;
+			}
+		}
+		#endregion VerifyMobileCluster
 
 
 
-        #region StudentSchoolMigration
+		#region StudentSchoolMigration
 
-        // CancelStudentSchoolMigration
-        public JsonResult CancelStudentSchoolMigration(string cancelremarks, string stdid, string migid, string Type)
+		// CancelStudentSchoolMigration
+		public JsonResult CancelStudentSchoolMigration(string cancelremarks, string stdid, string migid, string Type)
         {
             try
             {

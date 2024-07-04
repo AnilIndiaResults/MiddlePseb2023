@@ -639,6 +639,193 @@ namespace PsebJunior.AbstractLayer
                 return answer;
             }
         }
+
+        public static string gosmsForPseb(string mobileno, string message,string tempId)
+        {
+            StringBuilder xml = new StringBuilder();
+            if (mobileno == "0000000000")
+            {
+                return "Not Valid";
+            }
+            else
+            {
+                string setmobileno = mobileno;
+
+                string answer = "";
+                string Apistatus = "";
+                try
+                {
+                    int count = 0;
+                    bool IsHindi;
+                    string mobno = string.Empty;
+                    string url = string.Empty;
+                    String surl = string.Empty;
+                    string sSendrnumber = string.Empty;
+                    string Adddigit91 = "";
+                    try
+                    {
+                        DataSet ds = new DataSet();
+                        ds = getsmsSetup();
+                        // RunProcedure("Udp_getActiveSmsSetUp", out ds);
+
+                        if (ds.Tables[0].Rows.Count > 0)
+                        {
+                            surl = ds.Tables[0].Rows[0]["URL"].ToString();
+                            sSendrnumber = ds.Tables[0].Rows[0]["Sender"].ToString();
+                            Adddigit91 = ds.Tables[0].Rows[0]["AddDigit91"].ToString();
+                        }
+                    }
+                    catch (Exception ex) { }
+                    int chkcount = 0;
+                    int checksms = 0;
+                    xml.Append("<root>");
+                    string[] mob = mobileno.ToString().Trim().Split(',');
+
+                    //********Start Changes of Hindi
+                    IsHindi = IsUnicode(message);
+                    if (IsHindi == true)
+                    {
+                        surl = surl.Insert(surl.Length, "&type=1");
+                    }
+                    //**********End
+
+                    if (mob.Length > 0)
+                    {
+                        for (int ln = 0; ln < mob.Length; ln++)
+                        {
+                            checksms = 1;
+                            chkcount = chkcount + 1;
+                            mobileno = mob[ln].Trim();//dr["MobileNo"].ToString();
+                            int j = mobileno.Length;
+                            int counts = mobileno.Length;
+                            int k = j - 10;
+                            if (j < 10)
+                            {
+                                mobileno = "";
+                            }
+                            if (j == 10)
+                            {
+                                if (Adddigit91 == "Y")
+                                    mobno = "91" + "" + mobileno;
+                                else
+                                    mobno = mobileno;
+                            }
+                            if (j > 10)
+                            {
+                                mobileno = mobileno.Remove(0, k);
+                                if (Adddigit91 == "Y")
+                                    mobno = "91" + "" + mobileno;
+                                else
+                                    mobno = mobileno;
+                            }
+
+                            //  message = message.Replace("&", "%26");
+                            if (mobileno != "&nbsp;" && mobileno != "")
+                            {
+                                xml.Append("<SMS>");
+                                xml.Append("<subject>" + message + "</subject>");
+                                xml.Append("<Mobile_No>" + mobileno + "</Mobile_No>");
+                                xml.Append("<Sender>" + sSendrnumber + "</Sender>");
+                                xml.Append("<Update_Datetime>" + System.DateTime.Now + "</Update_Datetime>");
+                                #region Genrate URL
+                                url = surl;
+                                url = url.Replace("@MN", mobno);
+                                url = url.Replace("@MText", message);
+                                url = url.Replace("@tid", tempId);
+								//string status = readHtmlPage(url);
+								//Apistatus = status;
+								try
+								{
+									using (WebClient webClient = new WebClient())
+									{
+										Uri StringToUri = new Uri(string.Format(url, message));
+										webClient.DownloadData(StringToUri);
+									}
+								}
+								catch (Exception ex)
+								{
+
+								}
+								#endregion
+								count = count + 1;
+                                int length = message.Length;
+                                int divlength = length / 157;
+                                decimal remilngth = length % 157;
+                                if (divlength == 0)
+                                {
+                                    length = 1;
+                                }
+                                else
+                                {
+                                    length = divlength;
+                                    if (remilngth != 0)
+                                    {
+                                        length = length + 1;
+                                    }
+                                }
+                                xml.Append("</SMS>");
+                                int legthxml = xml.Length;
+                                if (legthxml > 7000 && legthxml < 7950)
+                                {
+                                    xml.Append("</root>");
+                                    xml = new StringBuilder();
+                                    xml.Append("<root>");
+                                }
+                            }
+
+                        }
+                    }
+
+                    xml.Append("</root>");
+                    try
+                    {
+
+                        if (count == 0 && chkcount != 0)
+                        {
+                            answer = "Applicant mobile no. not available.";
+                        }
+                        if (count == 0 && chkcount != 0 && mobileno == "")
+                        {
+                            answer = "Applicant mobile no. not valid.";
+                        }
+                        if (count > 0)
+                        {
+                            answer = count + " SMS send successfully to your Applicant.";
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        answer = "Sorry ! your information is not send, please contact administrator";
+                    }
+                }
+                catch (Exception e)
+                {
+                    answer = "Sorry ! your information is not send, please contact administrator";
+                }
+
+                try
+                {
+                    string result;
+                    string hostName = Dns.GetHostName(); // Retrive the Name of HOST
+                    string myIP = Dns.GetHostByName(hostName).AddressList[0].ToString();
+                    Database db = DatabaseFactory.CreateDatabase();
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "sp_sms_history";
+                    cmd.Parameters.AddWithValue("@mobile", setmobileno);
+                    cmd.Parameters.AddWithValue("@sms", message);
+                    cmd.Parameters.AddWithValue("@status", answer);
+                    cmd.Parameters.AddWithValue("@Apistatus", Apistatus);
+                    cmd.Parameters.AddWithValue("@Ip", myIP);
+                    result = cmd.ExecuteNonQuery().ToString();
+                }
+                catch (Exception ex)
+                {
+                    //throw;
+                }
+                return answer;
+            }
+        }
         public static String readHtmlPage(string url)
         {
             String result = "";

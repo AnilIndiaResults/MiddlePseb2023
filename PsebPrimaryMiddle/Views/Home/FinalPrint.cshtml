@@ -99,7 +99,8 @@
                                                         <li>
                                                             <a href="" data-toggle="modal" data-target="#myModal1">View Candidate List</a>
 
-                                                            @if (Verified == "0" && downldflg == "0" && IsCancel == "0")
+                                                            @*@if (Verified == "0" && downldflg == "0" && IsCancel == "0")*@
+                                                            @if ((Verified == "0" && IsCancel == "0" && downldflg == "0") || (ExpireVDate.ToString() == "1" && FeeDepositStatus.ToString() == "0" && Verified == "0"))
                                                             {
                                                                 <a data-toggle="modal" data-target="#myModal2-@ChallanNo">CANCEL CHALLAN</a>
                                                             }
@@ -286,7 +287,7 @@
                 </div>
 
 
-                <div class="modal fade" id="myModal-@ChallanID" role="dialog">
+                <div class="modal fade" id="myModal-@ChallanID" role="dialog" style="opacity:1; padding-top:110px;">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
